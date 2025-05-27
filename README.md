@@ -1,2 +1,1 @@
-# bro-frontend
-Frontend for behovsrettet oppfølging
+Frontend-app for behovsrettet oppfølging
