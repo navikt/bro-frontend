@@ -5,6 +5,7 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
 import './globals.css'
 import { Page } from '@navikt/ds-react'
+import { PageBlock } from '@navikt/ds-react/Page'
 
 export const metadata: Metadata = {
   title: 'Behovsrettet oppfølging',
@@ -24,7 +25,9 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <body>
         <Page footer={<Decorator.Footer />}>
           <Decorator.Header />
-          {children}
+          <PageBlock as="main" width="xl" gutters>
+            {children}
+          </PageBlock>
           <Decorator.Scripts loader={Script} />
         </Page>
       </body>
