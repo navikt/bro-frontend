@@ -1,0 +1,30 @@
+import React from 'react'
+import { Textarea } from '@navikt/ds-react'
+import { TextQuestion } from '@/services/meroppfolging/schemas/questionSchema'
+import { useFieldContext } from '@/hooks/form'
+
+interface TextAreaProps {
+  question: TextQuestion
+  rows?: number
+  maxLength?: number
+}
+
+export function TextArea({ question, rows = 3, maxLength = 500 }: TextAreaProps) {
+  const field = useFieldContext<string>()
+
+  return (
+    <div className="mb-4">
+      <Textarea
+        label={question.label}
+        description={question.description}
+        value={field.state.value}
+        onChange={(e) => field.handleChange(e.target.value)}
+        onBlur={field.handleBlur}
+        rows={rows}
+        maxLength={maxLength}
+      />
+    </div>
+  )
+}
+
+export default TextArea
