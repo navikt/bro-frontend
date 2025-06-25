@@ -13,6 +13,7 @@ export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
       description={question.description}
       onChange={(value) => field.handleChange(value)}
       onBlur={field.handleBlur}
+      error={field.state.meta.errors.join(', ')}
     >
       {question.options.map((option) => (
         <Radio key={option.id} value={option.id}>
