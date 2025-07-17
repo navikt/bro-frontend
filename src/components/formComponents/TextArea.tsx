@@ -21,6 +21,7 @@ export function TextArea({ question, rows = 3, maxLength = 500 }: TextAreaProps)
       onBlur={field.handleBlur}
       rows={rows}
       maxLength={maxLength}
+      error={field.state.meta.errors[0]?.message}
     />
   )
 }

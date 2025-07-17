@@ -26,7 +26,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <body>
         <Page footer={<Decorator.Footer />}>
           <Decorator.Header />
-          <PageBlock as="main" width="md" gutters>
+          <PageBlock as="main" width="lg" gutters>
             {children}
           </PageBlock>
           <Decorator.Scripts loader={Script} />
