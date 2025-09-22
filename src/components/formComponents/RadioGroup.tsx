@@ -1,7 +1,7 @@
 import React from 'react'
 import { RadioGroup as AkselRadioGroup, Radio } from '@navikt/ds-react'
-import { RadioGroupQuestion } from '@/services/meroppfolging/schemas/questionSchema'
 import { useFieldContext } from '@/hooks/form'
+import { RadioGroupQuestion } from '@/domain/questionSchema'
 
 export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
   const field = useFieldContext<string>()

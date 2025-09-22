@@ -1,7 +1,7 @@
 import React from 'react'
 import { Textarea } from '@navikt/ds-react'
-import { TextQuestion } from '@/services/meroppfolging/schemas/questionSchema'
 import { useFieldContext } from '@/hooks/form'
+import { TextQuestion } from '@/domain/questionSchema'
 
 interface TextAreaProps {
   question: TextQuestion

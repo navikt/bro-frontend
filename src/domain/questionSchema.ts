@@ -48,4 +48,4 @@ export const formSchema = z.object({
   questions: questionsObjectSchema,
 })
 
-export type Form = z.infer<typeof formSchema>
+export type ValidatedForm = z.infer<typeof formSchema>

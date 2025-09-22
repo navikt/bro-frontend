@@ -1,14 +1,15 @@
 'use server'
 
-import { formSchema } from '@/domain/form'
+import { formSchema } from '@/domain/formValues'
 import { z } from 'zod/v4'
 
 export type FormSubmission = z.infer<typeof formSchema>
 
 export async function submitFormAction(payload: FormSubmission) {
+  //await new Promise((resolve) => setTimeout(resolve, 2000)) // Simulate network latency
   const parsed = formSchema.safeParse(payload)
   if (!parsed.success) {
-    const issues = parsed.error.flatten().fieldErrors
+    const issues = parsed.error.message
     return { ok: false, issues }
   }
 

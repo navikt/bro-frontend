@@ -1,18 +1,19 @@
-import { headers } from 'next/headers'
 import { fetchLatestFormSnapshot } from '@/services/meroppfolging/client'
 import FormClient from './FormClient'
-
-export const dynamic = 'force-dynamic'
+import type { FormSummaryItem } from '@/components/FormSummary'
+import { formSnapshotResponseToSummaryItems } from '@/utils/form'
 
 export default async function FormPage() {
-  const hdrs = await headers()
-  const cookie = hdrs.get('cookie') ?? undefined
-
   let alreadyAnswered = false
+  let initialSummaryItems: FormSummaryItem[] | null = null
+
   try {
-    const snapshot = await fetchLatestFormSnapshot({ cookie })
+    const snapshot = await fetchLatestFormSnapshot()
     alreadyAnswered = Boolean(snapshot && snapshot.fieldSnapshots.length > 0)
+    if (snapshot) {
+      initialSummaryItems = formSnapshotResponseToSummaryItems(snapshot)
+    }
   } catch {}
 
-  return <FormClient alreadyAnswered={alreadyAnswered} />
+  return <FormClient alreadyAnswered={alreadyAnswered} initialSummaryItems={initialSummaryItems} />
 }

@@ -1,23 +1,58 @@
-import { RadioOption } from '@/services/meroppfolging/schemas/questionSchema'
-import { RadioGroupFieldSnapshotRequest } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import type {
+  FormSnapshotRequestDto,
+  RadioGroupFieldSnapshotRequest,
+  FormSnapshotResponseDto,
+  ResponseFieldSnapshot,
+} from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { formQuestions, formSchema } from '@/domain/formValues'
+import type { z } from 'zod/v4'
+import type { FormSummaryItem } from '@/components/FormSummary'
 
-export function getSelectedRadioOption(
-  options: RadioOption[],
-  selectedKey: string,
-): Pick<RadioGroupFieldSnapshotRequest, 'selectedOptionId' | 'selectedOptionLabel' | 'options'> | null {
-  const selectedOption = options.find(({ id }) => id === selectedKey)
+export type AppFormValues = z.infer<typeof formSchema>
 
-  if (!selectedOption) return null
-
-  const fieldOptions = options.map((option) => ({
-    optionId: option.id,
-    optionLabel: option.label,
-    wasSelected: option.id === selectedKey,
-  }))
-
-  return {
-    selectedOptionId: selectedOption.id,
-    selectedOptionLabel: selectedOption.label,
-    options: fieldOptions,
+function withRadioFieldValues(values: AppFormValues) {
+  return <K extends keyof typeof formQuestions>(fieldId: K): RadioGroupFieldSnapshotRequest => {
+    const question = formQuestions[fieldId]
+    const selectedId = values[fieldId]
+    return {
+      fieldId,
+      label: question.label,
+      fieldType: 'RADIO_GROUP',
+      options: question.options.map((option) => ({
+        optionId: option.id,
+        optionLabel: option.label,
+        wasSelected: option.id === selectedId,
+      })),
+    }
   }
+}
+
+export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): FormSnapshotRequestDto {
+  const mapRadio = withRadioFieldValues(values)
+  const fieldSnapshots = [mapRadio('tilbakeTilJobb'), mapRadio('relasjonTilArbeidsgiver'), mapRadio('fravarslengde')]
+
+  return { formSemanticVersion: 'TODO', fieldSnapshots }
+}
+
+export function formSnapshotResponseToSummaryItems(snapshot: FormSnapshotResponseDto): FormSummaryItem[] {
+  return snapshot.fieldSnapshots.map((field: ResponseFieldSnapshot) => {
+    if (field.fieldType === 'RADIO_GROUP') {
+      const selected = field.options.find((option) => option.wasSelected)
+      return {
+        label: field.label,
+        value: selected?.optionLabel || '',
+      }
+    }
+    if (field.fieldType === 'TEXT') {
+      return {
+        label: field.label,
+        value: field.value,
+      }
+    }
+    // fallback for unknown field types
+    return {
+      label: '',
+      value: '',
+    }
+  })
 }

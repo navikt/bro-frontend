@@ -1,17 +1,20 @@
 'use client'
 
-import { formQuestionDefaults, formQuestions, formSchema } from '@/domain/form'
+import { formQuestionDefaults, formQuestions, formSchema } from '@/domain/formValues'
 import { useAppForm } from '@/hooks/form'
-import { BodyShort, Box, Button } from '@navikt/ds-react'
+import { BodyShort, Box, Button, Alert } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
 import { useState } from 'react'
 import { submitFormAction } from '@/actions/form/submitForm'
+import FormSummary, { type FormSummaryItem } from '@/components/FormSummary'
 
-type Props = { alreadyAnswered: boolean }
+type Props = { alreadyAnswered: boolean; initialSummaryItems?: FormSummaryItem[] | null }
 
-export default function FormClient({ alreadyAnswered }: Props) {
+export default function FormClient({ alreadyAnswered, initialSummaryItems }: Props) {
   const [displaySummary, setDisplaySummary] = useState<boolean>(alreadyAnswered)
   const [submitting, setSubmitting] = useState<boolean>(false)
+  const [summaryItems, setSummaryItems] = useState<FormSummaryItem[] | null>(initialSummaryItems ?? null)
+  const [justSubmitted, setJustSubmitted] = useState<boolean>(false)
 
   const form = useAppForm({
     defaultValues: formQuestionDefaults,
@@ -21,14 +24,36 @@ export default function FormClient({ alreadyAnswered }: Props) {
     }),
     validators: {
       onSubmit: formSchema,
-      onChange: formSchema,
     },
     onSubmit: async ({ value }) => {
       try {
         setSubmitting(true)
         const res = await submitFormAction(value)
         if (res.ok) {
+          const items: FormSummaryItem[] = [
+            {
+              label: formQuestions.tilbakeTilJobb.label,
+              value:
+                formQuestions.tilbakeTilJobb.options.find((option) => option.id === value.tilbakeTilJobb)?.label ||
+                value.tilbakeTilJobb,
+            },
+            {
+              label: formQuestions.relasjonTilArbeidsgiver.label,
+              value:
+                formQuestions.relasjonTilArbeidsgiver.options.find(
+                  (option) => option.id === value.relasjonTilArbeidsgiver,
+                )?.label || value.relasjonTilArbeidsgiver,
+            },
+            {
+              label: formQuestions.fravarslengde.label,
+              value:
+                formQuestions.fravarslengde.options.find((option) => option.id === value.fravarslengde)?.label ||
+                value.fravarslengde,
+            },
+          ]
+          setSummaryItems(items)
           setDisplaySummary(true)
+          setJustSubmitted(true)
         } else {
           console.error('Server validation failed', res.issues)
         }
@@ -43,19 +68,21 @@ export default function FormClient({ alreadyAnswered }: Props) {
   return (
     <>
       <h1>Din situasjon - behovsrettet oppfølging</h1>
-      <BodyShort spacing>Hjelp oss med å kartlegge din oppfølging ved å svare på noen spørsmål.</BodyShort>
+      <BodyShort spacing>
+        Du har vært sykmeldt en stund, og vi ønsker å følge deg opp på best mulig måte. Derfor ber vi deg svare på tre
+        korte spørsmål om din situasjon. Spørsmålene hjelper oss med å gi deg riktig støtte videre, og svarene dine blir
+        sett av veilederen din ved ditt Nav-kontor.
+      </BodyShort>
 
       {displaySummary && (
-        <Box
-          background="bg-subtle"
-          padding="4"
-          borderRadius="large"
-          borderColor="border-subtle"
-          borderWidth="1"
-          className="mb-4"
-        >
-          <BodyShort spacing>Skjemaet er sendt inn. Takk for svarene dine.</BodyShort>
-        </Box>
+        <>
+          {justSubmitted && (
+            <Alert variant="success" className="mb-4 max-w-3xl">
+              Skjemaet er sendt inn. Takk for svarene dine.
+            </Alert>
+          )}
+          <FormSummary items={summaryItems} />
+        </>
       )}
 
       {!displaySummary && (

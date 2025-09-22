@@ -7,6 +7,7 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
 import { Page } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
+import { verifyUserLoggedIn } from '@/auth/rsc'
 
 export const metadata: Metadata = {
   title: 'Behovsrettet oppfølging',
@@ -17,6 +18,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
   const Decorator = await fetchDecoratorReact({
     env: 'dev',
   })
+  await verifyUserLoggedIn()
 
   return (
     <html lang="no">
