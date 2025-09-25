@@ -1,9 +1,10 @@
+import '@/app/globals.css'
+
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import '@navikt/ds-css'
 import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
-import './globals.css'
 import { Page } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 
@@ -25,7 +26,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
       <body>
         <Page footer={<Decorator.Footer />}>
           <Decorator.Header />
-          <PageBlock as="main" width="xl" gutters>
+          <PageBlock as="main" width="lg" gutters>
             {children}
           </PageBlock>
           <Decorator.Scripts loader={Script} />
