@@ -1,7 +1,7 @@
-import { fetchKandidatStatus, fetchLatestFormSnapshot } from '@/services/meroppfolging/client'
+import { fetchKandidatStatus } from '@/services/meroppfolging/meroppfolging-service'
 import FormClient from './FormClient'
 import type { FormSummaryItem } from '@/components/FormSummary'
-import { formSnapshotResponseToSummaryItems } from '@/utils/form'
+import { mapFormSnapshotResponseToSummaryItems } from '@/utils/form'
 
 export default async function FormPage() {
   let lastestResponse = null
@@ -11,7 +11,7 @@ export default async function FormPage() {
     const status = await fetchKandidatStatus()
     lastestResponse = status.formResponse?.formSnapshot
     if (lastestResponse) {
-      initialSummaryItems = formSnapshotResponseToSummaryItems(lastestResponse)
+      initialSummaryItems = mapFormSnapshotResponseToSummaryItems(lastestResponse)
     }
   } catch {}
 
