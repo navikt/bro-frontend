@@ -15,21 +15,17 @@ const textFieldSnapshotRequestSchema = textFieldSnapshotSchema.extend({
   description: z.string().optional(),
   wasRequired: z.boolean().optional(),
 })
-export type TextFieldSnapshotRequest = z.infer<typeof textFieldSnapshotRequestSchema>
 
 const textFieldSnapshotResponseSchema = textFieldSnapshotSchema.extend({
   description: z.string().nullable(),
   wasRequired: z.boolean(),
 })
-export type TextFieldSnapshotResponse = z.infer<typeof textFieldSnapshotResponseSchema>
 
 const formSnapshotFieldOptionSchema = z.object({
   optionId: z.string(),
   optionLabel: z.string(),
   wasSelected: z.boolean(),
 })
-
-export type FieldSnapshotFieldOption = z.infer<typeof formSnapshotFieldOptionSchema>
 
 const radioGroupFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
   fieldType: z.literal('RADIO_GROUP'),
@@ -49,15 +45,15 @@ const radioGroupFieldSnapshotResponseSchema = radioGroupFieldSnapshotSchema.exte
 })
 
 const fieldSnapshotRequestSchema = z.union([textFieldSnapshotRequestSchema, radioGroupFieldSnapshotRequestSchema])
-
-export type FieldSnapshotRequest = z.infer<typeof fieldSnapshotRequestSchema>
+export const fieldSnapshotsRequestSchema = z.array(fieldSnapshotRequestSchema)
+export type FieldSnapshotRequest = z.infer<typeof fieldSnapshotsRequestSchema>
 
 export const formSnapshotRequestSchema = z.object({
   formSnapshot: z.object({
     formIdentifier: z.string(),
     formSemanticVersion: z.string(),
     formSnapshotVersion: z.string(),
-    fieldSnapshots: z.array(fieldSnapshotRequestSchema),
+    fieldSnapshots: fieldSnapshotsRequestSchema,
   }),
 })
 

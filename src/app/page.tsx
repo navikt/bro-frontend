@@ -1,5 +1,7 @@
+import NoAccessInformation from '@/features/no-access/NoAccess'
+
 function Home() {
-  return <div className="text-(--a-nav-red)">BROOOO</div>
+  return <NoAccessInformation />
 }
 
 export default Home

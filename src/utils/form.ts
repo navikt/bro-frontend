@@ -1,8 +1,8 @@
-import type {
-  FormSnapshotRequestDto,
+import {
   RadioGroupFieldSnapshotRequest,
   FormSnapshotResponseDto,
   ResponseFieldSnapshot,
+  FieldSnapshotRequest,
 } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import { formQuestions, formSchema } from '@/domain/formValues'
 import type { z } from 'zod/v4'
@@ -27,7 +27,7 @@ function withRadioFieldValues(values: AppFormValues) {
   }
 }
 
-export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): FormSnapshotRequestDto {
+export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): FieldSnapshotRequest {
   const mapRadio = withRadioFieldValues(values)
   const fieldSnapshots = [
     mapRadio('hvorSannsynligTilbakeTilJobben'),
@@ -35,35 +35,23 @@ export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): For
     mapRadio('naarTilbakeTilJobben'),
   ]
 
-  return {
-    formSnapshot: {
-      formIdentifier: 'bro',
-      formSemanticVersion: '1',
-      formSnapshotVersion: '1',
-      fieldSnapshots: fieldSnapshots,
-    },
-  }
+  return fieldSnapshots
 }
 
-export function formSnapshotResponseToSummaryItems(snapshot: FormSnapshotResponseDto): FormSummaryItem[] {
+export function mapFormSnapshotResponseToSummaryItems(snapshot: FormSnapshotResponseDto): FormSummaryItem[] {
   return snapshot.fieldSnapshots.map((field: ResponseFieldSnapshot) => {
-    if (field.fieldType === 'RADIO_GROUP') {
-      const selected = field.options.find((option) => option.wasSelected)
-      return {
-        label: field.label,
-        value: selected?.optionLabel || '',
-      }
-    }
-    if (field.fieldType === 'TEXT') {
-      return {
-        label: field.label,
-        value: field.value,
-      }
-    }
-    // fallback for unknown field types
-    return {
-      label: '',
-      value: '',
+    switch (field.fieldType) {
+      case 'RADIO_GROUP':
+        const selectedOption = field.options.find((option) => option.wasSelected)
+        return {
+          label: field.label,
+          value: selectedOption?.optionLabel || '',
+        }
+      case 'TEXT':
+        return {
+          label: field.label,
+          value: field.value,
+        }
     }
   })
 }

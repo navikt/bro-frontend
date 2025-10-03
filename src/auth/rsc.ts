@@ -20,15 +20,6 @@ export async function verifyUserLoggedIn(): Promise<string> {
 
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
-    if (validationResult.errorType !== 'token expired') {
-      logger.error(
-        new Error(
-          `Invalid JWT token found (cause: ${validationResult.errorType} ${validationResult.error.message}, redirecting to login.`,
-          { cause: validationResult.error },
-        ),
-      )
-    }
-
     redirect(`/oauth2/login}`)
   }
 
