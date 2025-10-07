@@ -2,7 +2,7 @@ import { z } from 'zod/v4'
 import { QuestionsObject } from '@/domain/questionSchema'
 import { ZodString } from 'zod'
 
-export const formQuestions = {
+export const kartleggingsspormalFormQuestions = {
   hvorSannsynligTilbakeTilJobben: {
     type: 'RADIO_GROUP',
     label: 'Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?',
@@ -34,16 +34,17 @@ export const formQuestions = {
 } as const satisfies QuestionsObject
 
 // Extract the ID union type from FormQuestions keys
-type FormQuestionId = keyof typeof formQuestions
+type KartleggingsspormalFormQuestionId = keyof typeof kartleggingsspormalFormQuestions
 
-export const formQuestionDefaults = {
+export const kartleggingsspormaFormQuestionDefaults = {
   hvorSannsynligTilbakeTilJobben: '',
   samarbeidOgRelasjonTilArbeidsgiver: '',
   naarTilbakeTilJobben: '',
-} satisfies Record<FormQuestionId, string>
+} satisfies Record<KartleggingsspormalFormQuestionId, string>
 
-export const formSchema = z.object({
+export const kartleggingssporsmalFormSchema = z.object({
   hvorSannsynligTilbakeTilJobben: z.string().nonempty('Feltet er påkrevd'),
   samarbeidOgRelasjonTilArbeidsgiver: z.string().nonempty('Feltet er påkrevd'),
   naarTilbakeTilJobben: z.string().nonempty('Feltet er påkrevd'),
-} satisfies Record<FormQuestionId, ZodString>)
+} satisfies Record<KartleggingsspormalFormQuestionId, ZodString>)
+export type KartleggingssporsmalForm = z.infer<typeof kartleggingssporsmalFormSchema>

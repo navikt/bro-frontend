@@ -1,12 +1,20 @@
 'use client'
 
-import { formQuestionDefaults, formQuestions, formSchema } from '@/domain/formValues'
+import {
+  kartleggingsspormaFormQuestionDefaults,
+  kartleggingsspormalFormQuestions,
+  kartleggingssporsmalFormSchema,
+} from '@/domain/kartleggingsspormaFormValues'
 import { useAppForm } from '@/hooks/form'
-import { BodyShort, Box, Button, Alert } from '@navikt/ds-react'
+import { BodyShort, Box, Button, Alert, Heading, Link } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
 import { useState } from 'react'
 import { submitFormAction } from '@/actions/form/submitForm'
-import FormSummary, { type FormSummaryItem } from '@/components/FormSummary'
+import NextLink from 'next/link'
+import { CONTACT_NAV_URL } from '@/constants'
+import KartleggingssporsmalFormSummary, {
+  type FormSummaryItem,
+} from '@/features/kartleggingssporsmal/KartleggingssporsmalFormSummary'
 
 type Props = { alreadyAnswered: boolean; initialSummaryItems?: FormSummaryItem[] | null }
 
@@ -17,13 +25,13 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
   const [justSubmitted, setJustSubmitted] = useState<boolean>(false)
 
   const form = useAppForm({
-    defaultValues: formQuestionDefaults,
+    defaultValues: kartleggingsspormaFormQuestionDefaults,
     validationLogic: revalidateLogic({
       mode: 'submit',
       modeAfterSubmission: 'change',
     }),
     validators: {
-      onSubmit: formSchema,
+      onSubmit: kartleggingssporsmalFormSchema,
     },
     onSubmit: async ({ value }) => {
       try {
@@ -31,24 +39,25 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
         await submitFormAction(value)
         const items: FormSummaryItem[] = [
           {
-            label: formQuestions.hvorSannsynligTilbakeTilJobben.label,
+            label: kartleggingsspormalFormQuestions.hvorSannsynligTilbakeTilJobben.label,
             value:
-              formQuestions.hvorSannsynligTilbakeTilJobben.options.find(
+              kartleggingsspormalFormQuestions.hvorSannsynligTilbakeTilJobben.options.find(
                 (option) => option.id === value.hvorSannsynligTilbakeTilJobben,
               )?.label || value.hvorSannsynligTilbakeTilJobben,
           },
           {
-            label: formQuestions.samarbeidOgRelasjonTilArbeidsgiver.label,
+            label: kartleggingsspormalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver.label,
             value:
-              formQuestions.samarbeidOgRelasjonTilArbeidsgiver.options.find(
+              kartleggingsspormalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver.options.find(
                 (option) => option.id === value.samarbeidOgRelasjonTilArbeidsgiver,
               )?.label || value.samarbeidOgRelasjonTilArbeidsgiver,
           },
           {
-            label: formQuestions.naarTilbakeTilJobben.label,
+            label: kartleggingsspormalFormQuestions.naarTilbakeTilJobben.label,
             value:
-              formQuestions.naarTilbakeTilJobben.options.find((option) => option.id === value.naarTilbakeTilJobben)
-                ?.label || value.naarTilbakeTilJobben,
+              kartleggingsspormalFormQuestions.naarTilbakeTilJobben.options.find(
+                (option) => option.id === value.naarTilbakeTilJobben,
+              )?.label || value.naarTilbakeTilJobben,
           },
         ]
         setSummaryItems(items)
@@ -64,50 +73,73 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
 
   return (
     <>
-      <h1>Din situasjon - behovsrettet oppfølging</h1>
-      <BodyShort spacing>
-        Du har vært sykmeldt en stund, og vi ønsker å følge deg opp på best mulig måte. Derfor ber vi deg svare på tre
-        korte spørsmål om din situasjon. Spørsmålene hjelper oss med å gi deg riktig støtte videre, og svarene dine blir
-        sett av veilederen din ved ditt Nav-kontor.
-      </BodyShort>
-
+      <h1>Kartlegging av din situasjon</h1>
       {displaySummary && (
         <>
           {justSubmitted && (
             <Alert variant="success" className="mb-4 max-w-3xl">
-              Skjemaet er sendt inn. Takk for svarene dine.
+              Takk, svarene dine er sendt til Nav.
             </Alert>
           )}
-          <FormSummary items={summaryItems} />
+          <Heading size="medium" level="2" spacing>
+            Hva skjer videre
+          </Heading>
+          <BodyShort className="" spacing>
+            Svarene dine gir Nav innsikt i hvordan vi skal følge deg opp fremover. Om vi ser behovet for tettere
+            oppfølging enn det arbeidsgiveren din skal gi deg, vil du bli kontaktet av en Nav-veileder.
+          </BodyShort>
+          <BodyShort spacing>
+            Du kan ta kontakt med oss på telefon 55 55 33 33 eller{' '}
+            <Link as={NextLink} target="_blank" href={CONTACT_NAV_URL}>
+              skriv til oss her på nav.no
+            </Link>{' '}
+            (åpner i ny fane) hvis det skulle være noe.{' '}
+          </BodyShort>
+          <KartleggingssporsmalFormSummary items={summaryItems} />
         </>
       )}
 
       {!displaySummary && (
-        <Box background="bg-subtle" padding="6" borderRadius="large" borderColor="border-subtle" borderWidth="1">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-            }}
-          >
-            <form.AppForm>
-              <div className={'grid gap-4 mb-4'}>
-                <form.AppField name="hvorSannsynligTilbakeTilJobben">
-                  {(field) => <field.RadioGroup question={formQuestions['hvorSannsynligTilbakeTilJobben']} />}
-                </form.AppField>
-                <form.AppField name="samarbeidOgRelasjonTilArbeidsgiver">
-                  {(field) => <field.RadioGroup question={formQuestions['samarbeidOgRelasjonTilArbeidsgiver']} />}
-                </form.AppField>
-                <form.AppField name="naarTilbakeTilJobben">
-                  {(field) => <field.RadioGroup question={formQuestions['naarTilbakeTilJobben']} />}
-                </form.AppField>
-              </div>
-              <Button type="submit" className="mt-4" onClick={() => form.handleSubmit()} disabled={submitting}>
-                {submitting ? 'Sender…' : 'Send skjema'}
-              </Button>
-            </form.AppForm>
-          </form>
-        </Box>
+        <>
+          <BodyShort spacing>
+            Siden du har vært sykmeldt en stund, ønsker vi å få bedre kjennskap til din situasjon ved at du svarer på
+            disse tre spørsmålene.
+          </BodyShort>
+          <BodyShort spacing>Svarene dine gir Nav innsikt i hvordan vi kan følge deg opp fremover.</BodyShort>
+          <Box background="bg-subtle" padding="6" borderRadius="large" borderColor="border-subtle" borderWidth="1">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+              }}
+            >
+              <form.AppForm>
+                <div className={'grid gap-4 mb-4'}>
+                  <form.AppField name="hvorSannsynligTilbakeTilJobben">
+                    {(field) => (
+                      <field.RadioGroup question={kartleggingsspormalFormQuestions['hvorSannsynligTilbakeTilJobben']} />
+                    )}
+                  </form.AppField>
+                  <form.AppField name="samarbeidOgRelasjonTilArbeidsgiver">
+                    {(field) => (
+                      <field.RadioGroup
+                        question={kartleggingsspormalFormQuestions['samarbeidOgRelasjonTilArbeidsgiver']}
+                      />
+                    )}
+                  </form.AppField>
+                  <form.AppField name="naarTilbakeTilJobben">
+                    {(field) => (
+                      <field.RadioGroup question={kartleggingsspormalFormQuestions['naarTilbakeTilJobben']} />
+                    )}
+                  </form.AppField>
+                </div>
+                <Button type="submit" className="mt-4" onClick={() => form.handleSubmit()} disabled={submitting}>
+                  {submitting ? 'Sender…' : 'Send skjema'}
+                </Button>
+              </form.AppForm>
+            </form>
+          </Box>
+        </>
       )}
     </>
   )
