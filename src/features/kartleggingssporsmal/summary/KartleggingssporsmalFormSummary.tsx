@@ -19,13 +19,13 @@ type Props = {
   items?: FormSummaryItem[] | null
 }
 
-export default function FormSummary({ title = 'Oppsummering av svar', items }: Props) {
+export default function KartleggingssporsmalFormSummary({ items }: Props) {
   const hasItems = !!items && items.length > 0
 
   return (
     <AkselFormSummary className="max-w-3xl">
       <FormSummaryHeader>
-        <FormSummaryHeading level="2">{title}</FormSummaryHeading>
+        <FormSummaryHeading level="2">Oppsummering av svar</FormSummaryHeading>
       </FormSummaryHeader>
 
       {!hasItems && <BodyShort>Skjemaet er sendt inn. Takk for svarene dine.</BodyShort>}

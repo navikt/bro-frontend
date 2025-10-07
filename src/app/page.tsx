@@ -1,7 +1,7 @@
-import NoAccessInformation from '@/features/no-access/NoAccess'
+import { fetchKandidatStatus } from '@/services/meroppfolging/meroppfolging-service'
+import KartleggingssporsmalLanding from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
 
-function Home() {
-  return <NoAccessInformation />
+export default async function Home() {
+  const kandidatStatus = await fetchKandidatStatus()
+  return <KartleggingssporsmalLanding kandidatStatus={kandidatStatus} />
 }
-
-export default Home

@@ -45,8 +45,9 @@ const radioGroupFieldSnapshotResponseSchema = radioGroupFieldSnapshotSchema.exte
 })
 
 const fieldSnapshotRequestSchema = z.union([textFieldSnapshotRequestSchema, radioGroupFieldSnapshotRequestSchema])
-export const fieldSnapshotsRequestSchema = z.array(fieldSnapshotRequestSchema)
 export type FieldSnapshotRequest = z.infer<typeof fieldSnapshotsRequestSchema>
+export const fieldSnapshotsRequestSchema = z.array(fieldSnapshotRequestSchema)
+export type FieldSnapshotsRequest = z.infer<typeof fieldSnapshotsRequestSchema>
 
 export const formSnapshotRequestSchema = z.object({
   formSnapshot: z.object({
@@ -58,16 +59,16 @@ export const formSnapshotRequestSchema = z.object({
 })
 
 const fieldSnapshotResponseSchema = z.union([textFieldSnapshotResponseSchema, radioGroupFieldSnapshotResponseSchema])
-
-export type ResponseFieldSnapshot = z.infer<typeof fieldSnapshotResponseSchema>
+const fieldSnapshotsResponseSchema = z.array(fieldSnapshotResponseSchema)
+export type FieldSnapshotsResponse = z.infer<typeof fieldSnapshotsResponseSchema>
 
 export const formSnapshotResponseSchema = z.object({
   formSemanticVersion: z.string(),
-  fieldSnapshots: z.array(fieldSnapshotResponseSchema),
+  fieldSnapshots: fieldSnapshotsResponseSchema,
 })
 
-export type FormSnapshotRequestDto = z.infer<typeof formSnapshotRequestSchema>
-export type FormSnapshotResponseDto = z.infer<typeof formSnapshotResponseSchema>
+export type FormSnapshotRequest = z.infer<typeof formSnapshotRequestSchema>
+export type FormSnapshotResponse = z.infer<typeof formSnapshotResponseSchema>
 
 const kartleggingssporsmalSchema = z.object({
   formSnapshot: formSnapshotResponseSchema,

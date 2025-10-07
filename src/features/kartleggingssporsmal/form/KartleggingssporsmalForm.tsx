@@ -1,38 +1,41 @@
 'use client'
 
-import { formQuestionDefaults, formQuestions, formSchema } from '@/domain/formValues'
+import {
+  kartleggingsspormaFormQuestionDefaults,
+  kartleggingsspormalFormQuestions,
+  kartleggingssporsmalFormSchema,
+} from '@/domain/kartleggingsspormaFormValues'
 import { useAppForm } from '@/hooks/form'
 import { Box, Button } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
-import { useState } from 'react'
+import { type Dispatch, type SetStateAction, useState } from 'react'
 import { submitFormAction } from '@/actions/form/submitForm'
-import { type FormSummaryItem } from '@/components/FormSummary'
-import { mapAppFormToSnapshot, mapFormSnapshotResponseToSummaryItems } from '@/utils/form'
+import { mapAppFormToSnapshot, mapFormSnapshotToSummaryItems } from '@/utils/form'
+import { type FormSummaryItem } from '@/features/kartleggingssporsmal/KartleggingssporsmalFormSummary'
 
 type Props = {
-  alreadyAnswered: boolean
   setSummaryItems: Dispatch<SetStateAction<FormSummaryItem[]>>
   setJustSubmitted: Dispatch<SetStateAction<boolean>>
 }
 
-export default function FormClient({ alreadyAnswered, initialSummaryItems }: Props) {
+export default function KartleggingssporsmalForm({ setSummaryItems, setJustSubmitted }: Props) {
   const [submitting, setSubmitting] = useState<boolean>(false)
 
   const form = useAppForm({
-    defaultValues: formQuestionDefaults,
+    defaultValues: kartleggingsspormaFormQuestionDefaults,
     validationLogic: revalidateLogic({
       mode: 'submit',
       modeAfterSubmission: 'change',
     }),
     validators: {
-      onSubmit: formSchema,
+      onSubmit: kartleggingssporsmalFormSchema,
     },
     onSubmit: async ({ value }) => {
       try {
         setSubmitting(true)
+        await submitFormAction(value)
         const fieldSnapshots = mapAppFormToSnapshot({ values: value })
-        await submitFormAction(fieldSnapshots)
-        const summaryItems = mapFormSnapshotResponseToSummaryItems(fieldSnapshots)
+        const summaryItems = mapFormSnapshotToSummaryItems(fieldSnapshots)
         setSummaryItems(summaryItems)
         setJustSubmitted(true)
       } catch (e) {
@@ -54,13 +57,17 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
         <form.AppForm>
           <div className={'grid gap-4 mb-4'}>
             <form.AppField name="hvorSannsynligTilbakeTilJobben">
-              {(field) => <field.RadioGroup question={formQuestions['hvorSannsynligTilbakeTilJobben']} />}
+              {(field) => (
+                <field.RadioGroup question={kartleggingsspormalFormQuestions['hvorSannsynligTilbakeTilJobben']} />
+              )}
             </form.AppField>
             <form.AppField name="samarbeidOgRelasjonTilArbeidsgiver">
-              {(field) => <field.RadioGroup question={formQuestions['samarbeidOgRelasjonTilArbeidsgiver']} />}
+              {(field) => (
+                <field.RadioGroup question={kartleggingsspormalFormQuestions['samarbeidOgRelasjonTilArbeidsgiver']} />
+              )}
             </form.AppField>
             <form.AppField name="naarTilbakeTilJobben">
-              {(field) => <field.RadioGroup question={formQuestions['naarTilbakeTilJobben']} />}
+              {(field) => <field.RadioGroup question={kartleggingsspormalFormQuestions['naarTilbakeTilJobben']} />}
             </form.AppField>
           </div>
           <Button type="submit" className="mt-4" onClick={() => form.handleSubmit()} disabled={submitting}>

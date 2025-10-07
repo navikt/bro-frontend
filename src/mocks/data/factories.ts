@@ -1,6 +1,6 @@
-import type { FormSnapshotResponseDto } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import type { FormSnapshotResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 
-export function createFormSnapshotResponseDto(overrides?: Partial<FormSnapshotResponseDto>): FormSnapshotResponseDto {
+export function createFormSnapshotResponseDto(overrides?: Partial<FormSnapshotResponse>): FormSnapshotResponse {
   return {
     formSemanticVersion: '1.0.0',
     fieldSnapshots: [

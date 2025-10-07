@@ -1,18 +1,14 @@
 import {
   RadioGroupFieldSnapshotRequest,
-  FormSnapshotResponseDto,
-  ResponseFieldSnapshot,
-  FieldSnapshotRequest,
+  FieldSnapshotsResponse,
+  FieldSnapshotsRequest,
 } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import { formQuestions, formSchema } from '@/domain/formValues'
-import type { z } from 'zod/v4'
-import type { FormSummaryItem } from '@/components/FormSummary'
+import { kartleggingsspormalFormQuestions, KartleggingssporsmalForm } from '@/domain/kartleggingsspormaFormValues'
+import type { FormSummaryItem } from '@/components/KartleggingssporsmalFormSummary'
 
-export type AppFormValues = z.infer<typeof formSchema>
-
-function withRadioFieldValues(values: AppFormValues) {
-  return <K extends keyof typeof formQuestions>(fieldId: K): RadioGroupFieldSnapshotRequest => {
-    const question = formQuestions[fieldId]
+function withRadioFieldValues(values: KartleggingssporsmalForm) {
+  return <K extends keyof typeof kartleggingsspormalFormQuestions>(fieldId: K): RadioGroupFieldSnapshotRequest => {
+    const question = kartleggingsspormalFormQuestions[fieldId]
     const selectedId = values[fieldId]
     return {
       fieldId,
@@ -27,7 +23,7 @@ function withRadioFieldValues(values: AppFormValues) {
   }
 }
 
-export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): FieldSnapshotRequest {
+export function mapAppFormToSnapshot({ values }: { values: KartleggingssporsmalForm }): FieldSnapshotsRequest {
   const mapRadio = withRadioFieldValues(values)
   const fieldSnapshots = [
     mapRadio('hvorSannsynligTilbakeTilJobben'),
@@ -38,8 +34,10 @@ export function mapAppFormToSnapshot({ values }: { values: AppFormValues }): Fie
   return fieldSnapshots
 }
 
-export function mapFormSnapshotResponseToSummaryItems(snapshot: FormSnapshotResponseDto): FormSummaryItem[] {
-  return snapshot.fieldSnapshots.map((field: ResponseFieldSnapshot) => {
+export function mapFormSnapshotToSummaryItems(
+  snapshots: FieldSnapshotsRequest | FieldSnapshotsResponse,
+): FormSummaryItem[] {
+  return snapshots.map((field) => {
     switch (field.fieldType) {
       case 'RADIO_GROUP':
         const selectedOption = field.options.find((option) => option.wasSelected)

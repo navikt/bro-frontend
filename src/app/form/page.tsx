@@ -1,7 +1,4 @@
 import { fetchKandidatStatus } from '@/services/meroppfolging/meroppfolging-service'
-import FormClient from './FormClient'
-import type { FormSummaryItem } from '@/components/FormSummary'
-import { mapFormSnapshotResponseToSummaryItems } from '@/utils/form'
 
 export default async function FormPage() {
   let lastestResponse = null
