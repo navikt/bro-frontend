@@ -72,6 +72,6 @@ export function getServerEnv(): ServerEnv & PublicEnv {
     }
   }
 }
+export const isDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
 
-export const isLocalOrDemo =
-  process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local' || process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
+export const isLocalOrDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local' || isDemo

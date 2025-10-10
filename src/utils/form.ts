@@ -1,13 +1,9 @@
-import {
-  RadioGroupFieldSnapshotRequest,
-  FieldSnapshotsResponse,
-  FieldSnapshotsRequest,
-} from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { RadioGroupFieldSnapshot, FieldSnapshots } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import { kartleggingsspormalFormQuestions, KartleggingssporsmalForm } from '@/domain/kartleggingsspormaFormValues'
-import type { FormSummaryItem } from '@/components/KartleggingssporsmalFormSummary'
+import { type FormSummaryItem } from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary'
 
 function withRadioFieldValues(values: KartleggingssporsmalForm) {
-  return <K extends keyof typeof kartleggingsspormalFormQuestions>(fieldId: K): RadioGroupFieldSnapshotRequest => {
+  return <K extends keyof typeof kartleggingsspormalFormQuestions>(fieldId: K): RadioGroupFieldSnapshot => {
     const question = kartleggingsspormalFormQuestions[fieldId]
     const selectedId = values[fieldId]
     return {
@@ -23,7 +19,7 @@ function withRadioFieldValues(values: KartleggingssporsmalForm) {
   }
 }
 
-export function mapAppFormToSnapshot({ values }: { values: KartleggingssporsmalForm }): FieldSnapshotsRequest {
+export function mapAppFormToSnapshot({ values }: { values: KartleggingssporsmalForm }): FieldSnapshots {
   const mapRadio = withRadioFieldValues(values)
   const fieldSnapshots = [
     mapRadio('hvorSannsynligTilbakeTilJobben'),
@@ -34,9 +30,7 @@ export function mapAppFormToSnapshot({ values }: { values: KartleggingssporsmalF
   return fieldSnapshots
 }
 
-export function mapFormSnapshotToSummaryItems(
-  snapshots: FieldSnapshotsRequest | FieldSnapshotsResponse,
-): FormSummaryItem[] {
+export function mapFormSnapshotToSummaryItems(snapshots: FieldSnapshots): FormSummaryItem[] {
   return snapshots.map((field) => {
     switch (field.fieldType) {
       case 'RADIO_GROUP':
