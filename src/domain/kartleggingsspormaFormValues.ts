@@ -18,17 +18,17 @@ export const kartleggingsspormalFormQuestions = {
     label: 'Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?',
     required: true,
     options: [
-      { id: '2a', label: 'Jeg opplever forholdet vårt som godt' },
-      { id: '2b', label: 'Jeg opplever ikke forholdet vårt som godt' },
+      { id: '2a', label: 'Jeg opplever samarbeidet og relasjonen som god' },
+      { id: '2b', label: 'Jeg opplever samarbeidet og relasjonen som dårlig' },
     ],
   },
   naarTilbakeTilJobben: {
     type: 'RADIO_GROUP',
-    label: 'Hvor lenge tror du at du har behov for å være sykmeldt?',
+    label: 'Hvor lenge tror du at du kommer til å være sykmeldt?',
     required: true,
     options: [
-      { id: '3a', label: 'Mindre enn 26 uker (6 måneder) totalt' },
-      { id: '3b', label: 'Mer enn 26 uker (6 måneder) totalt' },
+      { id: '3a', label: 'Mindre enn seks måneder' },
+      { id: '3b', label: 'Mer enn seks måneder' },
     ],
   },
 } as const satisfies QuestionsObject
