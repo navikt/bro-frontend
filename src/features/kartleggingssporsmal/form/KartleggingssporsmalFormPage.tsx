@@ -1,0 +1,26 @@
+import KartleggingssporsmalForm from './KartleggingssporsmalForm'
+import { type Dispatch, type SetStateAction } from 'react'
+import { BodyShort, Heading } from '@navikt/ds-react'
+import { NullableKartleggingssporsmalFormResponse } from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
+
+type KartleggingssporsmalFormPageProps = {
+  setSummaryItems: Dispatch<SetStateAction<NullableKartleggingssporsmalFormResponse>>
+}
+
+export default function KartleggingssporsmalFormPage({ setSummaryItems }: KartleggingssporsmalFormPageProps) {
+  return (
+    <>
+      <Heading size={'large'} level="1" spacing>
+        Kartlegging av din situasjon
+      </Heading>
+      <BodyShort spacing>
+        Siden du har vært sykmeldt en stund, ønsker vi å få bedre kjennskap til din situasjon ved at du svarer på disse
+        tre spørsmålene.
+      </BodyShort>
+      <BodyShort spacing>
+        Svarene dine blir kun delt med Nav og gir oss innsikt i hvordan vi kan følge deg opp fremover.
+      </BodyShort>
+      <KartleggingssporsmalForm setSummaryItems={setSummaryItems} />
+    </>
+  )
+}

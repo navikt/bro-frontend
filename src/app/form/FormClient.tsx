@@ -9,12 +9,12 @@ import { useAppForm } from '@/hooks/form'
 import { BodyShort, Box, Button, Alert, Heading, Link } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
 import { useState } from 'react'
-import { submitFormAction } from '@/actions/form/submitForm'
 import NextLink from 'next/link'
 import { CONTACT_NAV_URL } from '@/constants'
 import KartleggingssporsmalFormSummary, {
-  type FormSummaryItem,
-} from '@/features/kartleggingssporsmal/KartleggingssporsmalFormSummary'
+  FormSummaryItem,
+} from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary'
+import { submitFormAction } from '@/services/meroppfolging/meroppfolgingService'
 
 type Props = { alreadyAnswered: boolean; initialSummaryItems?: FormSummaryItem[] | null }
 
@@ -73,7 +73,6 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
 
   return (
     <>
-      <h1>Kartlegging av din situasjon</h1>
       {displaySummary && (
         <>
           {justSubmitted && (
@@ -95,7 +94,7 @@ export default function FormClient({ alreadyAnswered, initialSummaryItems }: Pro
             </Link>{' '}
             (åpner i ny fane) hvis det skulle være noe.{' '}
           </BodyShort>
-          <KartleggingssporsmalFormSummary items={summaryItems} />
+          <KartleggingssporsmalFormSummary items={summaryItems || []} />
         </>
       )}
 

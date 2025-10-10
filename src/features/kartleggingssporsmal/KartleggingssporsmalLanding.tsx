@@ -1,25 +1,28 @@
 'use client'
 
-import { mapFormSnapshotToSummaryItems } from '@/utils/form'
 import NoAccessInformation from '@/features/no-access/NoAccess'
-import { FieldSnapshotsResponse, KandidatStatusResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import {
+  KandidatStatusResponse,
+  KartleggingssporsmalFormResponse,
+} from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import { useState } from 'react'
-import KartleggingssporsmalFormSummary from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary'
 import KartleggingssporsmalFormPage from '@/features/kartleggingssporsmal/form/KartleggingssporsmalFormPage'
+import KartleggingssporsmalFormSummaryPage from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummaryPage'
+
+export type NullableKartleggingssporsmalFormResponse = KartleggingssporsmalFormResponse | null
 
 export default function KartleggingssporsmalLanding({ kandidatStatus }: { kandidatStatus: KandidatStatusResponse }) {
-  const fieldSnapshots = kandidatStatus.formResponse?.formSnapshot.fieldSnapshots || null
-  const [formValues, setFormValues] = useState<FieldSnapshotsResponse | null>(fieldSnapshots)
-  const [justSubmitted, setJustSubmitted] = useState<boolean>(false)
+  const [formValues, setFormValues] = useState<NullableKartleggingssporsmalFormResponse>(null)
 
   if (kandidatStatus.isKandidat === false) {
     return <NoAccessInformation />
   }
 
-  if (formValues && formValues?.length > 0) {
-    const summaryItems = mapFormSnapshotToSummaryItems(formValues)
-    return <KartleggingssporsmalFormSummary items={summaryItems} />
+  const formResponse = kandidatStatus.formResponse || formValues
+
+  if (formResponse) {
+    return <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />
   }
 
-  return <KartleggingssporsmalFormPage setSummaryItems={setFormValues} setJustSubmitted={setJustSubmitted} />
+  return <KartleggingssporsmalFormPage setSummaryItems={setFormValues} />
 }
