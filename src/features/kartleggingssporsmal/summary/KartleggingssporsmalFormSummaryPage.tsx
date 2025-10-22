@@ -6,6 +6,7 @@ import { CONTACT_NAV_URL } from '@/constants'
 import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert'
 import { UsefulLinks } from '@/features/kartleggingssporsmal/summary/UsefulLinks'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { Flexjar } from '@/components/flexjar/flexjar'
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse
@@ -39,6 +40,8 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
       </BodyShort>
 
       <KartleggingssporsmalFormSummary items={summaryItems} />
+
+      <Flexjar />
     </VStack>
   )
 }
