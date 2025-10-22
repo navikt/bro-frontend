@@ -57,9 +57,15 @@ spec:
   env:
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
+    - name: FLEXJAR_BACKEND_HOST
+      value: http://flexjar-backend.flex
+    - name: FLEXJAR_BACKEND_CLIENT_ID
+      value: dev-gcp:flex:flexjar-backend
   accessPolicy:
     outbound:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
         - application: meroppfolging-backend
+        - application: flexjar-backend
+          namespace: flex
