@@ -1,4 +1,5 @@
 import '@/app/globals.css'
+import "@navikt/flexjar-widget/styles.css";
 
 import type { Metadata } from 'next'
 import Script from 'next/script'

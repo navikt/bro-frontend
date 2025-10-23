@@ -18,6 +18,8 @@ export type ServerEnv = z.infer<typeof serverEnvSchema>
 export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
   MEROPPFOLGING_BACKEND_URL: z.string(),
+  FLEXJAR_BACKEND_HOST: z.string(),
+  FLEXJAR_BACKEND_CLIENT_ID: z.string(),
   // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
   TOKEN_X_CLIENT_ID: z.string(),
@@ -43,6 +45,8 @@ const getRawServerConfig = (): Partial<unknown> =>
   ({
     // Provided by nais-*.yml
     MEROPPFOLGING_BACKEND_URL: process.env.MEROPPFOLGING_BACKEND_URL,
+    FLEXJAR_BACKEND_HOST: process.env.FLEXJAR_BACKEND_HOST,
+    FLEXJAR_BACKEND_CLIENT_ID: process.env.FLEXJAR_BACKEND_CLIENT_ID,
 
     // Provided by nais
     TOKEN_X_WELL_KNOWN_URL: process.env.TOKEN_X_WELL_KNOWN_URL,
@@ -72,6 +76,7 @@ export function getServerEnv(): ServerEnv & PublicEnv {
     }
   }
 }
+
 export const isDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
 
 export const isLocalOrDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local' || isDemo
