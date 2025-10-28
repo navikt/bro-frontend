@@ -1,3 +1,5 @@
+'use server'
+
 import { requestOboToken } from '@navikt/oasis'
 
 import { getServerEnv } from '@/constants/envs'

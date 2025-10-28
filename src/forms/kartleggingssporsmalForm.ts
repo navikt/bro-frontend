@@ -1,5 +1,5 @@
 import { z, ZodType } from 'zod/v4'
-import { RadioGroupQuestion } from '@/components/formComponents/RadioGroup'
+import { RadioGroupQuestion } from '@/components/form-components/RadioGroup'
 
 export const kartleggingsspormalFormQuestions = {
   hvorSannsynligTilbakeTilJobben: {
@@ -31,10 +31,17 @@ export const kartleggingsspormalFormQuestions = {
 
 type KartleggingsspormalFormQuestionId = keyof typeof kartleggingsspormalFormQuestions
 
+function getOptionIds<T extends KartleggingsspormalFormQuestionId>(
+  fieldId: T,
+): (typeof kartleggingsspormalFormQuestions)[T]['options'][number]['id'][] {
+  const question = kartleggingsspormalFormQuestions[fieldId]
+  return question.options.map((option) => option.id)
+}
+
 export const kartleggingssporsmalFormSchema = z.object({
-  hvorSannsynligTilbakeTilJobben: z.string().nonempty('Feltet er påkrevd'),
-  samarbeidOgRelasjonTilArbeidsgiver: z.string().nonempty('Feltet er påkrevd'),
-  naarTilbakeTilJobben: z.string().nonempty('Feltet er påkrevd'),
+  hvorSannsynligTilbakeTilJobben: z.enum(getOptionIds('hvorSannsynligTilbakeTilJobben'), 'Feltet er påkrevd'),
+  samarbeidOgRelasjonTilArbeidsgiver: z.enum(getOptionIds('samarbeidOgRelasjonTilArbeidsgiver'), 'Feltet er påkrevd'),
+  naarTilbakeTilJobben: z.enum(getOptionIds('naarTilbakeTilJobben'), 'Feltet er påkrevd'),
 } satisfies Record<KartleggingsspormalFormQuestionId, ZodType>)
 export type KartleggingssporsmalForm = z.infer<typeof kartleggingssporsmalFormSchema>
 
@@ -42,4 +49,4 @@ export const kartleggingssporsmalFormDefaults = {
   hvorSannsynligTilbakeTilJobben: '',
   samarbeidOgRelasjonTilArbeidsgiver: '',
   naarTilbakeTilJobben: '',
-} satisfies KartleggingssporsmalForm
+}

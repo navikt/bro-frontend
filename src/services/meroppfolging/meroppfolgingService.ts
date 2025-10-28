@@ -1,17 +1,12 @@
 'use server'
 
 import {
-  FormSnapshotRequest,
   KandidatStatusResponse,
   kandidatStatusResponseSchema,
-  SubmitKartleggingssporsmalResponse,
-  submitKartleggingssporsmalResponseSchema,
 } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { verifyUserLoggedIn } from '@/auth/rsc'
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
-import { KartleggingssporsmalForm, kartleggingssporsmalFormSchema } from '@/forms/kartleggingssporsmalForm'
-import { mapAppFormToSnapshot } from '@/utils/form'
 import { logger } from '@navikt/next-logger'
 
 export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
@@ -51,67 +46,6 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   } catch (error) {
     logger.error(`[Backend] Failed to fetch from ${url}: with error: ${error}`)
 
-    throw new Error(`Error on fetching kandidat status. Error: ${error}`)
-  }
-}
-
-export async function submitFormAction(
-  formValues: KartleggingssporsmalForm,
-): Promise<SubmitKartleggingssporsmalResponse> {
-  const parsed = kartleggingssporsmalFormSchema.safeParse(formValues)
-  if (!parsed.success) {
-    const issues = parsed.error.message
-    throw new Error(issues)
-  }
-
-  const fieldSnapshots = mapAppFormToSnapshot({ values: parsed.data })
-
-  if (isLocalOrDemo) {
-    return {
-      formSnapshot: { fieldSnapshots: fieldSnapshots },
-      createdAt: new Date(),
-    }
-  }
-
-  const idportenToken = await verifyUserLoggedIn()
-  const exchangedToken = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
-
-  const { MEROPPFOLGING_BACKEND_URL } = getServerEnv()
-  const url = new URL('/api/v1/kartleggingssporsmal', MEROPPFOLGING_BACKEND_URL)
-
-  const payload: FormSnapshotRequest = {
-    formSnapshot: {
-      formIdentifier: 'kartleggingsporsmal',
-      formSemanticVersion: '1.0.0',
-      formSnapshotVersion: '1.0.0',
-      fieldSnapshots: fieldSnapshots,
-    },
-  }
-
-  try {
-    const res = await fetch(url, {
-      cache: 'no-store',
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${exchangedToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    })
-    const json = await res.json()
-
-    const parsed = submitKartleggingssporsmalResponseSchema.safeParse(json)
-    if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${parsed.error.issues}`
-      logger.error(formattedErrorText)
-
-      throw new Error('Invalid response when posting kartleggingssporsmal form')
-    }
-
-    return parsed.data
-  } catch (error) {
-    logger.error(`[Backend] Failed to fetch from ${url}: with error: ${error}`)
-
-    throw new Error(`Error on posting kartleggingssporsmal form. Error: ${error}`)
+    throw new Error(`Error on fetching kandidat status.`)
   }
 }

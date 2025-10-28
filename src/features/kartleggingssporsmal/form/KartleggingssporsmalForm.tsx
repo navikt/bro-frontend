@@ -8,13 +8,13 @@ import {
 import { useAppForm } from '@/hooks/form'
 import { Alert, Button, Heading } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
-import { type Dispatch, type SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { NullableKartleggingssporsmalFormResponse } from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
-import { submitFormAction } from '@/services/meroppfolging/meroppfolgingService'
 import { logger } from '@navikt/next-logger'
+import { submitFormAction } from '@/services/meroppfolging/actions/submitFormAction'
 
 type Props = {
-  setSummaryItems: Dispatch<SetStateAction<NullableKartleggingssporsmalFormResponse>>
+  setSummaryItems: (data: NullableKartleggingssporsmalFormResponse) => void
 }
 
 export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
@@ -23,12 +23,9 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
 
   const form = useAppForm({
     defaultValues: kartleggingssporsmalFormDefaults,
-    validationLogic: revalidateLogic({
-      mode: 'submit',
-      modeAfterSubmission: 'change',
-    }),
+    validationLogic: revalidateLogic(),
     validators: {
-      onSubmit: kartleggingssporsmalFormSchema,
+      onDynamic: kartleggingssporsmalFormSchema,
     },
     onSubmit: async ({ value }) => {
       try {
@@ -37,7 +34,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
         const formResponse = await submitFormAction(value)
         setSummaryItems(formResponse)
       } catch (e) {
-        logger.error(`Feil ved innsending av kartleggingssporsmal: ${e}`)
+        logger.error(`[Frontend] Feil ved innsending av kartleggingssporsmal: ${e}`)
         setSubmitError(true)
       } finally {
         setSubmitting(false)
@@ -54,7 +51,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
       className="mt-8"
     >
       <form.AppForm>
-        <div className={'grid gap-4 mb-4'}>
+        <div className="grid gap-4 mb-4">
           <form.AppField name="hvorSannsynligTilbakeTilJobben">
             {(field) => (
               <field.RadioGroup question={kartleggingsspormalFormQuestions['hvorSannsynligTilbakeTilJobben']} />
