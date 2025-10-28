@@ -22,7 +22,7 @@ export default function Error({ error }: Props): ReactElement {
             <VStack gap="12" align="start">
               <div>
                 <BodyShort textColor="subtle" size="small">
-                  Statuskode 500
+                  Statehouse 500
                 </BodyShort>
                 <Heading level="1" size="large" spacing>
                   Beklager, noe gikk galt.

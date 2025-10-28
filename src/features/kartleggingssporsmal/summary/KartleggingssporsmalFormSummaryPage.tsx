@@ -1,6 +1,6 @@
 import { BodyShort, Heading, Link, VStack } from '@navikt/ds-react'
 import KartleggingssporsmalFormSummary from './KartleggingssporsmalFormSummary'
-import { mapFormSnapshotToSummaryItems } from '@/utils/form'
+import { mapFormSnapshotToSummaryItems } from '@/utils/kartleggingssporsmalForm'
 import NextLink from 'next/link'
 import { CONTACT_NAV_URL } from '@/constants'
 import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert'

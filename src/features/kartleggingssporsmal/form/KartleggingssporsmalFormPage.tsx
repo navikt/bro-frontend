@@ -1,10 +1,9 @@
 import KartleggingssporsmalForm from './KartleggingssporsmalForm'
-import { type Dispatch, type SetStateAction } from 'react'
 import { BodyShort, Heading } from '@navikt/ds-react'
 import { NullableKartleggingssporsmalFormResponse } from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
 
 type KartleggingssporsmalFormPageProps = {
-  setSummaryItems: Dispatch<SetStateAction<NullableKartleggingssporsmalFormResponse>>
+  setSummaryItems: (data: NullableKartleggingssporsmalFormResponse) => void
 }
 
 export default function KartleggingssporsmalFormPage({ setSummaryItems }: KartleggingssporsmalFormPageProps) {

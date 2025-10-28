@@ -9,6 +9,5 @@ configureLogger({
 })
 
 export default function Providers({ children }: PropsWithChildren) {
-  logger.info('Providers loaded')
   return children
 }
