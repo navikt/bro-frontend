@@ -4,10 +4,11 @@ import {
   KandidatStatusResponse,
   kandidatStatusResponseSchema,
 } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { verifyUserLoggedIn } from '@/auth/rsc'
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { logger } from '@navikt/next-logger'
+import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { getServerEnv } from '@/env-variables/serverEnv'
 
 export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   if (isLocalOrDemo) {

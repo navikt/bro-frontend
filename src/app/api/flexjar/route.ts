@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { logger } from '@navikt/next-logger'
-import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { verifyUserLoggedIn } from '@/auth/rsc'
 import { requestOboToken } from '@navikt/oasis'
 import { FlexJarTransportPayload } from '@navikt/flexjar-widget'
+import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { getServerEnv } from '@/env-variables/serverEnv'
 
 async function exchangeToken(idportenToken: string): Promise<string> {
   const { FLEXJAR_BACKEND_CLIENT_ID } = getServerEnv()

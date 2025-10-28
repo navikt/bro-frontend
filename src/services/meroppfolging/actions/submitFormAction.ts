@@ -7,10 +7,11 @@ import {
   submitKartleggingssporsmalResponseSchema,
 } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import { mapAppFormToSnapshot } from '@/utils/kartleggingssporsmalForm'
-import { getServerEnv, isLocalOrDemo } from '@/constants/envs'
 import { verifyUserLoggedIn } from '@/auth/rsc'
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from '@/auth/tokenUtils'
 import { logger } from '@navikt/next-logger'
+import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { getServerEnv } from '@/env-variables/serverEnv'
 
 export async function submitFormAction(formValues: unknown): Promise<SubmitKartleggingssporsmalResponse> {
   const parsed = kartleggingssporsmalFormSchema.safeParse(formValues)

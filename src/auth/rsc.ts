@@ -4,8 +4,8 @@ import { logger } from '@navikt/next-logger'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getToken, validateToken } from '@navikt/oasis'
-import { isLocalOrDemo } from '@/constants/envs'
 import { BASE_PATH } from '../../next.config'
+import { isLocalOrDemo } from '@/env-variables/envHelpers'
 
 export async function verifyUserLoggedIn(): Promise<string> {
   if (isLocalOrDemo) {

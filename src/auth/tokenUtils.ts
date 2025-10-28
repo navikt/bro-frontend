@@ -1,8 +1,7 @@
 'use server'
 
 import { requestOboToken } from '@navikt/oasis'
-
-import { getServerEnv } from '@/constants/envs'
+import { getServerEnv } from '@/env-variables/serverEnv'
 
 export async function exchangeIdportenTokenForMeroppfolgingBackendTokenx(
   idportenToken: string | null,

@@ -1,5 +1,5 @@
 import '@/app/globals.css'
-import "@navikt/flexjar-widget/styles.css";
+import '@navikt/flexjar-widget/styles.css'
 
 import type { Metadata } from 'next'
 import Script from 'next/script'
@@ -8,9 +8,10 @@ import { fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 
 import { Page } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
-import { isDemo, publicEnv } from '@/constants/envs'
 import Providers from '@/app/Providers'
 import DemoAlert from '@/components/DemoAlert'
+import { isDemo } from '@/env-variables/envHelpers'
+import { publicEnv } from '@/env-variables/publicEnv'
 
 export const metadata: Metadata = {
   title: 'Kartlegging av din situasjon',
