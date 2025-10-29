@@ -14,11 +14,5 @@ const transport: FlexJarTransport = {
 }
 
 export const Flexjar = () => (
-  <FlexJarDock
-    feedbackId="bro-frontend"
-    survey={survey}
-    transport={transport}
-    position="bottom-right"
-    hideAfterSubmit={true}
-  />
+  <FlexJarDock feedbackId="bro-frontend" survey={survey} transport={transport} position="bottom-right" />
 )
