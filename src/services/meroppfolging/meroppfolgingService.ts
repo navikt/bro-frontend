@@ -18,11 +18,11 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
     }
   }
 
-  const { MEROPPFOLGING_BACKEND_URL } = getServerEnv()
-  const url = new URL('/api/v1/kartleggingssporsmal/kandidat-status', MEROPPFOLGING_BACKEND_URL)
-
   const idportenToken = await verifyUserLoggedIn()
   const exchangedToken = await exchangeIdportenTokenForMeroppfolgingBackendTokenx(idportenToken)
+
+  const { MEROPPFOLGING_BACKEND_URL } = getServerEnv()
+  const url = new URL('/api/v1/kartleggingssporsmal/kandidat-status', MEROPPFOLGING_BACKEND_URL)
 
   try {
     const res = await fetch(url, {
