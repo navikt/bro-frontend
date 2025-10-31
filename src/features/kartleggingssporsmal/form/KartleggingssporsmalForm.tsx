@@ -76,8 +76,8 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
           </Alert>
         )}
 
-        <Button type="submit" className="mt-4" onClick={() => form.handleSubmit()} disabled={submitting}>
-          {submitting ? 'Sender…' : 'Send svarene til Nav'}
+        <Button type="submit" className="mt-4" onClick={() => form.handleSubmit()} loading={submitting}>
+          Send svarene til Nav
         </Button>
       </form.AppForm>
     </form>
