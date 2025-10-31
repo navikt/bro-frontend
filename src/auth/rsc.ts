@@ -1,5 +1,3 @@
-'use server'
-
 import { logger } from '@navikt/next-logger'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
