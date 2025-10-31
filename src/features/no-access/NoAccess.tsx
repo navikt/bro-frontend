@@ -1,10 +1,9 @@
-import { ReactElement } from 'react'
 import { BodyShort, Box, Button, Heading, Link } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import NextLink from 'next/link'
 import { CONTACT_NAV_URL } from '@/constants'
 
-function NoAccessInformation(): ReactElement {
+function NoAccessInformation() {
   const logMessage = "User visited kartleggingsspørsmål page, but does not have access. Showing 'No access' page."
   logger.warn(logMessage)
 

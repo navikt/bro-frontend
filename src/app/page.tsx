@@ -1,8 +1,19 @@
 import { fetchKandidatStatus } from '@/services/meroppfolging/meroppfolgingService'
-import KartleggingssporsmalLanding from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
+import NoAccessInformation from '@/features/no-access/NoAccess'
+import KartleggingssporsmalFormSummaryPage from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummaryPage'
+import KartleggingssporsmalFormPage from '@/features/kartleggingssporsmal/form/KartleggingssporsmalFormPage'
+import { FormHeaderAndTopText } from '@/features/kartleggingssporsmal/form/FormHeaderAndTopText'
 
 export default async function Home() {
-  const kandidatStatus = await fetchKandidatStatus()
+  const { formResponse, isKandidat } = await fetchKandidatStatus()
 
-  return <KartleggingssporsmalLanding kandidatStatus={kandidatStatus} />
+  if (!isKandidat) {
+    return <NoAccessInformation />
+  }
+
+  if (formResponse) {
+    return <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />
+  }
+
+  return <KartleggingssporsmalFormPage topContent={<FormHeaderAndTopText />} />
 }
