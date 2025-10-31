@@ -12,6 +12,7 @@ import Providers from '@/app/Providers'
 import DemoAlert from '@/components/DemoAlert'
 import { isDemo } from '@/env-variables/envHelpers'
 import { publicEnv } from '@/env-variables/publicEnv'
+import { UmamiScript } from '@/analytics/umamiScript'
 
 export const metadata: Metadata = {
   title: 'Kartlegging av din situasjon',
@@ -54,6 +55,7 @@ const RootLayout = async ({ children }: Readonly<{ children: React.ReactNode }>)
     <html lang="no">
       <head>
         <Decorator.HeadAssets />
+        <UmamiScript />
       </head>
       <body>
         <Providers>
