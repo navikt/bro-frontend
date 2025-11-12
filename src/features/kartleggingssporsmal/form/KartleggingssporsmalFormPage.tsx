@@ -1,25 +1,24 @@
-import KartleggingssporsmalForm from './KartleggingssporsmalForm'
-import { BodyShort, Heading } from '@navikt/ds-react'
-import { NullableKartleggingssporsmalFormResponse } from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
+'use client'
 
-type KartleggingssporsmalFormPageProps = {
-  setSummaryItems: (data: NullableKartleggingssporsmalFormResponse) => void
+import { useState } from 'react'
+import KartleggingssporsmalForm from './KartleggingssporsmalForm'
+import KartleggingssporsmalFormSummaryPage from '../summary/KartleggingssporsmalFormSummaryPage'
+import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+
+interface Props {
+  topContent: React.ReactNode
 }
 
-export default function KartleggingssporsmalFormPage({ setSummaryItems }: KartleggingssporsmalFormPageProps) {
-  return (
+export default function KartleggingssporsmalFormPage({ topContent }: Props) {
+  const [formReponse, setFormResponse] = useState<KartleggingssporsmalFormResponse | null>(null)
+
+  return formReponse ? (
+    <KartleggingssporsmalFormSummaryPage formResponse={formReponse} />
+  ) : (
     <>
-      <Heading size={'large'} level="1" spacing>
-        Kartlegging av din situasjon
-      </Heading>
-      <BodyShort spacing>
-        Siden du har vært sykmeldt en stund, ønsker vi å få bedre kjennskap til din situasjon ved at du svarer på disse
-        tre spørsmålene.
-      </BodyShort>
-      <BodyShort spacing>
-        Svarene dine blir kun delt med Nav og gir oss innsikt i hvordan vi kan følge deg opp fremover.
-      </BodyShort>
-      <KartleggingssporsmalForm setSummaryItems={setSummaryItems} />
+      {topContent}
+
+      <KartleggingssporsmalForm setSummaryItems={setFormResponse} />
     </>
   )
 }

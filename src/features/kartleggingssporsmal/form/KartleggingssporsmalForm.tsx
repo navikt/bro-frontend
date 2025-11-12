@@ -9,12 +9,12 @@ import { useAppForm } from '@/hooks/form'
 import { Alert, Button, Heading } from '@navikt/ds-react'
 import { revalidateLogic } from '@tanstack/form-core'
 import { useState } from 'react'
-import { NullableKartleggingssporsmalFormResponse } from '@/features/kartleggingssporsmal/KartleggingssporsmalLanding'
 import { logger } from '@navikt/next-logger'
 import { submitFormAction } from '@/services/meroppfolging/actions/submitFormAction'
+import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 
 type Props = {
-  setSummaryItems: (data: NullableKartleggingssporsmalFormResponse) => void
+  setSummaryItems: (data: KartleggingssporsmalFormResponse) => void
 }
 
 export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
