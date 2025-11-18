@@ -1,4 +1,5 @@
 import { FieldSnapshots } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { KartleggingssporsmalForm } from '@/forms/kartleggingssporsmalForm'
 
 export const fieldSnapshotsFixture: FieldSnapshots = [
   {
@@ -40,4 +41,10 @@ export const fieldSnapshotsFixture: FieldSnapshots = [
 export const kartleggingssporsmalFormResponseFixture = {
   formSnapshot: { fieldSnapshots: fieldSnapshotsFixture },
   createdAt: new Date(),
+}
+
+export const kartleggingssporsmalFormFixture: KartleggingssporsmalForm = {
+  hvorSannsynligTilbakeTilJobben: '1a',
+  samarbeidOgRelasjonTilArbeidsgiver: '2a',
+  naarTilbakeTilJobben: '3a',
 }
