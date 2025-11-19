@@ -21,7 +21,7 @@ export default function KartleggingssporsmalFormSummary({ items }: Props) {
   return (
     <AkselFormSummary>
       <FormSummaryHeader>
-        <FormSummaryHeading level="2">Dette svarte du</FormSummaryHeading>
+        <FormSummaryHeading level="2">Oppsummering av svar</FormSummaryHeading>
       </FormSummaryHeader>
       <FormSummaryAnswers>
         {items.map((it, idx) => (

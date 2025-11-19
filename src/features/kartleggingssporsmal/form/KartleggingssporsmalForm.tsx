@@ -17,15 +17,6 @@ type Props = {
   setSummaryItems: (data: KartleggingssporsmalFormResponse) => void
 }
 
-function scrollToTop() {
-  if (typeof window !== 'undefined') {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }
-}
-
 export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
   const [submitting, setSubmitting] = useState<boolean>(false)
   const [submitError, setSubmitError] = useState<boolean>(false)
@@ -42,7 +33,6 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
         setSubmitting(true)
         const formResponse = await submitFormAction(value)
         setSummaryItems(formResponse)
-        scrollToTop()
       } catch (e) {
         logger.error(`[Frontend] Feil ved innsending av kartleggingssporsmal: ${e}`)
         setSubmitError(true)
