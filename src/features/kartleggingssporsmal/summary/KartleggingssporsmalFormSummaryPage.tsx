@@ -7,6 +7,7 @@ import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert
 import { UsefulLinks } from '@/features/kartleggingssporsmal/summary/UsefulLinks'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
 import UxSignalsPanel from '@/components/ux-signals/UxSignalsPanel'
+import { isLocalOrDemo } from '@/env-variables/envHelpers'
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse
@@ -30,7 +31,7 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
 
       <KartleggingssporsmalFormSummary items={summaryItems} />
 
-      <UxSignalsPanel />
+      {!isLocalOrDemo && <UxSignalsPanel />}
 
       <UsefulLinks />
 
