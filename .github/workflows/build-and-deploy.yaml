@@ -14,3 +14,4 @@ jobs:
     with:
       app: bro-frontend
       base-path: /syk/kartleggingssporsmal
+      node-version: 24.x
