@@ -6,8 +6,7 @@ import { CONTACT_NAV_URL } from '@/constants'
 import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert'
 import { UsefulLinks } from '@/features/kartleggingssporsmal/summary/UsefulLinks'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import UxSignalsPanel from '@/components/ux-signals/UxSignalsPanel'
-import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { Flexjar } from '@/components/flexjar/flexjar'
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse
@@ -31,8 +30,6 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
 
       <KartleggingssporsmalFormSummary items={summaryItems} />
 
-      {!isLocalOrDemo && <UxSignalsPanel />}
-
       <UsefulLinks />
 
       <Heading size="medium" level="2">
@@ -45,6 +42,8 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
         </Link>{' '}
         (åpner i ny fane) hvis det skulle være noe du lurer på.
       </BodyShort>
+
+      <Flexjar />
     </VStack>
   )
 }
