@@ -10,10 +10,10 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.32.4",
-    "@navikt/ds-css": "^7.32.4",
-    "@navikt/ds-react": "^7.32.4",
-    "@navikt/ds-tailwind": "^7.32.4",
+    "@navikt/aksel-icons": "^7.34.0",
+    "@navikt/ds-css": "^7.34.0",
+    "@navikt/ds-react": "^7.34.0",
+    "@navikt/ds-tailwind": "^7.34.0",
     "@navikt/flexjar-widget": "^0.2.13",
     "@navikt/nav-dekoratoren-moduler": "^3.4.0",
     "@navikt/next-logger": "^4.4.1",
@@ -26,7 +26,7 @@
     "zod": "^4.1.5"
   },
   "devDependencies": {
-    "@navikt/aksel-stylelint": "^7.32.4",
+    "@navikt/aksel-stylelint": "^7.34.0",
     "@navikt/eslint-config-teamsykmelding": "8.1.1",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^24.3.1",
