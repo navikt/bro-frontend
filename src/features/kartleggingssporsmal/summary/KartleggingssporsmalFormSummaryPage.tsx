@@ -6,7 +6,7 @@ import { CONTACT_NAV_URL } from '@/constants'
 import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert'
 import { UsefulLinks } from '@/features/kartleggingssporsmal/summary/UsefulLinks'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import { Flexjar } from '@/components/flexjar/flexjar'
+import UxSignalsPanel from '@/components/ux-signals/UxSignalsPanel'
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse
@@ -15,6 +15,13 @@ type Props = {
 export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Props) {
   const summaryItems = mapFormSnapshotToSummaryItems(formResponse.formSnapshot.fieldSnapshots)
 
+  // Show UX signals only if at least one selected answer is NOT the first option for any question
+  const shouldShowUxSignals = formResponse.formSnapshot.fieldSnapshots.some((field): boolean => {
+    if (field.fieldType !== 'RADIO_GROUP') return false
+
+    return !field.options[0]?.wasSelected
+  })
+
   return (
     <VStack gap="space-12">
       <Heading size={'large'} level="1">
@@ -22,6 +29,8 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
       </Heading>
 
       <ThankYouAlert date={formResponse.createdAt} />
+
+      {shouldShowUxSignals && <UxSignalsPanel />}
 
       <BodyShort className="" spacing>
         Svarene dine gir Nav innsikt i hvordan vi skal følge deg opp fremover. Om vi ser behovet for tettere oppfølging
@@ -42,8 +51,6 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
         </Link>{' '}
         (åpner i ny fane) hvis det skulle være noe du lurer på.
       </BodyShort>
-
-      <Flexjar />
     </VStack>
   )
 }
