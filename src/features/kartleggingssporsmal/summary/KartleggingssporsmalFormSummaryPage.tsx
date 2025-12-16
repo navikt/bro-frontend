@@ -6,7 +6,7 @@ import { CONTACT_NAV_URL } from '@/constants'
 import ThankYouAlert from '@/features/kartleggingssporsmal/summary/ThankYouAlert'
 import { UsefulLinks } from '@/features/kartleggingssporsmal/summary/UsefulLinks'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import UxSignalsPanel from '@/components/ux-signals/UxSignalsPanel'
+import { Flexjar } from '@/components/flexjar/flexjar'
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse
@@ -24,13 +24,11 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
       <ThankYouAlert date={formResponse.createdAt} />
 
       <BodyShort className="" spacing>
-        Svarene dine gir Nav innsikt i hvordan vi skal følge deg opp fremover. Om vi ser behovet for tettere oppfølging
+        Svarene dine gir Naªv innsikt i hvordan vi skal følge deg opp fremover. Om vi ser behovet for tettere oppfølging
         enn det arbeidsgiveren din skal gi deg, vil du bli kontaktet av en Nav-veileder.
       </BodyShort>
 
       <KartleggingssporsmalFormSummary items={summaryItems} />
-
-      <UxSignalsPanel />
 
       <UsefulLinks />
 
@@ -44,6 +42,8 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
         </Link>{' '}
         (åpner i ny fane) hvis det skulle være noe du lurer på.
       </BodyShort>
+
+      <Flexjar />
     </VStack>
   )
 }
