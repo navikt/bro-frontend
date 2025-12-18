@@ -15,13 +15,6 @@ type Props = {
 export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Props) {
   const summaryItems = mapFormSnapshotToSummaryItems(formResponse.formSnapshot.fieldSnapshots)
 
-  // Show UX signals only if at least one selected answer is NOT the first option for any question
-  const shouldShowUxSignals = formResponse.formSnapshot.fieldSnapshots.some((field): boolean => {
-    if (field.fieldType !== 'RADIO_GROUP') return false
-
-    return !field.options[0]?.wasSelected
-  })
-
   return (
     <VStack gap="space-12">
       <Heading size={'large'} level="1">
@@ -29,8 +22,6 @@ export default function KartleggingssporsmalFormSummaryPage({ formResponse }: Pr
       </Heading>
 
       <ThankYouAlert date={formResponse.createdAt} />
-
-      {shouldShowUxSignals && <UxSignalsPanel />}
 
       <BodyShort className="" spacing>
         Svarene dine gir Nav innsikt i hvordan vi skal følge deg opp fremover. Om vi ser behovet for tettere oppfølging
