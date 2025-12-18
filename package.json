@@ -15,7 +15,7 @@
     "@navikt/ds-react": "^7.34.0",
     "@navikt/ds-tailwind": "^7.34.0",
     "@navikt/flexjar-widget": "^0.2.13",
-    "@navikt/nav-dekoratoren-moduler": "^3.6.0",
+    "@navikt/nav-dekoratoren-moduler": "^3.6.1",
     "@navikt/next-logger": "^4.4.1",
     "@navikt/oasis": "^3.8.0",
     "@tanstack/react-form": "^1.19.4",
