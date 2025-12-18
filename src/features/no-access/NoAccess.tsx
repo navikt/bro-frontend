@@ -1,7 +1,8 @@
-import { BodyShort, Box, Button, Heading, Link } from '@navikt/ds-react'
+import { BodyShort, Box, Heading } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
-import NextLink from 'next/link'
 import { CONTACT_NAV_URL } from '@/constants'
+import { TrackedLink } from '@/components/TrackedLink'
+import { TrackedButton } from '@/components/TrackedButton'
 
 function NoAccessInformation() {
   const logMessage = "User visited kartleggingsspørsmål page, but does not have access. Showing 'No access' page."
@@ -21,16 +22,25 @@ function NoAccessInformation() {
           <BodyShort>
             Hvis du mener det har skjedd en feil, prøv igjen senere. Hvis feilen vedvarer, ta kontakt med oss på tlf. 55
             55 33 33 eller på{' '}
-            <Link as={NextLink} target="_blank" href={CONTACT_NAV_URL}>
+            <TrackedLink
+              target="_blank"
+              href={CONTACT_NAV_URL}
+              analyticsTitle="skriv til oss her på nav.no"
+              analyticsContext="Ingen tilgang"
+            >
               skriv til oss her på nav.no
-            </Link>{' '}
+            </TrackedLink>{' '}
             (åpner i ny fane).
           </BodyShort>
         </div>
       </div>
-      <Button as="a" href="https://www.nav.no/minside">
+      <TrackedButton
+        href="https://www.nav.no/minside"
+        analyticsTitle="Gå til Min side"
+        analyticsContext="Ingen tilgang"
+      >
         Gå til Min side
-      </Button>
+      </TrackedButton>
     </Box>
   )
 }

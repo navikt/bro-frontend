@@ -1,7 +1,7 @@
-import { Box, Heading, Link, List } from '@navikt/ds-react'
+import { Box, Heading, List } from '@navikt/ds-react'
 import { ListItem } from '@navikt/ds-react/List'
-import NextLink from 'next/link'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { TrackedLink } from '@/components/TrackedLink'
 
 export function UsefulLinks() {
   return (
@@ -12,20 +12,26 @@ export function UsefulLinks() {
 
       <List>
         <ListItem>
-          <Link
-            as={NextLink}
+          <TrackedLink
             target="_blank"
             href="https://www.nav.no/sykmeldt#sykmeldiditt-ansvar-nar-du-er-sykmeldtngen"
+            analyticsTitle="Ditt ansvar når du er sykmeldt"
+            analyticsContext="Oppsummeringsside for kartleggingsspørsmål"
           >
             Ditt ansvar når du er sykmeldt
             <ExternalLinkIcon title="åpner i ny fane" />
-          </Link>
+          </TrackedLink>
         </ListItem>
         <ListItem>
-          <Link as={NextLink} target="_blank" href="https://www.nav.no/sykepenger#oppfolging">
+          <TrackedLink
+            target="_blank"
+            href="https://www.nav.no/sykepenger#oppfolging"
+            analyticsTitle="Arbeidsgiver sitt oppfølgingsansvar"
+            analyticsContext="Oppsummeringsside for kartleggingsspørsmål"
+          >
             Arbeidsgiver sitt oppfølgingsansvar
             <ExternalLinkIcon title="åpner i ny fane" />
-          </Link>
+          </TrackedLink>
         </ListItem>
       </List>
     </Box>

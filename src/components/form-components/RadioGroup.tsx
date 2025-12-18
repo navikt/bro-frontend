@@ -1,6 +1,7 @@
 import React from 'react'
-import { RadioGroup as AkselRadioGroup, Radio } from '@navikt/ds-react'
+import { Radio, RadioGroup as AkselRadioGroup } from '@navikt/ds-react'
 import { useFieldContext } from '@/hooks/form'
+import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
 
 type RadioOption = {
   id: string
@@ -21,7 +22,18 @@ export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
       legend={question.label}
       value={field.state.value}
       description={question.description}
-      onChange={(value) => field.handleChange(value)}
+      onChange={(value) => {
+        const selectedOption = question.options.find((o) => o.id === value)
+        logTaxonomyEvent({
+          name: 'radio valg endret',
+          properties: {
+            gruppeId: question.label,
+            valgtAlternativ: selectedOption?.label ?? value,
+            antallAlternativer: question.options.length,
+          },
+        })
+        field.handleChange(value)
+      }}
       onBlur={field.handleBlur}
       error={field.state.meta.errors[0]?.message}
     >
