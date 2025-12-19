@@ -1,8 +1,8 @@
 'use client'
 
 import {
-  kartleggingssporsmalFormDefaults,
   kartleggingsspormalFormQuestions,
+  kartleggingssporsmalFormDefaults,
   kartleggingssporsmalFormSchema,
 } from '@/forms/kartleggingssporsmalForm'
 import { useAppForm } from '@/hooks/form'
@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { logger } from '@navikt/next-logger'
 import { submitFormAction } from '@/services/meroppfolging/actions/submitFormAction'
 import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
 
 type Props = {
   setSummaryItems: (data: KartleggingssporsmalFormResponse) => void
@@ -41,10 +42,24 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
         setSubmitError(false)
         setSubmitting(true)
         const formResponse = await submitFormAction(value)
+        logTaxonomyEvent({
+          name: 'skjema fullført',
+          properties: {
+            skjemanavn: 'Kartlegging av din situasjon',
+            skjemaId: 'kartlegging-av-din-situasjon',
+          },
+        })
         setSummaryItems(formResponse)
         scrollToTop()
       } catch (e) {
         logger.error(`[Frontend] Feil ved innsending av kartleggingssporsmal: ${e}`)
+        logTaxonomyEvent({
+          name: 'skjema innsending feilet',
+          properties: {
+            skjemanavn: 'Kartlegging av din situasjon',
+            skjemaId: 'kartlegging-av-din-situasjon',
+          },
+        })
         setSubmitError(true)
       } finally {
         setSubmitting(false)
