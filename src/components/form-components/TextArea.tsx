@@ -1,6 +1,7 @@
 import React from 'react'
 import { Textarea } from '@navikt/ds-react'
 import { useFieldContext } from '@/hooks/form'
+import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
 
 export type TextQuestion = {
   label: string
@@ -23,7 +24,18 @@ export function TextArea({ question, rows = 3, maxLength = 500 }: TextAreaProps)
       description={question.description}
       value={field.state.value}
       onChange={(e) => field.handleChange(e.target.value)}
-      onBlur={field.handleBlur}
+      onBlur={(e) => {
+        logTaxonomyEvent({
+          name: 'textarea utfylt',
+          properties: {
+            komponentId: question.label,
+            tegnlengde: e.target.value.length,
+            harVerdi: e.target.value.length > 0,
+            feltNavn: question.label,
+          },
+        })
+        field.handleBlur()
+      }}
       rows={rows}
       maxLength={maxLength}
       error={field.state.meta.errors[0]?.message}

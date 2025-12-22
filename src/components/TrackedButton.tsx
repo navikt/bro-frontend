@@ -19,12 +19,12 @@ export function TrackedButton({
   analyticsContext,
   ...props
 }: TrackedButtonProps) {
-  return (
-    <Button
-      as="a"
-      href={href}
-      onClick={(e) => {
-        if (href) {
+  if (href) {
+    return (
+      <Button
+        as="a"
+        href={href}
+        onClick={(e) => {
           logTaxonomyEvent({
             name: 'link klikket',
             properties: {
@@ -35,7 +35,27 @@ export function TrackedButton({
               kontekst: analyticsContext,
             },
           })
-        }
+          onClick?.(e)
+        }}
+        {...props}
+      >
+        {children}
+      </Button>
+    )
+  }
+
+  return (
+    <Button
+      onClick={(e) => {
+        logTaxonomyEvent({
+          name: 'knapp klikket',
+          properties: {
+            tekst: analyticsTitle,
+            kontekst: analyticsContext,
+            variant: props.variant,
+            size: props.size,
+          },
+        })
         onClick?.(e)
       }}
       {...props}
