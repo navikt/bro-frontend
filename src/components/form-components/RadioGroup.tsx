@@ -27,7 +27,7 @@ export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
         logTaxonomyEvent({
           name: 'radio valg endret',
           properties: {
-            gruppeId: question.label,
+            komponentId: question.label,
             valgtAlternativ: selectedOption?.label ?? value,
             antallAlternativer: question.options.length,
           },

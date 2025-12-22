@@ -46,7 +46,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
           name: 'skjema fullført',
           properties: {
             skjemanavn: 'Kartlegging av din situasjon',
-            skjemaId: 'kartlegging-av-din-situasjon',
+            komponentId: 'kartlegging-av-din-situasjon',
           },
         })
         setSummaryItems(formResponse)
@@ -57,7 +57,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
           name: 'skjema innsending feilet',
           properties: {
             skjemanavn: 'Kartlegging av din situasjon',
-            skjemaId: 'kartlegging-av-din-situasjon',
+            komponentId: 'kartlegging-av-din-situasjon',
           },
         })
         setSubmitError(true)
