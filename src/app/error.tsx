@@ -1,7 +1,7 @@
 'use client'
 
 import React, { ReactElement, useEffect } from 'react'
-import { BodyShort, Box, Button, HGrid, Heading, Link, List, Page, VStack } from '@navikt/ds-react'
+import { BodyShort, BoxNew, Button, HGrid, Heading, Link, List, Page, VStack } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { CONTACT_NAV_URL } from '@/constants'
 
@@ -16,7 +16,7 @@ export default function Error({ error }: Props): ReactElement {
 
   return (
     <Page.Block as="main" width="xl" gutters>
-      <Box paddingBlock="20 8">
+      <BoxNew paddingBlock="20 8">
         <HGrid columns="minmax(auto,600px)" data-aksel-template="500-v2">
           <VStack gap="16">
             <VStack gap="12" align="start">
@@ -78,7 +78,7 @@ export default function Error({ error }: Props): ReactElement {
             </div>
           </VStack>
         </HGrid>
-      </Box>
+      </BoxNew>
     </Page.Block>
   )
 }

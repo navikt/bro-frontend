@@ -1,4 +1,4 @@
-import { BodyShort, Box, Heading } from '@navikt/ds-react'
+import { BodyShort, BoxNew, Heading } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { CONTACT_NAV_URL } from '@/constants'
 import { TrackedLink } from '@/components/TrackedLink'
@@ -9,8 +9,8 @@ function NoAccessInformation() {
   logger.warn(logMessage)
 
   return (
-    <Box className="md:pt-20 md:pb-16 flex flex-col gap-8 items-start">
-      <div className="flex flex-col md:flex-row gap-6 max-md:items-center">
+    <BoxNew className="md:pt-20 ax-md:pb-16 flex flex-col gap-8 items-start">
+      <div className="flex flex-col ax-md:flex-row gap-6 max-md:items-center">
         <div>
           <Heading level="1" size="large" spacing>
             Beklager, du kan ikke svare på dette skjemaet nå.
@@ -41,7 +41,7 @@ function NoAccessInformation() {
       >
         Gå til Min side
       </TrackedButton>
-    </Box>
+    </BoxNew>
   )
 }
 

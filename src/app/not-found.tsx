@@ -1,5 +1,5 @@
 import React from 'react'
-import { BodyShort, Box, Button, Heading, Link, List, VStack } from '@navikt/ds-react'
+import { BodyShort, BoxNew, Button, Heading, Link, List, VStack } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { BugIcon } from '@navikt/aksel-icons'
 import { ListItem } from '@navikt/ds-react/List'
@@ -7,7 +7,7 @@ import { ListItem } from '@navikt/ds-react/List'
 async function NotFound() {
   return (
     <PageBlock as="main" width="xl" gutters>
-      <Box paddingBlock="20 16" data-aksel-template="404-v2">
+      <BoxNew paddingBlock="20 16" data-aksel-template="404-v2">
         <VStack gap="16">
           <VStack gap="12" align="start">
             <div>
@@ -41,7 +41,7 @@ async function NotFound() {
             </BodyShort>
           </div>
         </VStack>
-      </Box>
+      </BoxNew>
     </PageBlock>
   )
 }

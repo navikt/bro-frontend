@@ -1,11 +1,11 @@
-import { Box, Heading, List } from '@navikt/ds-react'
+import { BoxNew, Heading, List } from '@navikt/ds-react'
 import { ListItem } from '@navikt/ds-react/List'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import { TrackedLink } from '@/components/TrackedLink'
 
 export function UsefulLinks() {
   return (
-    <Box>
+    <BoxNew>
       <Heading size="medium" level="2">
         Informasjon fra Nav som kan være nyttig for deg
       </Heading>
@@ -34,6 +34,6 @@ export function UsefulLinks() {
           </TrackedLink>
         </ListItem>
       </List>
-    </Box>
+    </BoxNew>
   )
 }
