@@ -2,8 +2,8 @@ import { logger } from '@navikt/next-logger'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getToken, validateToken } from '@navikt/oasis'
-import { BASE_PATH } from '../../next.config'
 import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { publicEnv } from '@/env-variables/publicEnv'
 
 export async function verifyUserLoggedIn(): Promise<string> {
   if (isLocalOrDemo) {
@@ -16,13 +16,13 @@ export async function verifyUserLoggedIn(): Promise<string> {
 
   if (!token) {
     logger.info('Found no token, redirecting to login')
-    redirect(`/oauth2/login?redirect=${BASE_PATH}`)
+    redirect(`/oauth2/login?redirect=${publicEnv.NEXT_PUBLIC_BASE_PATH}`)
   }
 
   const validationResult = await validateToken(token)
   if (!validationResult.ok) {
     logger.info('Invalid token, redirecting to login')
-    redirect(`/oauth2/login?redirect=${BASE_PATH}`)
+    redirect(`/oauth2/login?redirect=${publicEnv.NEXT_PUBLIC_BASE_PATH}`)
   }
 
   return token
