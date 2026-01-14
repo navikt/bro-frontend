@@ -1,3 +1,4 @@
+import { publicEnv } from '@/env-variables/publicEnv'
 import type { NextConfig } from 'next'
 
 const environment = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'prod' ? 'prod' : 'dev'
@@ -40,10 +41,10 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
   },
   reactStrictMode: true,
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  basePath: publicEnv.NEXT_PUBLIC_BASE_PATH,
   output: 'standalone',
   productionBrowserSourceMaps: true,
-  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
+  assetPrefix: publicEnv.NEXT_PUBLIC_ASSET_PREFIX,
 }
 
 export default nextConfig
