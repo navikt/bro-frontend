@@ -18,3 +18,5 @@ export function throwEnvSchemaParsingError(e: unknown): never {
 export const isDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'demo'
 
 export const isLocalOrDemo = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local' || isDemo
+
+export const environment = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'prod' ? 'prod' : 'dev'

@@ -1,7 +1,6 @@
+import { environment } from '@/env-variables/envHelpers'
 import { publicEnv } from '@/env-variables/publicEnv'
 import type { NextConfig } from 'next'
-
-const environment = process.env.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'prod' ? 'prod' : 'dev'
 
 const CSP_SOURCES = {
   self: "'self'",
@@ -44,7 +43,7 @@ const nextConfig: NextConfig = {
   basePath: publicEnv.NEXT_PUBLIC_BASE_PATH,
   output: 'standalone',
   productionBrowserSourceMaps: true,
-  assetPrefix: publicEnv.NEXT_PUBLIC_ASSET_PREFIX,
+  assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
 }
 
 export default nextConfig
