@@ -1,5 +1,4 @@
 import { environment } from '@/env-variables/envHelpers'
-import { publicEnv } from '@/env-variables/publicEnv'
 import type { NextConfig } from 'next'
 
 const CSP_SOURCES = {
@@ -40,7 +39,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
   },
   reactStrictMode: true,
-  basePath: publicEnv.NEXT_PUBLIC_BASE_PATH,
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   output: 'standalone',
   productionBrowserSourceMaps: true,
   assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
