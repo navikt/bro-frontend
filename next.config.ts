@@ -19,8 +19,6 @@ const appDirectives = {
   'connect-src': [CSP_SOURCES.self, 'https://*.nav.no', 'https://*.uxsignals.com'],
 }
 
-export const BASE_PATH = '/syk/kartleggingssporsmal'
-
 const nextConfig: NextConfig = {
   async headers() {
     const { buildCspHeader } = await import('@navikt/nav-dekoratoren-moduler/ssr')
@@ -42,7 +40,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
   },
   reactStrictMode: true,
-  basePath: BASE_PATH,
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
   output: 'standalone',
   productionBrowserSourceMaps: true,
   assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX,
