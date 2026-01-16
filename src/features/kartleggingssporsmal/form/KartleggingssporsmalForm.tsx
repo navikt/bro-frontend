@@ -83,9 +83,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions[
-                    "hvorSannsynligTilbakeTilJobben"
-                  ]
+                  kartleggingsspormalFormQuestions.hvorSannsynligTilbakeTilJobben
                 }
               />
             )}
@@ -94,9 +92,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions[
-                    "samarbeidOgRelasjonTilArbeidsgiver"
-                  ]
+                  kartleggingsspormalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver
                 }
               />
             )}
@@ -105,7 +101,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions["naarTilbakeTilJobben"]
+                  kartleggingsspormalFormQuestions.naarTilbakeTilJobben
                 }
               />
             )}
