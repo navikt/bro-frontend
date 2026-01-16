@@ -6,8 +6,8 @@ import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import {
-  kartleggingssporsmalFormQuestions,
   kartleggingssporsmalFormDefaults,
+  kartleggingssporsmalFormQuestions,
   kartleggingssporsmalFormSchema,
 } from "@/forms/kartleggingssporsmalForm";
 import { useAppForm } from "@/hooks/form";
