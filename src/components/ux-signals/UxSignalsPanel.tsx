@@ -1,10 +1,15 @@
-'use client'
+"use client";
 
-import useUxSignalsScript from '@/hooks/uxSignals'
-import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import { isLocalOrDemo } from "@/env-variables/envHelpers";
+import useUxSignalsScript from "@/hooks/uxSignals";
 
 export default function UxSignalsPanel() {
-  useUxSignalsScript(true)
+  useUxSignalsScript(true);
 
-  return <div data-uxsignals-embed="panel-emwigf91dw" data-uxsignals-mode={isLocalOrDemo ? 'demo' : ''} />
+  return (
+    <div
+      data-uxsignals-embed="panel-emwigf91dw"
+      data-uxsignals-mode={isLocalOrDemo ? "demo" : ""}
+    />
+  );
 }

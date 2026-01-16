@@ -1,27 +1,28 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
-import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
-import KartleggingssporsmalForm from './KartleggingssporsmalForm'
-import KartleggingssporsmalFormSummaryPage from '../summary/KartleggingssporsmalFormSummaryPage'
-import { KartleggingssporsmalFormResponse } from '@/services/meroppfolging/schemas/formSnapshotSchema'
+import { useEffect, useState } from "react";
+import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
+import KartleggingssporsmalForm from "./KartleggingssporsmalForm";
 
 interface Props {
-  topContent: React.ReactNode
+  topContent: React.ReactNode;
 }
 
 export default function KartleggingssporsmalFormPage({ topContent }: Props) {
-  const [formReponse, setFormResponse] = useState<KartleggingssporsmalFormResponse | null>(null)
+  const [formReponse, setFormResponse] =
+    useState<KartleggingssporsmalFormResponse | null>(null);
 
   useEffect(() => {
     logTaxonomyEvent({
-      name: 'skjema åpnet',
+      name: "skjema åpnet",
       properties: {
-        skjemanavn: 'Kartlegging av din situasjon',
-        komponentId: 'kartlegging-av-din-situasjon',
+        skjemanavn: "Kartlegging av din situasjon",
+        komponentId: "kartlegging-av-din-situasjon",
       },
-    })
-  }, [])
+    });
+  }, []);
 
   return formReponse ? (
     <KartleggingssporsmalFormSummaryPage formResponse={formReponse} />
@@ -31,5 +32,5 @@ export default function KartleggingssporsmalFormPage({ topContent }: Props) {
 
       <KartleggingssporsmalForm setSummaryItems={setFormResponse} />
     </>
-  )
+  );
 }

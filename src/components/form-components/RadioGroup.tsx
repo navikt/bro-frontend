@@ -1,21 +1,20 @@
-import React from 'react'
-import { Radio, RadioGroup as AkselRadioGroup } from '@navikt/ds-react'
-import { useFieldContext } from '@/hooks/form'
-import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
+import { RadioGroup as AkselRadioGroup, Radio } from "@navikt/ds-react";
+import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import { useFieldContext } from "@/hooks/form";
 
 type RadioOption = {
-  id: string
-  label: string
-}
+  id: string;
+  label: string;
+};
 export type RadioGroupQuestion = {
-  type: 'RADIO_GROUP'
-  label: string
-  description?: string
-  options: RadioOption[]
-}
+  type: "RADIO_GROUP";
+  label: string;
+  description?: string;
+  options: RadioOption[];
+};
 
 export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
-  const field = useFieldContext<string>()
+  const field = useFieldContext<string>();
 
   return (
     <AkselRadioGroup
@@ -23,16 +22,16 @@ export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
       value={field.state.value}
       description={question.description}
       onChange={(value) => {
-        const selectedOption = question.options.find((o) => o.id === value)
+        const selectedOption = question.options.find((o) => o.id === value);
         logTaxonomyEvent({
-          name: 'radio valg endret',
+          name: "radio valg endret",
           properties: {
             komponentId: question.label,
             valgtAlternativ: selectedOption?.label ?? value,
             antallAlternativer: question.options.length,
           },
-        })
-        field.handleChange(value)
+        });
+        field.handleChange(value);
       }}
       onBlur={field.handleBlur}
       error={field.state.meta.errors[0]?.message}
@@ -43,7 +42,7 @@ export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
         </Radio>
       ))}
     </AkselRadioGroup>
-  )
+  );
 }
 
-export default RadioGroup
+export default RadioGroup;

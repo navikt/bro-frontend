@@ -1,7 +1,7 @@
-import { BoxNew, Heading, List } from '@navikt/ds-react'
-import { ListItem } from '@navikt/ds-react/List'
-import { ExternalLinkIcon } from '@navikt/aksel-icons'
-import { TrackedLink } from '@/components/TrackedLink'
+import { ExternalLinkIcon } from "@navikt/aksel-icons";
+import { BoxNew, Heading, List } from "@navikt/ds-react";
+import { ListItem } from "@navikt/ds-react/List";
+import { TrackedLink } from "@/components/TrackedLink";
 
 export function UsefulLinks() {
   return (
@@ -35,5 +35,5 @@ export function UsefulLinks() {
         </ListItem>
       </List>
     </BoxNew>
-  )
+  );
 }

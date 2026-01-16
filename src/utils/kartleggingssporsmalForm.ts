@@ -1,48 +1,73 @@
-import { RadioGroupFieldSnapshot, FieldSnapshots } from '@/services/meroppfolging/schemas/formSnapshotSchema'
-import { kartleggingsspormalFormQuestions, KartleggingssporsmalForm } from '@/forms/kartleggingssporsmalForm'
-import { type FormSummaryItem } from '@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary'
+import type { FormSummaryItem } from "@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary";
+import {
+  type KartleggingssporsmalForm,
+  kartleggingssporsmalFormQuestions,
+} from "@/forms/kartleggingssporsmalForm";
+import type {
+  FieldSnapshots,
+  RadioGroupFieldSnapshot,
+} from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
 function withRadioFieldValues(values: KartleggingssporsmalForm) {
-  return <K extends keyof typeof kartleggingsspormalFormQuestions>(fieldId: K): RadioGroupFieldSnapshot => {
-    const question = kartleggingsspormalFormQuestions[fieldId]
-    const selectedId = values[fieldId]
+  return <K extends keyof typeof kartleggingssporsmalFormQuestions>(
+    fieldId: K,
+  ): RadioGroupFieldSnapshot => {
+    const question = kartleggingssporsmalFormQuestions[fieldId];
+    const selectedId = values[fieldId];
     return {
       fieldId,
       label: question.label,
-      fieldType: 'RADIO_GROUP',
+      fieldType: "RADIO_GROUP",
       options: question.options.map((option) => ({
         optionId: option.id,
         optionLabel: option.label,
         wasSelected: option.id === selectedId,
       })),
-    }
-  }
+    };
+  };
 }
 
-export function mapAppFormToSnapshot({ values }: { values: KartleggingssporsmalForm }): FieldSnapshots {
-  const mapRadio = withRadioFieldValues(values)
+export function mapAppFormToSnapshot({
+  values,
+}: {
+  values: KartleggingssporsmalForm;
+}): FieldSnapshots {
+  const mapRadio = withRadioFieldValues(values);
 
   return [
-    mapRadio('hvorSannsynligTilbakeTilJobben'),
-    mapRadio('samarbeidOgRelasjonTilArbeidsgiver'),
-    mapRadio('naarTilbakeTilJobben'),
-  ]
+    mapRadio("hvorSannsynligTilbakeTilJobben"),
+    mapRadio("samarbeidOgRelasjonTilArbeidsgiver"),
+    mapRadio("naarTilbakeTilJobben"),
+  ];
 }
 
-export function mapFormSnapshotToSummaryItems(snapshots: FieldSnapshots): FormSummaryItem[] {
+export function mapFormSnapshotToSummaryItems(
+  snapshots: FieldSnapshots,
+): FormSummaryItem[] {
   return snapshots.map((field) => {
     switch (field.fieldType) {
-      case 'RADIO_GROUP':
-        const selectedOption = field.options.find((option) => option.wasSelected)
+      case "RADIO_GROUP": {
+        const selectedOption = field.options.find(
+          (option) => option.wasSelected,
+        );
         return {
+          id: field.fieldId,
           label: field.label,
-          value: selectedOption?.optionLabel || '',
-        }
-      case 'TEXT':
+          value: selectedOption?.optionLabel || "",
+        };
+      }
+      case "TEXT":
         return {
+          id: field.fieldId,
           label: field.label,
           value: field.value,
-        }
+        };
+      // Missing 'fieldType' causes a compile-time error if we use the following check:
+      // https://gibbok.github.io/typescript-book/book/exhaustiveness-checking/
+      default: {
+        const _exhaustiveCheck: never = field;
+        return _exhaustiveCheck;
+      }
     }
-  })
+  });
 }

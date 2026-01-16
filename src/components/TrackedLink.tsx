@@ -1,37 +1,44 @@
-'use client'
+"use client";
 
-import { Link, LinkProps } from '@navikt/ds-react'
-import { logTaxonomyEvent } from '@/analytics/logTaxonomyEvent'
-import NextLink from 'next/link'
-import { isExternalUrl } from '@/utils/url'
+import { Link, type LinkProps } from "@navikt/ds-react";
+import NextLink from "next/link";
+import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import { isExternalUrl } from "@/utils/url";
 
 interface TrackedLinkProps extends LinkProps {
-  href: string
-  analyticsTitle: string
-  analyticsContext?: string
+  href: string;
+  analyticsTitle: string;
+  analyticsContext?: string;
 }
 
-export function TrackedLink({ href, children, onClick, analyticsTitle, analyticsContext, ...props }: TrackedLinkProps) {
+export function TrackedLink({
+  href,
+  children,
+  onClick,
+  analyticsTitle,
+  analyticsContext,
+  ...props
+}: TrackedLinkProps) {
   return (
     <Link
       as={NextLink}
       href={href}
       onClick={(e) => {
         logTaxonomyEvent({
-          name: 'link klikket',
+          name: "link klikket",
           properties: {
             tekst: analyticsTitle,
             href: href,
-            apnerINyttVindu: props.target === '_blank',
+            apnerINyttVindu: props.target === "_blank",
             erEkstern: isExternalUrl(href),
             kontekst: analyticsContext,
           },
-        })
-        onClick?.(e)
+        });
+        onClick?.(e);
       }}
       {...props}
     >
       {children}
     </Link>
-  )
+  );
 }

@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { EventName, type TaxonomyEvent } from '@navikt/analytics-types'
-import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler'
-import { isLocalOrDemo } from '@/env-variables/envHelpers'
+import type { EventName, TaxonomyEvent } from "@navikt/analytics-types";
+import { getAnalyticsInstance } from "@navikt/nav-dekoratoren-moduler";
+import { isLocalOrDemo } from "@/env-variables/envHelpers";
 
-const logger = getAnalyticsInstance('bro-frontend')
+const logger = getAnalyticsInstance("bro-frontend");
 
 export function logTaxonomyEvent<K extends EventName>(event: TaxonomyEvent<K>) {
   if (isLocalOrDemo) {
-    console.log('Taxonomy event logged:', event)
-    return
+    console.log("Taxonomy event logged:", event);
+    return;
   }
 
-  logger(event.name, event.properties)
+  logger(event.name, event.properties);
 }
