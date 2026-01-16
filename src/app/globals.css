@@ -1,12 +1,11 @@
 @import "tailwindcss";
 @import "@navikt/ds-css/darkside";
-@config '../../tailwind.config.js';
 
 .uxsignals-embed .uxsignals-cta:hover {
-    background-color: #3b82f6;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  background-color: #3b82f6;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 div.uxsignals-container {
-    background-color: lightyellow;
+  background-color: lightyellow;
 }
