@@ -62,6 +62,12 @@ export function mapFormSnapshotToSummaryItems(
           label: field.label,
           value: field.value,
         };
+      // Missing 'fieldType' causes a compile-time error if we use the following check:
+      // https://gibbok.github.io/typescript-book/book/exhaustiveness-checking/
+      default: {
+        const _exhaustiveCheck: never = field;
+        return _exhaustiveCheck;
+      }
     }
   });
 }
