@@ -6,7 +6,7 @@ import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import {
-  kartleggingsspormalFormQuestions,
+  kartleggingssporsmalFormQuestions,
   kartleggingssporsmalFormDefaults,
   kartleggingssporsmalFormSchema,
 } from "@/forms/kartleggingssporsmalForm";
@@ -83,7 +83,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions.hvorSannsynligTilbakeTilJobben
+                  kartleggingssporsmalFormQuestions.hvorSannsynligTilbakeTilJobben
                 }
               />
             )}
@@ -92,7 +92,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver
+                  kartleggingssporsmalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver
                 }
               />
             )}
@@ -101,7 +101,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
             {(field) => (
               <field.RadioGroup
                 question={
-                  kartleggingsspormalFormQuestions.naarTilbakeTilJobben
+                  kartleggingssporsmalFormQuestions.naarTilbakeTilJobben
                 }
               />
             )}

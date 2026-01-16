@@ -1,7 +1,7 @@
 import { type ZodType, z } from "zod/v4";
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
 
-export const kartleggingsspormalFormQuestions = {
+export const kartleggingssporsmalFormQuestions = {
   hvorSannsynligTilbakeTilJobben: {
     type: "RADIO_GROUP",
     label:
@@ -32,12 +32,12 @@ export const kartleggingsspormalFormQuestions = {
 } as const satisfies Record<string, RadioGroupQuestion>;
 
 type KartleggingsspormalFormQuestionId =
-  keyof typeof kartleggingsspormalFormQuestions;
+  keyof typeof kartleggingssporsmalFormQuestions;
 
 function getOptionIds<T extends KartleggingsspormalFormQuestionId>(
   fieldId: T,
-): (typeof kartleggingsspormalFormQuestions)[T]["options"][number]["id"][] {
-  const question = kartleggingsspormalFormQuestions[fieldId];
+): (typeof kartleggingssporsmalFormQuestions)[T]["options"][number]["id"][] {
+  const question = kartleggingssporsmalFormQuestions[fieldId];
   return question.options.map((option) => option.id);
 }
 

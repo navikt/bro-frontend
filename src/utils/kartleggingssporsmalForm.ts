@@ -1,7 +1,7 @@
 import type { FormSummaryItem } from "@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummary";
 import {
   type KartleggingssporsmalForm,
-  kartleggingsspormalFormQuestions,
+  kartleggingssporsmalFormQuestions,
 } from "@/forms/kartleggingssporsmalForm";
 import type {
   FieldSnapshots,
@@ -9,10 +9,10 @@ import type {
 } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
 function withRadioFieldValues(values: KartleggingssporsmalForm) {
-  return <K extends keyof typeof kartleggingsspormalFormQuestions>(
+  return <K extends keyof typeof kartleggingssporsmalFormQuestions>(
     fieldId: K,
   ): RadioGroupFieldSnapshot => {
-    const question = kartleggingsspormalFormQuestions[fieldId];
+    const question = kartleggingssporsmalFormQuestions[fieldId];
     const selectedId = values[fieldId];
     return {
       fieldId,
