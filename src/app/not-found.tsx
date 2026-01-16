@@ -10,7 +10,6 @@ import {
 } from "@navikt/ds-react";
 import { ListItem } from "@navikt/ds-react/List";
 import { PageBlock } from "@navikt/ds-react/Page";
-import React from "react";
 
 async function NotFound() {
   return (

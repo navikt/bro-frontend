@@ -12,7 +12,7 @@ import {
   VStack,
 } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
-import React, { type ReactElement, useEffect } from "react";
+import { type ReactElement, useEffect } from "react";
 import { CONTACT_NAV_URL } from "@/constants";
 
 type Props = {

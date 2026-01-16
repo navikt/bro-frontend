@@ -1,5 +1,4 @@
 import { RadioGroup as AkselRadioGroup, Radio } from "@navikt/ds-react";
-import React from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import { useFieldContext } from "@/hooks/form";
 
