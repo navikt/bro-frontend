@@ -51,12 +51,14 @@ export function mapFormSnapshotToSummaryItems(
           (option) => option.wasSelected,
         );
         return {
+          id: field.fieldId,
           label: field.label,
           value: selectedOption?.optionLabel || "",
         };
       }
       case "TEXT":
         return {
+          id: field.fieldId,
           label: field.label,
           value: field.value,
         };

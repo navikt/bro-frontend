@@ -9,6 +9,7 @@ import {
 } from "@navikt/ds-react/FormSummary";
 
 export type FormSummaryItem = {
+  id: string;
   label: string;
   value: string;
 };
@@ -24,8 +25,8 @@ export default function KartleggingssporsmalFormSummary({ items }: Props) {
         <FormSummaryHeading level="2">Dette svarte du</FormSummaryHeading>
       </FormSummaryHeader>
       <FormSummaryAnswers>
-        {items.map((it, idx) => (
-          <FormSummaryAnswer key={idx}>
+        {items.map((it) => (
+          <FormSummaryAnswer key={it.id}>
             <FormSummaryLabel>{it.label}</FormSummaryLabel>
             <FormSummaryValue>{it.value}</FormSummaryValue>
           </FormSummaryAnswer>
