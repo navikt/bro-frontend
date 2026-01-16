@@ -1,13 +1,13 @@
-'use client'
+"use client";
 
-import { PropsWithChildren } from 'react'
-import { configureLogger } from '@navikt/next-logger'
-import { publicEnv } from '@/env-variables/publicEnv'
+import { configureLogger } from "@navikt/next-logger";
+import type { PropsWithChildren } from "react";
+import { publicEnv } from "@/env-variables/publicEnv";
 
 configureLogger({
   basePath: publicEnv.NEXT_PUBLIC_BASE_PATH,
-})
+});
 
 export default function Providers({ children }: PropsWithChildren) {
-  return children
+  return children;
 }

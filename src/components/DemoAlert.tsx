@@ -1,5 +1,5 @@
-import React from 'react'
-import { Alert, BodyShort } from '@navikt/ds-react'
+import { Alert, BodyShort } from "@navikt/ds-react";
+import React from "react";
 
 export default function DemoAlert() {
   return (
@@ -10,5 +10,5 @@ export default function DemoAlert() {
         </BodyShort>
       </Alert>
     </div>
-  )
+  );
 }

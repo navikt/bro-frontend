@@ -1,10 +1,10 @@
-import 'server-only'
+import "server-only";
 
-import { z } from 'zod'
-import { PublicEnv, publicEnvSchema, rawPublicEnv } from './publicEnv'
-import { throwEnvSchemaParsingError } from './envHelpers'
+import { z } from "zod";
+import { throwEnvSchemaParsingError } from "./envHelpers";
+import { type PublicEnv, publicEnvSchema, rawPublicEnv } from "./publicEnv";
 
-export type ServerEnv = z.infer<typeof serverEnvSchema>
+export type ServerEnv = z.infer<typeof serverEnvSchema>;
 export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
   MEROPPFOLGING_BACKEND_URL: z.string(),
@@ -17,7 +17,7 @@ export const serverEnvSchema = z.object({
   IDPORTEN_WELL_KNOWN_URL: z.string(),
   IDPORTEN_CLIENT_ID: z.string(),
   NAIS_CLUSTER_NAME: z.string(),
-})
+});
 
 const rawServerEnv = {
   // Provided by nais-*.yml
@@ -32,9 +32,9 @@ const rawServerEnv = {
   IDPORTEN_WELL_KNOWN_URL: process.env.IDPORTEN_WELL_KNOWN_URL,
   IDPORTEN_CLIENT_ID: process.env.IDPORTEN_CLIENT_ID,
   NAIS_CLUSTER_NAME: process.env.NAIS_CLUSTER_NAME,
-} satisfies Record<keyof ServerEnv, string | undefined>
+} satisfies Record<keyof ServerEnv, string | undefined>;
 
-let cachedServerEnv: Readonly<ServerEnv & PublicEnv> | undefined
+let cachedServerEnv: Readonly<ServerEnv & PublicEnv> | undefined;
 
 /**
  * Validates server and public environment variables against zod schemas that define the
@@ -49,10 +49,10 @@ export function getServerEnv(): Readonly<ServerEnv & PublicEnv> {
       cachedServerEnv = Object.freeze({
         ...serverEnvSchema.parse(rawServerEnv),
         ...publicEnvSchema.parse(rawPublicEnv),
-      })
+      });
     } catch (e) {
-      throwEnvSchemaParsingError(e)
+      throwEnvSchemaParsingError(e);
     }
   }
-  return cachedServerEnv
+  return cachedServerEnv;
 }

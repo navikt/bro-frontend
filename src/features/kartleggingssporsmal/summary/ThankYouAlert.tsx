@@ -1,5 +1,5 @@
-import { Alert, BodyShort, Heading } from '@navikt/ds-react'
-import { dateToLongFormat } from '@/utils/date'
+import { Alert, BodyShort, Heading } from "@navikt/ds-react";
+import { dateToLongFormat } from "@/utils/date";
 
 export default function ThankYouAlert({ date }: { date: Date | null }) {
   return (
@@ -10,5 +10,5 @@ export default function ThankYouAlert({ date }: { date: Date | null }) {
 
       {date && <BodyShort>Sendt: {dateToLongFormat(date)}</BodyShort>}
     </Alert>
-  )
+  );
 }

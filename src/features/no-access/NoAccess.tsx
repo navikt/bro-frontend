@@ -1,12 +1,13 @@
-import { BodyShort, BoxNew, Heading } from '@navikt/ds-react'
-import { logger } from '@navikt/next-logger'
-import { CONTACT_NAV_URL } from '@/constants'
-import { TrackedLink } from '@/components/TrackedLink'
-import { TrackedButton } from '@/components/TrackedButton'
+import { BodyShort, BoxNew, Heading } from "@navikt/ds-react";
+import { logger } from "@navikt/next-logger";
+import { TrackedButton } from "@/components/TrackedButton";
+import { TrackedLink } from "@/components/TrackedLink";
+import { CONTACT_NAV_URL } from "@/constants";
 
 function NoAccessInformation() {
-  const logMessage = "User visited kartleggingsspørsmål page, but does not have access. Showing 'No access' page."
-  logger.warn(logMessage)
+  const logMessage =
+    "User visited kartleggingsspørsmål page, but does not have access. Showing 'No access' page.";
+  logger.warn(logMessage);
 
   return (
     <BoxNew className="md:pt-20 ax-md:pb-16 flex flex-col gap-8 items-start">
@@ -16,12 +17,13 @@ function NoAccessInformation() {
             Beklager, du kan ikke svare på dette skjemaet nå.
           </Heading>
           <BodyShort spacing>
-            Dette skjemaet er ikke åpnet for deg. Skjemaet skal være åpnet dersom du er sykmeldt mellom 6 og 9 uker, og
-            du har fått et varsel som lenker hit.
+            Dette skjemaet er ikke åpnet for deg. Skjemaet skal være åpnet
+            dersom du er sykmeldt mellom 6 og 9 uker, og du har fått et varsel
+            som lenker hit.
           </BodyShort>
           <BodyShort>
-            Hvis du mener det har skjedd en feil, prøv igjen senere. Hvis feilen vedvarer, ta kontakt med oss på tlf. 55
-            55 33 33 eller på{' '}
+            Hvis du mener det har skjedd en feil, prøv igjen senere. Hvis feilen
+            vedvarer, ta kontakt med oss på tlf. 55 55 33 33 eller på{" "}
             <TrackedLink
               target="_blank"
               href={CONTACT_NAV_URL}
@@ -29,7 +31,7 @@ function NoAccessInformation() {
               analyticsContext="Ingen tilgang"
             >
               skriv til oss her på nav.no
-            </TrackedLink>{' '}
+            </TrackedLink>{" "}
             (åpner i ny fane).
           </BodyShort>
         </div>
@@ -42,7 +44,7 @@ function NoAccessInformation() {
         Gå til Min side
       </TrackedButton>
     </BoxNew>
-  )
+  );
 }
 
-export default NoAccessInformation
+export default NoAccessInformation;
