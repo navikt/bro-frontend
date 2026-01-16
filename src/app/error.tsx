@@ -19,7 +19,7 @@ type Props = {
   error: Error;
 };
 
-export default function Error({ error }: Props): ReactElement {
+export default function ErrorPage({ error }: Props): ReactElement {
   useEffect(() => {
     logger.error(`Displaying 500-page. Error message: ${error.message}`);
   }, [error]);
