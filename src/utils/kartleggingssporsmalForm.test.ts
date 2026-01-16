@@ -83,16 +83,19 @@ describe("kartleggingssporsmalForm utils", () => {
       const summary = mapFormSnapshotToSummaryItems(fieldSnapshotsFixture);
       expect(summary).toEqual([
         {
+          id: "hvorSannsynligTilbakeTilJobben",
           label:
             "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
           value: "Jeg tror det er veldig sannsynlig",
         },
         {
+          id: "samarbeidOgRelasjonTilArbeidsgiver",
           label:
             "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
           value: "Jeg opplever forholdet vårt som godt",
         },
         {
+          id: "naarTilbakeTilJobben",
           label: "Hvor lenge tror du at du har behov for å være sykmeldt?",
           value: "Mindre enn 26 uker (6 måneder) totalt",
         },
