@@ -22,7 +22,7 @@
     "@navikt/oasis": "^3.8.0",
     "@tanstack/react-form": "^1.27.7",
     "next": "15.5.9",
-    "pino": "^10.0.0",
+    "pino": "^10.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "zod": "^4.3.5"
