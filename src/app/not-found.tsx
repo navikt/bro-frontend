@@ -14,9 +14,9 @@ import { PageBlock } from "@navikt/ds-react/Page";
 async function NotFound() {
   return (
     <PageBlock as="main" width="xl" gutters>
-      <Box paddingBlock="space-20 space-16" data-aksel-template="404-v2">
-        <VStack gap="space-16">
-          <VStack gap="space-12" align="start">
+      <Box paddingBlock="space-24 space-16" data-aksel-template="404-v2">
+        <VStack gap="space-24">
+          <VStack gap="space-16" align="start">
             <div>
               <Heading level="1" size="large" spacing>
                 Beklager, vi fant ikke siden
