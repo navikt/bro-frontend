@@ -1,4 +1,4 @@
-import { BodyShort, BoxNew, Heading } from "@navikt/ds-react";
+import { BodyShort, Box, Heading, VStack } from "@navikt/ds-react";
 import { logger } from "@navikt/next-logger";
 import { TrackedButton } from "@/components/TrackedButton";
 import { TrackedLink } from "@/components/TrackedLink";
@@ -10,8 +10,8 @@ function NoAccessInformation() {
   logger.warn(logMessage);
 
   return (
-    <BoxNew className="md:pt-20 ax-md:pb-16 flex flex-col gap-8 items-start">
-      <div className="flex flex-col ax-md:flex-row gap-6 max-md:items-center">
+    <Box paddingBlock={{ xs: "space-8", md: "space-20" }}>
+      <VStack gap="space-8" align="start">
         <div>
           <Heading level="1" size="large" spacing>
             Beklager, du kan ikke svare på dette skjemaet nå.
@@ -35,15 +35,15 @@ function NoAccessInformation() {
             (åpner i ny fane).
           </BodyShort>
         </div>
-      </div>
-      <TrackedButton
-        href="https://www.nav.no/minside"
-        analyticsTitle="Gå til Min side"
-        analyticsContext="Ingen tilgang"
-      >
-        Gå til Min side
-      </TrackedButton>
-    </BoxNew>
+        <TrackedButton
+          href="https://www.nav.no/minside"
+          analyticsTitle="Gå til Min side"
+          analyticsContext="Ingen tilgang"
+        >
+          Gå til Min side
+        </TrackedButton>
+      </VStack>
+    </Box>
   );
 }
 

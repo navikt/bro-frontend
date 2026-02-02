@@ -11,11 +11,11 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@navikt/aksel-icons": "^7.37.0",
+    "@navikt/aksel-icons": "^8.2.0",
     "@navikt/analytics-types": "^0.0.6",
-    "@navikt/ds-css": "^7.37.0",
-    "@navikt/ds-react": "^7.37.0",
-    "@navikt/ds-tailwind": "^7.37.0",
+    "@navikt/ds-css": "^8.2.0",
+    "@navikt/ds-react": "^8.2.0",
+    "@navikt/ds-tailwind": "^8.2.0",
     "@navikt/flexjar-widget": "^0.2.14",
     "@navikt/nav-dekoratoren-moduler": "^3.6.1",
     "@navikt/next-logger": "^4.5.0",

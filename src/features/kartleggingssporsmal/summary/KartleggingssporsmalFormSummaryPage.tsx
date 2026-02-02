@@ -20,7 +20,7 @@ export default function KartleggingssporsmalFormSummaryPage({
   );
 
   return (
-    <VStack gap="space-12">
+    <VStack gap="space-24">
       <Heading size={"large"} level="1">
         Kartlegging av din situasjon
       </Heading>
@@ -40,6 +40,7 @@ export default function KartleggingssporsmalFormSummaryPage({
       <Heading size="medium" level="2">
         Har du andre spørsmål?
       </Heading>
+
       <BodyShort spacing>
         Du kan ta kontakt med oss på telefon 55 55 33 33 eller{" "}
         <TrackedLink

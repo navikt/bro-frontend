@@ -19,6 +19,7 @@ Look for common v7 leftovers:
 
 - `@navikt/ds-css/darkside`
 - `BoxNew`
+- Numeric spacing strings (v7 style): `gap="16"`, `gap="12"`, `paddingBlock="20 8"`, `paddingBlock="20 16"`
 - Deprecated variants: `"danger"`, `"tertiary-neutral"`, `"secondary-neutral"`
 - Tailwind spacing utilities in Aksel layouts (`p-`, `m-`, `gap-`, `space-`)
 

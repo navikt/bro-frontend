@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@navikt/ds-css/darkside";
+@import "@navikt/ds-css";
 
 .uxsignals-embed .uxsignals-cta:hover {
   background-color: #3b82f6;

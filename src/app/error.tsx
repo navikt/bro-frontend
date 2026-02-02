@@ -2,7 +2,7 @@
 
 import {
   BodyShort,
-  BoxNew,
+  Box,
   Button,
   Heading,
   HGrid,
@@ -26,10 +26,10 @@ export default function ErrorPage({ error }: Props): ReactElement {
 
   return (
     <Page.Block as="main" width="xl" gutters>
-      <BoxNew paddingBlock="20 8">
+      <Box paddingBlock="space-24 space-16">
         <HGrid columns="minmax(auto,600px)" data-aksel-template="500-v2">
-          <VStack gap="16">
-            <VStack gap="12" align="start">
+          <VStack gap="space-24">
+            <VStack gap="space-16" align="start">
               <div>
                 <BodyShort textColor="subtle" size="small">
                   Statuskode 500
@@ -90,7 +90,7 @@ export default function ErrorPage({ error }: Props): ReactElement {
             </div>
           </VStack>
         </HGrid>
-      </BoxNew>
+      </Box>
     </Page.Block>
   );
 }

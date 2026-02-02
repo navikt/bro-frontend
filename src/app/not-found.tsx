@@ -1,7 +1,7 @@
 import { BugIcon } from "@navikt/aksel-icons";
 import {
   BodyShort,
-  BoxNew,
+  Box,
   Button,
   Heading,
   Link,
@@ -14,9 +14,9 @@ import { PageBlock } from "@navikt/ds-react/Page";
 async function NotFound() {
   return (
     <PageBlock as="main" width="xl" gutters>
-      <BoxNew paddingBlock="20 16" data-aksel-template="404-v2">
-        <VStack gap="16">
-          <VStack gap="12" align="start">
+      <Box paddingBlock="space-24 space-16" data-aksel-template="404-v2">
+        <VStack gap="space-24">
+          <VStack gap="space-16" align="start">
             <div>
               <Heading level="1" size="large" spacing>
                 Beklager, vi fant ikke siden
@@ -54,7 +54,7 @@ async function NotFound() {
             </BodyShort>
           </div>
         </VStack>
-      </BoxNew>
+      </Box>
     </PageBlock>
   );
 }

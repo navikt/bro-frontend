@@ -1,18 +1,23 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 export function throwEnvSchemaParsingError(e: unknown): never {
   if (e instanceof z.ZodError) {
+    const invalidPaths = Array.from(
+      new Set(e.issues.map((it) => it.path.join(".")).filter(Boolean)),
+    );
+    const missingPaths = e.issues
+      .filter(
+        (it) =>
+          it.code === "invalid_type" &&
+          it.message.includes("received undefined"),
+      )
+      .map((it) => it.path.join("."))
+      .filter(Boolean);
+
     throw new Error(
-      `The following envs are missing: ${
-        e.issues
-          .filter(
-            (it) =>
-              it.code === "invalid_type" &&
-              it.message.includes("received undefined"),
-          )
-          .map((it) => it.path.join("."))
-          .join(", ") || "None are missing, but zod is not happy. Look at cause"
-      }`,
+      missingPaths.length > 0
+        ? `The following envs are missing: ${missingPaths.join(", ")}`
+        : `Invalid env value(s): ${invalidPaths.join(", ") || "Unknown"}`,
       { cause: e },
     );
   } else {
