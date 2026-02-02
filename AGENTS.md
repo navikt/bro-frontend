@@ -19,6 +19,7 @@ When you need help from another domain:
 - Env validation: `src/env-variables/*`
 - Services: `src/services/*`
 - NAIS config: `nais/*`
+- Lumi survey: `src/components/lumi/*`, `src/app/api/lumi/*`
 
 ## Commands
 

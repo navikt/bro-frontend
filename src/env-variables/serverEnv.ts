@@ -8,8 +8,8 @@ export type ServerEnv = z.infer<typeof serverEnvSchema>;
 export const serverEnvSchema = z.object({
   // Provided by nais-*.yaml
   MEROPPFOLGING_BACKEND_URL: z.string(),
-  FLEXJAR_BACKEND_HOST: z.string(),
-  FLEXJAR_BACKEND_CLIENT_ID: z.string(),
+  LUMI_API_HOST: z.string(),
+  LUMI_API_CLIENT_ID: z.string(),
   // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: z.string(),
   TOKEN_X_CLIENT_ID: z.string(),
@@ -22,8 +22,8 @@ export const serverEnvSchema = z.object({
 const rawServerEnv = {
   // Provided by nais-*.yml
   MEROPPFOLGING_BACKEND_URL: process.env.MEROPPFOLGING_BACKEND_URL,
-  FLEXJAR_BACKEND_HOST: process.env.FLEXJAR_BACKEND_HOST,
-  FLEXJAR_BACKEND_CLIENT_ID: process.env.FLEXJAR_BACKEND_CLIENT_ID,
+  LUMI_API_HOST: process.env.LUMI_API_HOST,
+  LUMI_API_CLIENT_ID: process.env.LUMI_API_CLIENT_ID,
 
   // Provided by nais
   TOKEN_X_WELL_KNOWN_URL: process.env.TOKEN_X_WELL_KNOWN_URL,
