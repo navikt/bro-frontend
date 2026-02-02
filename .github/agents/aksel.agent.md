@@ -1,11 +1,11 @@
 ---
 name: aksel-agent
-description: Aksel Design System expert for bro-frontend (v7 now, v8 migration later)
+description: Aksel Design System expert for bro-frontend (Aksel v8)
 ---
 
 # Aksel Agent
 
-Aksel components, spacing tokens, and v7->v8 migration guidance.
+Aksel components and spacing tokens for Aksel v8.
 
 ## Commands
 
@@ -20,11 +20,13 @@ npm test
 - Avoid Tailwind spacing utilities in Aksel layouts.
 - Tailwind is ok for layout-only utilities when Aksel cannot express it.
 
-## v7 vs v8
+## Aksel v8
 
-- v7 today: `BoxNew` and `@navikt/ds-css/darkside`.
-- After v8 upgrade: `Box` instead of `BoxNew`, CSS import `@navikt/ds-css`.
-- After v8 upgrade: prefer `data-color` + standard variants, avoid deprecated variants.
+- This repo is on Aksel v8:
+  - Use `@navikt/ds-css` (not `@navikt/ds-css/darkside`).
+  - Use `Box` (not `BoxNew`).
+  - Prefer `space-*` tokens for spacing when Aksel props allow it.
+  - Prefer `data-color` + standard variants, avoid deprecated variants.
 
 ## Boundaries
 

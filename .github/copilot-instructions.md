@@ -18,7 +18,7 @@ Prefer one primary agent per task. If needed, switch primary agent or delegate e
 - TypeScript strict
 - Biome for lint/format
 - Vitest for tests
-- Aksel v7 today, v8 upgrade planned
+- Aksel v8
 - Tailwind v4 preset via `@navikt/ds-tailwind`
 - Auth: OASIS + TokenX OBO + IdPorten sidecar
 - Logging: `@navikt/next-logger`
@@ -40,11 +40,11 @@ npm run build
 - Use Zod for input and response validation.
 - Use `@navikt/next-logger` for server-side logs.
 
-## Aksel v7 vs v8
+## Aksel v8
 
-- Today: v7 patterns are in use (`BoxNew`, `@navikt/ds-css/darkside`).
-- After the v8 upgrade: update Aksel rules in `./.github/instructions/aksel.instructions.md` and the v8 review prompt.
-- Do not introduce v8-only patterns before the upgrade is completed.
+- Use `@navikt/ds-css` (not `@navikt/ds-css/darkside`).
+- Use `Box` (not `BoxNew`).
+- Prefer `space-*` tokens for spacing when Aksel props allow it.
 
 ## Instruction maintenance
 
@@ -54,7 +54,7 @@ npm run build
 ## Use these agents when relevant
 
 - `nextjs-agent`: App Router, RSC/client boundaries, route handlers.
-- `aksel-agent`: Aksel components, spacing, v7->v8 migration.
+- `aksel-agent`: Aksel components and spacing tokens (v8).
 - `auth-agent`: OASIS, TokenX, IdPorten, auth boundaries.
 
 ## Use these prompts when relevant

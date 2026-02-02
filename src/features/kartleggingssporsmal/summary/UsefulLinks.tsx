@@ -1,12 +1,12 @@
-import { ExternalLinkIcon } from "@navikt/aksel-icons";
-import { BoxNew, Heading, List } from "@navikt/ds-react";
-import { ListItem } from "@navikt/ds-react/List";
-import { TrackedLink } from "@/components/TrackedLink";
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
+import { Box, Heading, List } from '@navikt/ds-react'
+import { ListItem } from '@navikt/ds-react/List'
+import { TrackedLink } from '@/components/TrackedLink'
 
 export function UsefulLinks() {
   return (
-    <BoxNew>
-      <Heading size="medium" level="2">
+    <Box>
+      <Heading size="medium" level="2" spacing>
         Informasjon fra Nav som kan være nyttig for deg
       </Heading>
 
@@ -34,6 +34,6 @@ export function UsefulLinks() {
           </TrackedLink>
         </ListItem>
       </List>
-    </BoxNew>
-  );
+    </Box>
+  )
 }
