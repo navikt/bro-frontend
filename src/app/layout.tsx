@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import "@navikt/flexjar-widget/styles.css";
+import "@navikt/lumi-survey/styles.css";
 
 import { Box, Page } from "@navikt/ds-react";
 import { PageBlock } from "@navikt/ds-react/Page";

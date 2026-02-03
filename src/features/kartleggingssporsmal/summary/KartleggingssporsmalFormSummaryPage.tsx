@@ -1,5 +1,5 @@
 import { BodyShort, Heading, VStack } from "@navikt/ds-react";
-import { Flexjar } from "@/components/flexjar/flexjar";
+import { Lumi } from "@/components/lumi/lumi";
 import { TrackedLink } from "@/components/TrackedLink";
 import { CONTACT_NAV_URL } from "@/constants";
 import ThankYouAlert from "@/features/kartleggingssporsmal/summary/ThankYouAlert";
@@ -54,7 +54,7 @@ export default function KartleggingssporsmalFormSummaryPage({
         (åpner i ny fane) hvis det skulle være noe du lurer på.
       </BodyShort>
 
-      <Flexjar />
+      <Lumi />
     </VStack>
   );
 }

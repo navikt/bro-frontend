@@ -46,8 +46,16 @@ spec:
   env:
     - name: MEROPPFOLGING_BACKEND_URL
       value: http://meroppfolging-backend
+    - name: NEXT_PUBLIC_RUNTIME_ENVIRONMENT
+      value: demo
+    - name: LUMI_API_HOST
+      value: "http://lumi-api"
+    - name: LUMI_API_CLIENT_ID
+      value: dev-gcp:team-esyfo:lumi-api
   accessPolicy:
     outbound:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: meroppfolging-backend
+        - application: lumi-api

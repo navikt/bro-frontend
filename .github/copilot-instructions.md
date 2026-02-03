@@ -56,9 +56,10 @@ npm run build
 - `nextjs-agent`: App Router, RSC/client boundaries, route handlers.
 - `aksel-agent`: Aksel components and spacing tokens (v8).
 - `auth-agent`: OASIS, TokenX, IdPorten, auth boundaries.
+- `lumi-agent`: Lumi Survey integration (widget, transport, TokenX forwarding).
 
 ## Use these prompts when relevant
 
-- `aksel-v8-migration-review`
 - `new-route-handler`
 - `new-env-var`
+- `lumi-transport`
