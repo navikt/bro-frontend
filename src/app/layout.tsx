@@ -1,7 +1,7 @@
 import "@/app/globals.css";
 import "@navikt/flexjar-widget/styles.css";
 
-import { Page } from "@navikt/ds-react";
+import { Box, Page } from "@navikt/ds-react";
 import { PageBlock } from "@navikt/ds-react/Page";
 import { Theme } from "@navikt/ds-react/Theme";
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
@@ -59,14 +59,27 @@ const RootLayout = async ({
       <body>
         <Theme theme="light">
           <Providers>
-            <Page footer={<Decorator.Footer />}>
-              <Decorator.Header />
-              <PageBlock as="main" width="lg" className="max-w-3xl" gutters>
-                {isDemo && <DemoAlert />}
-                {children}
-              </PageBlock>
-              <Decorator.Scripts loader={Script} />
-            </Page>
+            <Box background="sunken" asChild>
+              <Page
+                footer={<Decorator.Footer />}
+                contentBlockPadding="none"
+                className="page-surface-layout"
+              >
+                <Decorator.Header />
+                <div className="page-surface">
+                  <PageBlock
+                    as="main"
+                    width="lg"
+                    className="page-surface__main"
+                    gutters
+                  >
+                    {isDemo && <DemoAlert />}
+                    {children}
+                  </PageBlock>
+                </div>
+                <Decorator.Scripts loader={Script} />
+              </Page>
+            </Box>
           </Providers>
         </Theme>
       </body>
