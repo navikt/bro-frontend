@@ -36,7 +36,7 @@ run = "pnpm run format"
 [tasks.format-fix]
 description = "Run Biome to fix code style issues"
 depends = ["install"]
-run = "pnpm exec biome check --fix"
+run = "pnpm biome check --fix"
 
 [tasks.check]
 description = "Run lint and all tests"
