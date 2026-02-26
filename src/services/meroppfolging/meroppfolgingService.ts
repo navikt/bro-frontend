@@ -37,9 +37,6 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
       },
     });
     const json = await res.json();
-    logger.info(
-      `[Backend] Fetched kandidat status with response: ${JSON.stringify(json)}`,
-    );
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
       logger.error(
