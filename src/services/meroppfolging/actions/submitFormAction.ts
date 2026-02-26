@@ -20,7 +20,8 @@ export async function submitFormAction(
   const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
   if (!parsed.success) {
     logger.error(
-      `[Backend] Failed to parse kartleggingsspørsmål on post with error: ${z.prettifyError(parsed.error)}`,
+      { validationIssues: z.prettifyError(parsed.error) },
+      "[Backend] Failed to parse kartleggingsspørsmål on post",
     );
     throw new Error(
       "Invalid form values when submitting kartleggingssporsmal form",
@@ -69,8 +70,13 @@ export async function submitFormAction(
 
     const parsed = submitKartleggingssporsmalResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${z.prettifyError(parsed.error)}`;
-      logger.error(formattedErrorText);
+      logger.error(
+        {
+          url: url.toString(),
+          validationIssues: z.prettifyError(parsed.error),
+        },
+        "[Backend] Parsing failed on post response",
+      );
 
       throw new Error(
         "Invalid response when posting kartleggingssporsmal form",
@@ -79,7 +85,10 @@ export async function submitFormAction(
 
     return parsed.data;
   } catch (error) {
-    logger.error(`[Backend] Failed to fetch from ${url}: with error: ${error}`);
+    logger.error(
+      { err: error, url: url.toString() },
+      "[Backend] Failed to fetch while posting kartleggingssporsmal form",
+    );
 
     throw new Error(`Error on posting kartleggingssporsmal form.`);
   }

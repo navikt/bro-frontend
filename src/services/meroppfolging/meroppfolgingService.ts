@@ -42,14 +42,22 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
     );
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${z.prettifyError(parsed.error)}`;
-      logger.error(formattedErrorText);
+      logger.error(
+        {
+          url: url.toString(),
+          validationIssues: z.prettifyError(parsed.error),
+        },
+        "[Backend] Parsing failed on kandidat-status response",
+      );
       throw new Error("Invalid response when fetching kandidat status");
     }
 
     return parsed.data;
   } catch (error) {
-    logger.error(`[Backend] Failed to fetch from ${url}: with error: ${error}`);
+    logger.error(
+      { err: error, url: url.toString() },
+      "[Backend] Failed to fetch kandidat status",
+    );
 
     throw new Error(`Error on fetching kandidat status.`);
   }
