@@ -40,7 +40,7 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
 
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedIssues = z.treeifyError(parsed.error);
+      const formattedIssues = z.prettifyError(parsed.error);
       const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${formattedIssues}`;
       logger.error(formattedErrorText);
 
