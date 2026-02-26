@@ -1,4 +1,5 @@
 import { logger } from "@navikt/next-logger";
+import z from "zod";
 import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
@@ -39,7 +40,8 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
 
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${parsed.error.issues}`;
+      const formattedIssues = z.treeifyError(parsed.error);
+      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${formattedIssues}`;
       logger.error(formattedErrorText);
 
       throw new Error("Invalid response when fetching kandidat status");
