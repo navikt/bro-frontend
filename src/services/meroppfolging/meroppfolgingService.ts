@@ -37,16 +37,10 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
       },
     });
     const json = await res.json();
-    logger.info(
-      `[Backend] Fetched kandidat status with response: ${JSON.stringify(json)}`,
-    );
-
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedIssues = z.prettifyError(parsed.error);
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${formattedIssues}`;
+      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${z.prettifyError(parsed.error)}`;
       logger.error(formattedErrorText);
-
       throw new Error("Invalid response when fetching kandidat status");
     }
 

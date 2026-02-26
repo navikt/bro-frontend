@@ -1,6 +1,7 @@
 "use server";
 
 import { logger } from "@navikt/next-logger";
+import z from "zod";
 import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
@@ -19,7 +20,7 @@ export async function submitFormAction(
   const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
   if (!parsed.success) {
     logger.error(
-      `[Backend] Failed to parse kartleggingsspørsmål on post with error: ${parsed.error.issues}`,
+      `[Backend] Failed to parse kartleggingsspørsmål on post with error: ${z.prettifyError(parsed.error)}`,
     );
     throw new Error(
       "Invalid form values when submitting kartleggingssporsmal form",
@@ -68,7 +69,7 @@ export async function submitFormAction(
 
     const parsed = submitKartleggingssporsmalResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${parsed.error.issues}`;
+      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${z.prettifyError(parsed.error)}`;
       logger.error(formattedErrorText);
 
       throw new Error(
