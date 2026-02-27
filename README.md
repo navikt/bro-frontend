@@ -26,6 +26,8 @@ Brukeren svarer på tre spørsmål, og svarene brukes av Nav i videre oppfølgin
 - Viser skjema når det ikke finnes tidligere svar
 - Viser oppsummering når skjema allerede er besvart
 
+**basePath**[^basepath] `/syk/kartleggingssporsmal`
+
 ## Backend-API
 
 ### Meroppfølging backend
@@ -53,3 +55,5 @@ Brukte endepunkter:
 For å komme i gang med bygging og kjøring av appen, les vår [wiki for Next.js-applikasjoner](https://github.com/navikt/esyfo-dev-tools/wiki/nextjs-build-run).
 
 Når appen er startet, åpne http://localhost:3000/syk/kartleggingssporsmal
+
+[^basepath]: `basePath`-verdien settes i Next.js-konfigurasjonen i `next.config.ts` og angir URL-prefikset som hele appen lever under.
