@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     const parsed = inputSchema.safeParse(json);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: "Invalid request", issues: parsed.error.issues },
+        { error: "Invalid request", issues: z.prettifyError(parsed.error) },
         { status: 400 },
       );
     }

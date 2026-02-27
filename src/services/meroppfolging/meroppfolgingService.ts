@@ -1,4 +1,5 @@
 import { logger } from "@navikt/next-logger";
+import z from "zod";
 import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
@@ -36,18 +37,24 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
       },
     });
     const json = await res.json();
-
     const parsed = kandidatStatusResponseSchema.safeParse(json);
     if (!parsed.success) {
-      const formattedErrorText = `[backend] Parsing failed on url: ${url} with zod issues: ${parsed.error.issues}`;
-      logger.error(formattedErrorText);
-
+      logger.error(
+        {
+          url: url.toString(),
+          validationIssues: z.prettifyError(parsed.error),
+        },
+        "[Backend] Parsing failed on kandidat-status response",
+      );
       throw new Error("Invalid response when fetching kandidat status");
     }
 
     return parsed.data;
   } catch (error) {
-    logger.error(`[Backend] Failed to fetch from ${url}: with error: ${error}`);
+    logger.error(
+      { err: error, url: url.toString() },
+      "[Backend] Failed to fetch kandidat status",
+    );
 
     throw new Error(`Error on fetching kandidat status.`);
   }
