@@ -19,7 +19,7 @@
 
 ## Formålet med appen
 
-Appen brukes til kartlegging av situasjonen til personer som har vært sykmeldt en stund, mellom 6 og 9 uker.
+Appen brukes til kartlegging av situasjonen til personer som har vært sykmeldt mellom 6 og 9 uker.
 Brukeren svarer på tre spørsmål, og svarene brukes av Nav i videre oppfølging.
 
 - Henter kandidatstatus for å avgjøre om brukeren kan svare på skjemaet. Hvis den sykmeldte ikke er kandidat for behovsrettet oppfølging, vises siden "Ingen tilgang".
