@@ -44,7 +44,7 @@ Brukte endepunkter:
 
 [Lumi repo](https://github.com/navikt/lumi)
 
-Personvernlig survey etter kandidat har sendt inn svarene.
+Personvernlig survey etter at kandidaten har sendt inn svarene.
 
 Brukte endepunkter:
 - **POST** `/api/lumi/feedback` (intern route i frontend)
