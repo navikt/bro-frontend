@@ -32,7 +32,7 @@ Brukeren svarer på tre spørsmål, og svarene brukes av Nav i videre oppfølgin
 
 ### Meroppfølging backend
 
-Backend for hente kandidat status og sende karleggingsspørsmål.
+Backend for å hente kandidat status og sende kartleggingsspørsmål.
 
 [Meroppfølging backend repo](https://github.com/navikt/meroppfolging-backend)
 
