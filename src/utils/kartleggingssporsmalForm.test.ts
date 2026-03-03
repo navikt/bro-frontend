@@ -20,6 +20,7 @@ describe("kartleggingssporsmalForm utils", () => {
           fieldId: "hvorSannsynligTilbakeTilJobben",
           label:
             "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
+          description: null,
           fieldType: "RADIO_GROUP",
           options: [
             {
@@ -43,6 +44,7 @@ describe("kartleggingssporsmalForm utils", () => {
           fieldId: "samarbeidOgRelasjonTilArbeidsgiver",
           label:
             "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
+          description: "Svaret blir ikke delt med din arbeidsgiver.",
           fieldType: "RADIO_GROUP",
           options: [
             {
@@ -60,6 +62,7 @@ describe("kartleggingssporsmalForm utils", () => {
         {
           fieldId: "naarTilbakeTilJobben",
           label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
+          description: null,
           fieldType: "RADIO_GROUP",
           options: [
             {
