@@ -17,6 +17,7 @@ function withRadioFieldValues(values: KartleggingssporsmalForm) {
     return {
       fieldId,
       label: question.label,
+      description: question.description,
       fieldType: "RADIO_GROUP",
       options: question.options.map((option) => ({
         optionId: option.id,

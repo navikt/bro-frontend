@@ -6,6 +6,7 @@ export const kartleggingssporsmalFormQuestions = {
     type: "RADIO_GROUP",
     label:
       "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
+    description: null,
     options: [
       { id: "1a", label: "Jeg tror det er veldig sannsynlig" },
       { id: "1b", label: "Jeg tror det er lite sannsynlig" },
@@ -16,6 +17,7 @@ export const kartleggingssporsmalFormQuestions = {
     type: "RADIO_GROUP",
     label:
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
+    description: "Svaret blir ikke delt med din arbeidsgiver.",
     options: [
       { id: "2a", label: "Jeg opplever samarbeidet og relasjonen som god" },
       { id: "2b", label: "Jeg opplever samarbeidet og relasjonen som dårlig" },
@@ -24,6 +26,7 @@ export const kartleggingssporsmalFormQuestions = {
   naarTilbakeTilJobben: {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
+    description: null,
     options: [
       { id: "3a", label: "Mindre enn seks måneder" },
       { id: "3b", label: "Mer enn seks måneder" },
