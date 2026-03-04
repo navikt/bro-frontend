@@ -9,7 +9,7 @@ type RadioOption = {
 export type RadioGroupQuestion = {
   type: "RADIO_GROUP";
   label: string;
-  description?: string;
+  description: string | null;
   options: RadioOption[];
 };
 

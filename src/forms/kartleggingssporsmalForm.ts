@@ -6,7 +6,7 @@ export const kartleggingssporsmalFormQuestions = {
     type: "RADIO_GROUP",
     label:
       "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
-    description: undefined,
+    description: null,
     options: [
       { id: "1a", label: "Jeg tror det er veldig sannsynlig" },
       { id: "1b", label: "Jeg tror det er lite sannsynlig" },
@@ -26,7 +26,7 @@ export const kartleggingssporsmalFormQuestions = {
   naarTilbakeTilJobben: {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
-    description: undefined,
+    description: null,
     options: [
       { id: "3a", label: "Mindre enn seks måneder" },
       { id: "3b", label: "Mer enn seks måneder" },
