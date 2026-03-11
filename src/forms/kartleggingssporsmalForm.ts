@@ -1,7 +1,8 @@
 import { type ZodType, z } from "zod/v4";
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
+import type { TextQuestion } from "@/components/form-components/TextArea";
 
-export const kartleggingssporsmalFormQuestions = {
+const radioGroupQuestions = {
   hvorSannsynligTilbakeTilJobben: {
     type: "RADIO_GROUP",
     label:
@@ -34,36 +35,75 @@ export const kartleggingssporsmalFormQuestions = {
   },
 } as const satisfies Record<string, RadioGroupQuestion>;
 
-type KartleggingsspormalFormQuestionId =
+const textQuestions = {
+  hvorSannsynligTilbakeTilJobbenBegrunnelse: {
+    type: "TEXT",
+    label:
+      "Hvis du ønsker det kan du her utdype svaret ditt på forrige spørmsål. Det er valgfritt.",
+    description: "Svaret blir ikke delt med arbeidsgiveren din.",
+  },
+} as const satisfies Record<string, TextQuestion>;
+
+export const kartleggingssporsmalFormQuestions = {
+  ...radioGroupQuestions,
+  ...textQuestions,
+} as const;
+
+export type KartleggingsspormalFormQuestionId =
   keyof typeof kartleggingssporsmalFormQuestions;
 
-function getOptionIds<T extends KartleggingsspormalFormQuestionId>(
-  fieldId: T,
-): (typeof kartleggingssporsmalFormQuestions)[T]["options"][number]["id"][] {
-  const question = kartleggingssporsmalFormQuestions[fieldId];
-  return question.options.map((option) => option.id);
+export const fieldIdsDisplayOrder: KartleggingsspormalFormQuestionId[] = [
+  "hvorSannsynligTilbakeTilJobben",
+  "hvorSannsynligTilbakeTilJobbenBegrunnelse",
+  "samarbeidOgRelasjonTilArbeidsgiver",
+  "naarTilbakeTilJobben",
+];
+
+function getRadioGroupOptionIds(
+  radioFieldId: keyof typeof radioGroupQuestions,
+) {
+  return radioGroupQuestions[radioFieldId].options.map((option) => option.id);
 }
 
 export const kartleggingssporsmalFormSchema = z.object({
   hvorSannsynligTilbakeTilJobben: z.enum(
-    getOptionIds("hvorSannsynligTilbakeTilJobben"),
+    getRadioGroupOptionIds("hvorSannsynligTilbakeTilJobben"),
     "Feltet er påkrevd",
   ),
+  hvorSannsynligTilbakeTilJobbenBegrunnelse: z.string(),
   samarbeidOgRelasjonTilArbeidsgiver: z.enum(
-    getOptionIds("samarbeidOgRelasjonTilArbeidsgiver"),
+    getRadioGroupOptionIds("samarbeidOgRelasjonTilArbeidsgiver"),
     "Feltet er påkrevd",
   ),
   naarTilbakeTilJobben: z.enum(
-    getOptionIds("naarTilbakeTilJobben"),
+    getRadioGroupOptionIds("naarTilbakeTilJobben"),
     "Feltet er påkrevd",
   ),
 } satisfies Record<KartleggingsspormalFormQuestionId, ZodType>);
+
 export type KartleggingssporsmalForm = z.infer<
   typeof kartleggingssporsmalFormSchema
 >;
 
-export const kartleggingssporsmalFormDefaults = {
-  hvorSannsynligTilbakeTilJobben: "",
-  samarbeidOgRelasjonTilArbeidsgiver: "",
-  naarTilbakeTilJobben: "",
+export function shouldIncludeTilbakeTilJobbBegrunnelseField(
+  hvorSannsynligTilbakeTilJobben:
+    | KartleggingssporsmalForm["hvorSannsynligTilbakeTilJobben"]
+    | "",
+): boolean {
+  return (
+    hvorSannsynligTilbakeTilJobben === "1b" ||
+    hvorSannsynligTilbakeTilJobben === "1c"
+  );
+}
+
+type KartleggingssporsmalFormAlsoUnfilled = {
+  [K in keyof KartleggingssporsmalForm]: KartleggingssporsmalForm[K] | "";
 };
+
+export const kartleggingssporsmalFormDefaults: KartleggingssporsmalFormAlsoUnfilled =
+  {
+    hvorSannsynligTilbakeTilJobben: "",
+    hvorSannsynligTilbakeTilJobbenBegrunnelse: "",
+    samarbeidOgRelasjonTilArbeidsgiver: "",
+    naarTilbakeTilJobben: "",
+  };

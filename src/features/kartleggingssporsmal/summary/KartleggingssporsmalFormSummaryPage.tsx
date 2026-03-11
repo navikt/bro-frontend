@@ -5,7 +5,6 @@ import { CONTACT_NAV_URL } from "@/constants";
 import ThankYouAlert from "@/features/kartleggingssporsmal/summary/ThankYouAlert";
 import { UsefulLinks } from "@/features/kartleggingssporsmal/summary/UsefulLinks";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import { mapFormSnapshotToSummaryItems } from "@/utils/kartleggingssporsmalForm";
 import KartleggingssporsmalFormSummary from "./KartleggingssporsmalFormSummary";
 
 type Props = {
@@ -13,19 +12,15 @@ type Props = {
 };
 
 export default function KartleggingssporsmalFormSummaryPage({
-  formResponse,
+  formResponse: { formSnapshot, createdAt },
 }: Props) {
-  const summaryItems = mapFormSnapshotToSummaryItems(
-    formResponse.formSnapshot.fieldSnapshots,
-  );
-
   return (
     <VStack gap="space-24">
       <Heading size={"large"} level="1">
         Kartlegging av din situasjon
       </Heading>
 
-      <ThankYouAlert date={formResponse.createdAt} />
+      <ThankYouAlert date={createdAt} />
 
       <BodyShort className="" spacing>
         Svarene dine gir Nav innsikt i hvordan vi skal følge deg opp fremover.
@@ -33,7 +28,7 @@ export default function KartleggingssporsmalFormSummaryPage({
         gi deg, vil du bli kontaktet av en Nav-veileder.
       </BodyShort>
 
-      <KartleggingssporsmalFormSummary items={summaryItems} />
+      <KartleggingssporsmalFormSummary formSnapshot={formSnapshot} />
 
       <UsefulLinks />
 

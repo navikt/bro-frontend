@@ -4,7 +4,7 @@ import { useFieldContext } from "@/hooks/form";
 
 export type TextQuestion = {
   label: string;
-  description?: string;
+  description: string | null;
   type: "TEXT";
 };
 

@@ -71,6 +71,24 @@ export const kartleggingssporsmalFormResponseFixture = {
 
 export const kartleggingssporsmalFormFixture: KartleggingssporsmalForm = {
   hvorSannsynligTilbakeTilJobben: "1a",
+  hvorSannsynligTilbakeTilJobbenBegrunnelse: "",
+  samarbeidOgRelasjonTilArbeidsgiver: "2a",
+  naarTilbakeTilJobben: "3a",
+};
+
+export const kartleggingssporsmalFormFixture2: KartleggingssporsmalForm = {
+  hvorSannsynligTilbakeTilJobben: "1b",
+  hvorSannsynligTilbakeTilJobbenBegrunnelse:
+    "Jeg tror det er lite sannsynlig fordi de ikke kan tilrettelegge for meg.",
+  samarbeidOgRelasjonTilArbeidsgiver: "2a",
+  naarTilbakeTilJobben: "3a",
+};
+
+// This kind of form value can happen if user selects "1b" or "1c" for first question, and then fills out the begrunnelse field, but then goes back and changes first answer to "1a". In this case, the begrunnelse field will disappear and should not be included in the snapshot.
+export const kartleggingssporsmalFormFixture3: KartleggingssporsmalForm = {
+  hvorSannsynligTilbakeTilJobben: "1a",
+  hvorSannsynligTilbakeTilJobbenBegrunnelse:
+    "Dette skal ikke inkluderes i snapshot siden første svar er 1a.",
   samarbeidOgRelasjonTilArbeidsgiver: "2a",
   naarTilbakeTilJobben: "3a",
 };

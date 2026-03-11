@@ -6,9 +6,11 @@ import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import {
+  fieldIdsDisplayOrder,
   kartleggingssporsmalFormDefaults,
   kartleggingssporsmalFormQuestions,
   kartleggingssporsmalFormSchema,
+  shouldIncludeTilbakeTilJobbBegrunnelseField,
 } from "@/forms/kartleggingssporsmalForm";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
@@ -79,33 +81,39 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
     >
       <form.AppForm>
         <div className="grid gap-4 mb-4">
-          <form.AppField name="hvorSannsynligTilbakeTilJobben">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.hvorSannsynligTilbakeTilJobben
+          <form.Subscribe
+            selector={(state) => state.values.hvorSannsynligTilbakeTilJobben}
+          >
+            {(hvorSannsynligTilbakeTilJobben) => {
+              const includeJobbBegrunnelseField =
+                shouldIncludeTilbakeTilJobbBegrunnelseField(
+                  hvorSannsynligTilbakeTilJobben,
+                );
+
+              return fieldIdsDisplayOrder.map((fieldId) => {
+                if (
+                  fieldId === "hvorSannsynligTilbakeTilJobbenBegrunnelse" &&
+                  !includeJobbBegrunnelseField
+                ) {
+                  return null;
                 }
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="samarbeidOgRelasjonTilArbeidsgiver">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver
-                }
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="naarTilbakeTilJobben">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.naarTilbakeTilJobben
-                }
-              />
-            )}
-          </form.AppField>
+
+                const question = kartleggingssporsmalFormQuestions[fieldId];
+
+                return (
+                  <form.AppField key={fieldId} name={fieldId}>
+                    {(field) =>
+                      question.type === "RADIO_GROUP" ? (
+                        <field.RadioGroup question={question} />
+                      ) : (
+                        <field.TextArea question={question} />
+                      )
+                    }
+                  </form.AppField>
+                );
+              });
+            }}
+          </form.Subscribe>
         </div>
 
         {submitError && (

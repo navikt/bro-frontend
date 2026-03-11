@@ -6,6 +6,7 @@ type RadioOption = {
   id: string;
   label: string;
 };
+
 export type RadioGroupQuestion = {
   type: "RADIO_GROUP";
   label: string;
