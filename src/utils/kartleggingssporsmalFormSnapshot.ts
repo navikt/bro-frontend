@@ -1,9 +1,7 @@
-import {
-  fieldIdsDisplayOrder,
-  type KartleggingssporsmalForm,
-  kartleggingssporsmalFormQuestions,
-  shouldIncludeTilbakeTilJobbBegrunnelseField,
-} from "@/forms/kartleggingssporsmalForm";
+import { shouldIncludeTilbakeTilJobbBegrunnelseField } from "@/forms/kartleggingssporsmal/conditional-fields-logic";
+import { fieldIdsDisplayOrder } from "@/forms/kartleggingssporsmal/fieldIdsDisplayOrder";
+import { kartleggingssporsmalFormQuestions } from "@/forms/kartleggingssporsmal/formQuestions";
+import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
 import type {
   FieldSnapshots,
   FormSnapshot,

@@ -5,12 +5,10 @@ import { logger } from "@navikt/next-logger";
 import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import {
-  fieldIdsDisplayOrder,
-  kartleggingssporsmalFormQuestions,
-  kartleggingssporsmalFormSchema,
-  shouldIncludeTilbakeTilJobbBegrunnelseField,
-} from "@/forms/kartleggingssporsmalForm";
+import { shouldIncludeTilbakeTilJobbBegrunnelseField } from "@/forms/kartleggingssporsmal/conditional-fields-logic";
+import { fieldIdsDisplayOrder } from "@/forms/kartleggingssporsmal/fieldIdsDisplayOrder";
+import { kartleggingssporsmalFormQuestions } from "@/forms/kartleggingssporsmal/formQuestions";
+import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
