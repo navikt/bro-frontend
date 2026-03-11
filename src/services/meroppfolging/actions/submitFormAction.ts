@@ -28,11 +28,11 @@ export async function submitFormAction(
     );
   }
 
-  const fieldSnapshots = mapAppFormToSnapshot({ values: parsed.data });
+  const formSnapshot = mapAppFormToSnapshot({ values: parsed.data });
 
   if (isLocalOrDemo) {
     return {
-      formSnapshot: { fieldSnapshots: fieldSnapshots },
+      formSnapshot,
       createdAt: new Date(),
     };
   }
@@ -48,12 +48,7 @@ export async function submitFormAction(
   );
 
   const payload: FormSnapshotRequest = {
-    formSnapshot: {
-      formIdentifier: "kartleggingsporsmal",
-      formSemanticVersion: "1.0.0",
-      formSnapshotVersion: "1.0.0",
-      fieldSnapshots: fieldSnapshots,
-    },
+    formSnapshot,
   };
 
   try {

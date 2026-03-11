@@ -1,21 +1,19 @@
 import { describe, expect, it } from "vitest";
 import {
-  fieldSnapshotsFixture,
   kartleggingssporsmalFormFixture,
+  kartleggingssporsmalFormFixture2,
+  kartleggingssporsmalFormFixture3,
 } from "@/mocks/fixture/form";
-import {
-  mapAppFormToSnapshot,
-  mapFormSnapshotToSummaryItems,
-} from "@/utils/kartleggingssporsmalForm";
+import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalForm";
 
 describe("kartleggingssporsmalForm utils", () => {
   describe("mapAppFormToSnapshot", () => {
     it("should map form values to fieldSnapshots", () => {
-      const snapshots = mapAppFormToSnapshot({
+      const formSnapshot = mapAppFormToSnapshot({
         values: kartleggingssporsmalFormFixture,
       });
 
-      expect(snapshots).toEqual([
+      expect(formSnapshot.fieldSnapshots).toEqual([
         {
           fieldId: "hvorSannsynligTilbakeTilJobben",
           label:
@@ -79,30 +77,97 @@ describe("kartleggingssporsmalForm utils", () => {
         },
       ]);
     });
-  });
 
-  describe("mapFormSnapshotToSummaryItems", () => {
-    it("should produce summary items object from fieldSnapshots", () => {
-      const summary = mapFormSnapshotToSummaryItems(fieldSnapshotsFixture);
-      expect(summary).toEqual([
+    it("should map form values to fieldSnapshots", () => {
+      const formSnapshot = mapAppFormToSnapshot({
+        values: kartleggingssporsmalFormFixture2,
+      });
+
+      expect(formSnapshot.fieldSnapshots).toEqual([
         {
-          id: "hvorSannsynligTilbakeTilJobben",
+          fieldId: "hvorSannsynligTilbakeTilJobben",
           label:
             "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
-          value: "Jeg tror det er veldig sannsynlig",
+          description: null,
+          fieldType: "RADIO_GROUP",
+          options: [
+            {
+              optionId: "1a",
+              optionLabel: "Jeg tror det er veldig sannsynlig",
+              wasSelected: false,
+            },
+            {
+              optionId: "1b",
+              optionLabel: "Jeg tror det er lite sannsynlig",
+              wasSelected: true,
+            },
+            {
+              optionId: "1c",
+              optionLabel: "Jeg er usikker",
+              wasSelected: false,
+            },
+          ],
         },
         {
-          id: "samarbeidOgRelasjonTilArbeidsgiver",
+          fieldId: "hvorSannsynligTilbakeTilJobbenBegrunnelse",
+          label:
+            "Hvis du ønsker det kan du her utdype svaret ditt på forrige spørmsål. Det er valgfritt.",
+          description: "Svaret blir ikke delt med arbeidsgiveren din.",
+          fieldType: "TEXT",
+          value:
+            "Jeg tror det er lite sannsynlig fordi de ikke kan tilrettelegge for meg.",
+        },
+        {
+          fieldId: "samarbeidOgRelasjonTilArbeidsgiver",
           label:
             "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
-          value: "Jeg opplever forholdet vårt som godt",
+          description: "Svaret blir ikke delt med din arbeidsgiver.",
+          fieldType: "RADIO_GROUP",
+          options: [
+            {
+              optionId: "2a",
+              optionLabel: "Jeg opplever samarbeidet og relasjonen som god",
+              wasSelected: true,
+            },
+            {
+              optionId: "2b",
+              optionLabel: "Jeg opplever samarbeidet og relasjonen som dårlig",
+              wasSelected: false,
+            },
+          ],
         },
         {
-          id: "naarTilbakeTilJobben",
-          label: "Hvor lenge tror du at du har behov for å være sykmeldt?",
-          value: "Mindre enn 26 uker (6 måneder) totalt",
+          fieldId: "naarTilbakeTilJobben",
+          label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
+          description: null,
+          fieldType: "RADIO_GROUP",
+          options: [
+            {
+              optionId: "3a",
+              optionLabel: "Mindre enn seks måneder",
+              wasSelected: true,
+            },
+            {
+              optionId: "3b",
+              optionLabel: "Mer enn seks måneder",
+              wasSelected: false,
+            },
+          ],
         },
       ]);
+    });
+
+    it("should not include begrunnelse field when first answer is 1a", () => {
+      const formSnapshot = mapAppFormToSnapshot({
+        values: kartleggingssporsmalFormFixture3,
+      });
+
+      expect(
+        formSnapshot.fieldSnapshots.some(
+          (field) =>
+            field.fieldId === "hvorSannsynligTilbakeTilJobbenBegrunnelse",
+        ),
+      ).toBe(false);
     });
   });
 });

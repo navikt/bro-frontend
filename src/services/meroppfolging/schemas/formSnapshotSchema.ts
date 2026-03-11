@@ -31,18 +31,22 @@ export const fieldSnapshotsSchema = z.array(
 );
 export type FieldSnapshots = z.infer<typeof fieldSnapshotsSchema>;
 
+const formSnapshotSchema = z.object({
+  formIdentifier: z.string(),
+  formSemanticVersion: z.string(),
+  formSnapshotVersion: z.string(),
+  fieldSnapshots: fieldSnapshotsSchema,
+});
+
+export type FormSnapshot = z.infer<typeof formSnapshotSchema>;
+
 export const formSnapshotRequestSchema = z.object({
-  formSnapshot: z.object({
-    formIdentifier: z.string(),
-    formSemanticVersion: z.string(),
-    formSnapshotVersion: z.string(),
-    fieldSnapshots: fieldSnapshotsSchema,
-  }),
+  formSnapshot: formSnapshotSchema,
 });
 export type FormSnapshotRequest = z.infer<typeof formSnapshotRequestSchema>;
 
 const kartleggingssporsmalFormResponseSchema = z.object({
-  formSnapshot: z.object({ fieldSnapshots: fieldSnapshotsSchema }),
+  formSnapshot: formSnapshotSchema,
   createdAt: z.iso.datetime().transform((str) => new Date(str)),
 });
 export type KartleggingssporsmalFormResponse = z.infer<
