@@ -1,4 +1,4 @@
-import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmalForm";
+import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
 import type { FieldSnapshots } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
 export const fieldSnapshotsFixture: FieldSnapshots = [

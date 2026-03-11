@@ -6,13 +6,13 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmalForm";
+import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
 } from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalForm";
+import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 export async function submitFormAction(
   formValues: unknown,

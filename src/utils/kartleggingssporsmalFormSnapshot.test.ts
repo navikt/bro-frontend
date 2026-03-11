@@ -4,9 +4,9 @@ import {
   kartleggingssporsmalFormFixture2,
   kartleggingssporsmalFormFixture3,
 } from "@/mocks/fixture/form";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalForm";
+import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
-describe("kartleggingssporsmalForm utils", () => {
+describe("kartleggingssporsmalFormSnapshot utils", () => {
   describe("mapAppFormToSnapshot", () => {
     it("should map form values to fieldSnapshots", () => {
       const formSnapshot = mapAppFormToSnapshot({

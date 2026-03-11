@@ -1,4 +1,4 @@
-import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmalForm";
+import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
 
 type KartleggingssporsmalFormAlsoUnfilled = {
   [K in keyof KartleggingssporsmalForm]: KartleggingssporsmalForm[K] | "";
