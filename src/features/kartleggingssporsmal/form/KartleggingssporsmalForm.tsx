@@ -7,7 +7,6 @@ import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import {
   fieldIdsDisplayOrder,
-  kartleggingssporsmalFormDefaults,
   kartleggingssporsmalFormQuestions,
   kartleggingssporsmalFormSchema,
   shouldIncludeTilbakeTilJobbBegrunnelseField,
@@ -15,6 +14,7 @@ import {
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import { formDefaultValues } from "./formDefaultValues";
 
 type Props = {
   setSummaryItems: (data: KartleggingssporsmalFormResponse) => void;
@@ -34,7 +34,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
   const [submitError, setSubmitError] = useState<boolean>(false);
 
   const form = useAppForm({
-    defaultValues: kartleggingssporsmalFormDefaults,
+    defaultValues: formDefaultValues,
     validationLogic: revalidateLogic(),
     validators: {
       onDynamic: kartleggingssporsmalFormSchema,

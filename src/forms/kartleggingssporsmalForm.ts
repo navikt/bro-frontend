@@ -2,6 +2,24 @@ import { type ZodType, z } from "zod/v4";
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
 import type { TextQuestion } from "@/components/form-components/TextArea";
 
+export const fieldIdsDisplayOrder: KartleggingsspormalFormQuestionId[] = [
+  "hvorSannsynligTilbakeTilJobben",
+  "hvorSannsynligTilbakeTilJobbenBegrunnelse",
+  "samarbeidOgRelasjonTilArbeidsgiver",
+  "naarTilbakeTilJobben",
+];
+
+export function shouldIncludeTilbakeTilJobbBegrunnelseField(
+  hvorSannsynligTilbakeTilJobben:
+    | KartleggingssporsmalForm["hvorSannsynligTilbakeTilJobben"]
+    | "",
+): boolean {
+  return (
+    hvorSannsynligTilbakeTilJobben === "1b" ||
+    hvorSannsynligTilbakeTilJobben === "1c"
+  );
+}
+
 const radioGroupQuestions = {
   hvorSannsynligTilbakeTilJobben: {
     type: "RADIO_GROUP",
@@ -49,15 +67,8 @@ export const kartleggingssporsmalFormQuestions = {
   ...textQuestions,
 } as const;
 
-export type KartleggingsspormalFormQuestionId =
+type KartleggingsspormalFormQuestionId =
   keyof typeof kartleggingssporsmalFormQuestions;
-
-export const fieldIdsDisplayOrder: KartleggingsspormalFormQuestionId[] = [
-  "hvorSannsynligTilbakeTilJobben",
-  "hvorSannsynligTilbakeTilJobbenBegrunnelse",
-  "samarbeidOgRelasjonTilArbeidsgiver",
-  "naarTilbakeTilJobben",
-];
 
 function getRadioGroupOptionIds(
   radioFieldId: keyof typeof radioGroupQuestions,
@@ -84,26 +95,3 @@ export const kartleggingssporsmalFormSchema = z.object({
 export type KartleggingssporsmalForm = z.infer<
   typeof kartleggingssporsmalFormSchema
 >;
-
-export function shouldIncludeTilbakeTilJobbBegrunnelseField(
-  hvorSannsynligTilbakeTilJobben:
-    | KartleggingssporsmalForm["hvorSannsynligTilbakeTilJobben"]
-    | "",
-): boolean {
-  return (
-    hvorSannsynligTilbakeTilJobben === "1b" ||
-    hvorSannsynligTilbakeTilJobben === "1c"
-  );
-}
-
-type KartleggingssporsmalFormAlsoUnfilled = {
-  [K in keyof KartleggingssporsmalForm]: KartleggingssporsmalForm[K] | "";
-};
-
-export const kartleggingssporsmalFormDefaults: KartleggingssporsmalFormAlsoUnfilled =
-  {
-    hvorSannsynligTilbakeTilJobben: "",
-    hvorSannsynligTilbakeTilJobbenBegrunnelse: "",
-    samarbeidOgRelasjonTilArbeidsgiver: "",
-    naarTilbakeTilJobben: "",
-  };
