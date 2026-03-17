@@ -111,7 +111,7 @@ describe("kartleggingssporsmalForm utils", () => {
         {
           fieldId: "hvorSannsynligTilbakeTilJobbenBegrunnelse",
           label:
-            "Hvis du ønsker det kan du her utdype svaret ditt på forrige spørmsål. Det er valgfritt.",
+            "Hvis du ønsker det kan du her utdype svaret ditt på forrige spørsmål. Det er valgfritt.",
           description: "Svaret blir ikke delt med arbeidsgiveren din.",
           fieldType: "TEXT",
           value:
