@@ -1,5 +1,10 @@
 import type { LumiSurveyConfig } from "@navikt/lumi-survey";
 
+export const intro = {
+  title: "Vi vil gjerne høre din mening!",
+  body: `Svar på noen korte spørsmål og hjelp oss å forbedre opplevelsen. Det er helt frivillig å delta. Svarene du sender inn er anonyme, og blir brukt til videreutvikling av tjenesten.`,
+};
+
 export const survey: LumiSurveyConfig = {
   type: "rating",
   questions: [
@@ -8,8 +13,6 @@ export const survey: LumiSurveyConfig = {
       type: "rating",
       variant: "emoji",
       prompt: "Hvordan opplevde du å svare på spørsmålene?",
-      description:
-        "Svarene du sender inn er anonyme, og blir brukt til videreutvikling av tjenesten.",
       required: true,
     },
     {
@@ -20,11 +23,6 @@ export const survey: LumiSurveyConfig = {
       required: false,
       minRows: 4,
       maxLength: 500,
-      visibleIf: {
-        field: "ANSWER",
-        questionId: "opplevelse",
-        operator: "EXISTS",
-      },
     },
   ],
 };

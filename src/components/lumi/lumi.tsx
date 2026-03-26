@@ -2,7 +2,7 @@
 
 import { LumiSurveyDock, type LumiSurveyTransport } from "@navikt/lumi-survey";
 import { publicEnv } from "@/env-variables/publicEnv";
-import { survey } from "./survey";
+import { intro, survey } from "./survey";
 
 const transport: LumiSurveyTransport = {
   async submit(submission) {
@@ -16,6 +16,7 @@ const transport: LumiSurveyTransport = {
 
 export const Lumi = () => (
   <LumiSurveyDock
+    intro={intro}
     surveyId="bro-kartleggingssporsmal"
     survey={survey}
     transport={transport}
