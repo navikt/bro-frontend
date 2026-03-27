@@ -5,14 +5,16 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/token
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
 import {
+  gylidgeSkjemavarianter,
   type KandidatStatusResponse,
   kandidatStatusResponseSchema,
-} from "@/services/meroppfolging/schemas/formSnapshotSchema";
+} from "./schemas/requestsAndResponses";
 
 export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   if (isLocalOrDemo) {
     return {
       isKandidat: true,
+      skjemavariant: gylidgeSkjemavarianter[0],
       formResponse: null, //kartleggingssporsmalFormResponseFixture,
     };
   }
