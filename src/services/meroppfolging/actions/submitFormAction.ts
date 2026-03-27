@@ -7,12 +7,12 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/token
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
 import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
+import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
-} from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
+} from "../schemas/requestsAndResponses";
 
 export async function submitFormAction(
   formValues: unknown,

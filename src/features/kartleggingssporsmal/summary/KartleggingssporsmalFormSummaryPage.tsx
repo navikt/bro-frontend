@@ -4,7 +4,7 @@ import { TrackedLink } from "@/components/TrackedLink";
 import { CONTACT_NAV_URL } from "@/constants";
 import ThankYouAlert from "@/features/kartleggingssporsmal/summary/ThankYouAlert";
 import { UsefulLinks } from "@/features/kartleggingssporsmal/summary/UsefulLinks";
-import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummary from "./KartleggingssporsmalFormSummary";
 
 type Props = {

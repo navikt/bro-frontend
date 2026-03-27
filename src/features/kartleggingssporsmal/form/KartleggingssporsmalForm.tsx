@@ -11,7 +11,7 @@ import { kartleggingssporsmalFormQuestions } from "@/forms/kartleggingssporsmal/
 import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
-import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import { formDefaultValues } from "./formDefaultValues";
 
 type Props = {

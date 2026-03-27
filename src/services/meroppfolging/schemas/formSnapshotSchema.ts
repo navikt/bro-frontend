@@ -31,7 +31,7 @@ export const fieldSnapshotsSchema = z.array(
 );
 export type FieldSnapshots = z.infer<typeof fieldSnapshotsSchema>;
 
-const formSnapshotSchema = z.object({
+export const formSnapshotSchema = z.object({
   formIdentifier: z.string(),
   formSemanticVersion: z.string(),
   formSnapshotVersion: z.string(),
@@ -39,30 +39,3 @@ const formSnapshotSchema = z.object({
 });
 
 export type FormSnapshot = z.infer<typeof formSnapshotSchema>;
-
-export const formSnapshotRequestSchema = z.object({
-  formSnapshot: formSnapshotSchema,
-});
-export type FormSnapshotRequest = z.infer<typeof formSnapshotRequestSchema>;
-
-const kartleggingssporsmalFormResponseSchema = z.object({
-  formSnapshot: formSnapshotSchema,
-  createdAt: z.iso.datetime().transform((str) => new Date(str)),
-});
-export type KartleggingssporsmalFormResponse = z.infer<
-  typeof kartleggingssporsmalFormResponseSchema
->;
-
-export const submitKartleggingssporsmalResponseSchema =
-  kartleggingssporsmalFormResponseSchema;
-export type SubmitKartleggingssporsmalResponse = z.infer<
-  typeof submitKartleggingssporsmalResponseSchema
->;
-
-export const kandidatStatusResponseSchema = z.object({
-  isKandidat: z.boolean(),
-  formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
-});
-export type KandidatStatusResponse = z.infer<
-  typeof kandidatStatusResponseSchema
->;
