@@ -5,7 +5,6 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/token
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
 import {
-  gylidgeSkjemavarianter,
   type KandidatStatusResponse,
   kandidatStatusResponseSchema,
 } from "./schemas/requestsAndResponses";
@@ -14,7 +13,7 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   if (isLocalOrDemo) {
     return {
       isKandidat: true,
-      skjemavariant: gylidgeSkjemavarianter[0],
+      skjemavariant: "FLERVALG_FRITEKST_V1",
       formResponse: null, //kartleggingssporsmalFormResponseFixture,
     };
   }

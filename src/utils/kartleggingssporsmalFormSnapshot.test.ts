@@ -11,6 +11,7 @@ describe("kartleggingssporsmalFormSnapshot utils", () => {
     it("should map form values to fieldSnapshots", () => {
       const formSnapshot = mapAppFormToSnapshot({
         values: kartleggingssporsmalFormFixture,
+        skjemavariant: "FLERVALG_V1",
       });
 
       expect(formSnapshot.fieldSnapshots).toEqual([
@@ -81,6 +82,7 @@ describe("kartleggingssporsmalFormSnapshot utils", () => {
     it("should map form values to fieldSnapshots", () => {
       const formSnapshot = mapAppFormToSnapshot({
         values: kartleggingssporsmalFormFixture2,
+        skjemavariant: "FLERVALG_FRITEKST_V1",
       });
 
       expect(formSnapshot.fieldSnapshots).toEqual([
@@ -160,6 +162,21 @@ describe("kartleggingssporsmalFormSnapshot utils", () => {
     it("should not include begrunnelse field when first answer is 1a", () => {
       const formSnapshot = mapAppFormToSnapshot({
         values: kartleggingssporsmalFormFixture3,
+        skjemavariant: "FLERVALG_FRITEKST_V1",
+      });
+
+      expect(
+        formSnapshot.fieldSnapshots.some(
+          (field) =>
+            field.fieldId === "hvorSannsynligTilbakeTilJobbenBegrunnelse",
+        ),
+      ).toBe(false);
+    });
+
+    it("should not include begrunnelse field for FLERVALG_V1", () => {
+      const formSnapshot = mapAppFormToSnapshot({
+        values: kartleggingssporsmalFormFixture2,
+        skjemavariant: "FLERVALG_V1",
       });
 
       expect(

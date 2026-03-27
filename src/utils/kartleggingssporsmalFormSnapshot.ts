@@ -1,11 +1,14 @@
-import { shouldIncludeTilbakeTilJobbBegrunnelseField } from "@/forms/kartleggingssporsmal/conditional-fields-logic";
-import { fieldIdsDisplayOrder } from "@/forms/kartleggingssporsmal/fieldIdsDisplayOrder";
-import { kartleggingssporsmalFormQuestions } from "@/forms/kartleggingssporsmal/formQuestions";
+import {
+  getFieldsInOrderForSkjemavariant,
+  shouldAddConditionalField,
+} from "@/forms/kartleggingssporsmal/fieldVisibilityRules";
+import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/formQuestions";
 import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
 import type {
   FieldSnapshots,
   FormSnapshot,
 } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { Skjemavariant } from "@/services/meroppfolging/schemas/requestsAndResponses";
 
 export const FORM_IDENTIFIER = "kartleggingssporsmal";
 export const FORM_SEMANTIC_VERSION = "1.0.0";
@@ -13,32 +16,27 @@ export const FORM_SNAPSHOT_VERSION = "1.0.0";
 
 function mapAppFormToFieldSnapshots(
   values: KartleggingssporsmalForm,
+  skjemavariant: Skjemavariant,
 ): FieldSnapshots {
-  const includeJobbBegrunnelseField =
-    shouldIncludeTilbakeTilJobbBegrunnelseField(
-      values.hvorSannsynligTilbakeTilJobben,
-    );
-
   const fields: FieldSnapshots = [];
+  const fieldsForVariant = getFieldsInOrderForSkjemavariant(skjemavariant);
 
-  for (const fieldId of fieldIdsDisplayOrder) {
-    const question = kartleggingssporsmalFormQuestions[fieldId];
+  for (const fieldId of fieldsForVariant) {
+    if (!shouldAddConditionalField({ fieldId, formValues: values })) {
+      continue;
+    }
 
-    switch (question.type) {
+    const field = kartleggingssporsmalFormFields[fieldId];
+
+    switch (field.type) {
       case "TEXT": {
-        if (
-          fieldId !== "hvorSannsynligTilbakeTilJobbenBegrunnelse" ||
-          (fieldId === "hvorSannsynligTilbakeTilJobbenBegrunnelse" &&
-            includeJobbBegrunnelseField)
-        ) {
-          fields.push({
-            fieldId,
-            label: question.label,
-            description: question.description,
-            fieldType: "TEXT",
-            value: values[fieldId] ?? "",
-          });
-        }
+        fields.push({
+          fieldId,
+          label: field.label,
+          description: field.description,
+          fieldType: "TEXT",
+          value: values[fieldId] ?? "",
+        });
 
         break;
       }
@@ -48,10 +46,10 @@ function mapAppFormToFieldSnapshots(
 
         fields.push({
           fieldId,
-          label: question.label,
-          description: question.description,
-          fieldType: question.type,
-          options: question.options.map((option) => ({
+          label: field.label,
+          description: field.description,
+          fieldType: field.type,
+          options: field.options.map((option) => ({
             optionId: option.id,
             optionLabel: option.label,
             wasSelected: option.id === selectedId,
@@ -68,10 +66,12 @@ function mapAppFormToFieldSnapshots(
 
 export function mapAppFormToSnapshot({
   values,
+  skjemavariant,
 }: {
   values: KartleggingssporsmalForm;
+  skjemavariant: Skjemavariant;
 }): FormSnapshot {
-  const fieldSnapshots = mapAppFormToFieldSnapshots(values);
+  const fieldSnapshots = mapAppFormToFieldSnapshots(values, skjemavariant);
 
   return {
     formIdentifier: FORM_IDENTIFIER,

@@ -7,7 +7,13 @@ import { formSnapshotSchema } from "./formSnapshotSchema";
  * i kandidat-tabellen i `meroppfolging-backend`, og ikke lenger kan komme inn
  * i tabellen.
  */
-export const gylidgeSkjemavarianter = ["FLERVALG_V1", "FLERVALG_FRITEKST_V1"];
+export const gyldigeSkjemavarianter = [
+  "FLERVALG_V1",
+  "FLERVALG_FRITEKST_V1",
+] as const;
+
+export const skjemavariantSchema = z.enum(gyldigeSkjemavarianter);
+export type Skjemavariant = z.infer<typeof skjemavariantSchema>;
 
 const formSnapshotRequestSchema = z.object({
   formSnapshot: formSnapshotSchema,
@@ -31,7 +37,7 @@ export type SubmitKartleggingssporsmalResponse = z.infer<
 export const kandidatStatusResponseSchema = z.object({
   isKandidat: z.boolean(),
   // denne er nå not null fra backend sant?
-  skjemavariant: z.enum(gylidgeSkjemavarianter),
+  skjemavariant: skjemavariantSchema,
   formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
 });
 export type KandidatStatusResponse = z.infer<

@@ -1,7 +1,7 @@
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
 import type { TextQuestion } from "@/components/form-components/TextArea";
 
-export const radioGroupQuestions = {
+export const radioGroupFields = {
   hvorSannsynligTilbakeTilJobben: {
     type: "RADIO_GROUP",
     label:
@@ -34,7 +34,7 @@ export const radioGroupQuestions = {
   },
 } as const satisfies Record<string, RadioGroupQuestion>;
 
-const textQuestions = {
+const textFields = {
   hvorSannsynligTilbakeTilJobbenBegrunnelse: {
     type: "TEXT",
     label:
@@ -43,10 +43,10 @@ const textQuestions = {
   },
 } as const satisfies Record<string, TextQuestion>;
 
-export const kartleggingssporsmalFormQuestions = {
-  ...radioGroupQuestions,
-  ...textQuestions,
+export const kartleggingssporsmalFormFields = {
+  ...radioGroupFields,
+  ...textFields,
 } as const;
 
-export type KartleggingsspormalFormQuestionId =
-  keyof typeof kartleggingssporsmalFormQuestions;
+export type KartleggingsspormalFormFieldId =
+  keyof typeof kartleggingssporsmalFormFields;

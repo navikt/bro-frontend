@@ -7,15 +7,17 @@ import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/token
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
 import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 import {
   type FormSnapshotRequest,
+  type Skjemavariant,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
-} from "../schemas/requestsAndResponses";
+} from "@/services/meroppfolging/schemas/requestsAndResponses";
+import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 export async function submitFormAction(
   formValues: unknown,
+  skjemavariant: Skjemavariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
   const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
   if (!parsed.success) {
@@ -28,7 +30,10 @@ export async function submitFormAction(
     );
   }
 
-  const formSnapshot = mapAppFormToSnapshot({ values: parsed.data });
+  const formSnapshot = mapAppFormToSnapshot({
+    values: parsed.data,
+    skjemavariant,
+  });
 
   if (isLocalOrDemo) {
     return {
