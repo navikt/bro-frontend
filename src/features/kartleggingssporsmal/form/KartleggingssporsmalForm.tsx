@@ -5,17 +5,24 @@ import { logger } from "@navikt/next-logger";
 import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import { shouldIncludeTilbakeTilJobbBegrunnelseField } from "@/forms/kartleggingssporsmal/conditional-fields-logic";
-import { fieldIdsDisplayOrder } from "@/forms/kartleggingssporsmal/fieldIdsDisplayOrder";
-import { kartleggingssporsmalFormQuestions } from "@/forms/kartleggingssporsmal/formQuestions";
+import {
+  getFieldsInOrderForSkjemavariant,
+  isConditionalField,
+  shouldAddConditionalField,
+} from "@/forms/kartleggingssporsmal/fieldVisibilityRules";
+import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/formQuestions";
 import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
-import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
+import type {
+  KartleggingssporsmalFormResponse,
+  Skjemavariant,
+} from "@/services/meroppfolging/schemas/requestsAndResponses";
 import { formDefaultValues } from "./formDefaultValues";
 
 type Props = {
   setSummaryItems: (data: KartleggingssporsmalFormResponse) => void;
+  skjemavariant: Skjemavariant;
 };
 
 function scrollToTop() {
@@ -27,9 +34,14 @@ function scrollToTop() {
   }
 }
 
-export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
+export default function KartleggingssporsmalForm({
+  setSummaryItems,
+  skjemavariant,
+}: Props) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<boolean>(false);
+
+  const fieldsForVariant = getFieldsInOrderForSkjemavariant(skjemavariant);
 
   const form = useAppForm({
     defaultValues: formDefaultValues,
@@ -41,7 +53,7 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
       try {
         setSubmitError(false);
         setSubmitting(true);
-        const formResponse = await submitFormAction(value);
+        const formResponse = await submitFormAction(value, skjemavariant);
         logTaxonomyEvent({
           name: "skjema fullført",
           properties: {
@@ -79,32 +91,28 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
     >
       <form.AppForm>
         <div className="grid gap-4 mb-4">
-          <form.Subscribe
-            selector={(state) => state.values.hvorSannsynligTilbakeTilJobben}
-          >
-            {(hvorSannsynligTilbakeTilJobben) => {
-              const includeJobbBegrunnelseField =
-                shouldIncludeTilbakeTilJobbBegrunnelseField(
-                  hvorSannsynligTilbakeTilJobben,
-                );
-
-              return fieldIdsDisplayOrder.map((fieldId) => {
+          <form.Subscribe selector={(state) => state.values}>
+            {(formValues) => {
+              return fieldsForVariant.map((fieldId) => {
                 if (
-                  fieldId === "hvorSannsynligTilbakeTilJobbenBegrunnelse" &&
-                  !includeJobbBegrunnelseField
+                  isConditionalField(fieldId) &&
+                  !shouldAddConditionalField({
+                    fieldId,
+                    formValues,
+                  })
                 ) {
                   return null;
                 }
 
-                const question = kartleggingssporsmalFormQuestions[fieldId];
+                const questionField = kartleggingssporsmalFormFields[fieldId];
 
                 return (
                   <form.AppField key={fieldId} name={fieldId}>
                     {(field) =>
-                      question.type === "RADIO_GROUP" ? (
-                        <field.RadioGroup question={question} />
+                      questionField.type === "RADIO_GROUP" ? (
+                        <field.RadioGroup question={questionField} />
                       ) : (
-                        <field.TextArea question={question} />
+                        <field.TextArea question={questionField} />
                       )
                     }
                   </form.AppField>

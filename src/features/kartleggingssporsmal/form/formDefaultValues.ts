@@ -1,8 +1,4 @@
-import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
-
-type KartleggingssporsmalFormAlsoUnfilled = {
-  [K in keyof KartleggingssporsmalForm]: KartleggingssporsmalForm[K] | "";
-};
+import type { KartleggingssporsmalFormAlsoUnfilled } from "@/forms/kartleggingssporsmal/formSchema";
 
 export const formDefaultValues: KartleggingssporsmalFormAlsoUnfilled = {
   hvorSannsynligTilbakeTilJobben: "",
