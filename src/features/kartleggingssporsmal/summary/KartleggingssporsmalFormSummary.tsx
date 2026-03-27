@@ -7,31 +7,76 @@ import {
   FormSummaryLabel,
   FormSummaryValue,
 } from "@navikt/ds-react/FormSummary";
-
-export type FormSummaryItem = {
-  id: string;
-  label: string;
-  value: string;
-};
+import type { FormSnapshot } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
 type Props = {
-  items: FormSummaryItem[];
+  formSnapshot: FormSnapshot;
 };
 
-export default function KartleggingssporsmalFormSummary({ items }: Props) {
+export default function KartleggingssporsmalFormSummary({
+  formSnapshot,
+}: Props) {
+  const items = mapFormSnapshotToSummaryItems(formSnapshot);
+
   return (
     <AkselFormSummary>
       <FormSummaryHeader>
         <FormSummaryHeading level="2">Dette svarte du</FormSummaryHeading>
       </FormSummaryHeader>
       <FormSummaryAnswers>
-        {items.map((it) => (
-          <FormSummaryAnswer key={it.id}>
-            <FormSummaryLabel>{it.label}</FormSummaryLabel>
-            <FormSummaryValue>{it.value}</FormSummaryValue>
+        {items.map((item) => (
+          <FormSummaryAnswer key={item.id}>
+            <FormSummaryLabel>{item.label}</FormSummaryLabel>
+            <FormSummaryValue>
+              {item.type === "TEXT" && item.value === "" ? (
+                <em>Ingen tekst</em>
+              ) : (
+                item.value
+              )}
+            </FormSummaryValue>
           </FormSummaryAnswer>
         ))}
       </FormSummaryAnswers>
     </AkselFormSummary>
   );
+}
+
+type FormSummaryItem = {
+  id: string;
+  label: string;
+  value: string;
+  type: "TEXT" | "RADIO_GROUP";
+};
+
+function mapFormSnapshotToSummaryItems(
+  formSnapshot: FormSnapshot,
+): FormSummaryItem[] {
+  return formSnapshot.fieldSnapshots.map((field) => {
+    switch (field.fieldType) {
+      case "RADIO_GROUP": {
+        const selectedOption = field.options.find(
+          (option) => option.wasSelected,
+        );
+        return {
+          id: field.fieldId,
+          label: field.label,
+          value: selectedOption?.optionLabel || "",
+          type: "RADIO_GROUP",
+        };
+      }
+      case "TEXT":
+        return {
+          id: field.fieldId,
+          label: field.label,
+          value: field.value,
+          type: "TEXT",
+        };
+      // Missing 'fieldType' causes a compile-time error if we use the following check:
+      // https://gibbok.github.io/typescript-book/book/exhaustiveness-checking/
+      default: {
+        const _exhaustiveCheck: never = field;
+        return _exhaustiveCheck;
+      }
+    }
+  });
 }
