@@ -17,7 +17,7 @@ type TextAreaProps = {
 export function TextArea({
   question,
   rows = 3,
-  maxLength = 500,
+  maxLength = 200,
 }: TextAreaProps) {
   const field = useFieldContext<string>();
 
