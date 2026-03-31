@@ -1,8 +1,7 @@
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
-import type { TextQuestion } from "@/components/form-components/TextArea";
 
 export const radioGroupFields = {
-  hvorSannsynligTilbakeTilJobben: {
+  tilbakeTilJobbenHvorSannsynligFlervalg: {
     type: "RADIO_GROUP",
     label:
       "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
@@ -13,7 +12,7 @@ export const radioGroupFields = {
       { id: "1c", label: "Jeg er usikker" },
     ],
   },
-  samarbeidOgRelasjonTilArbeidsgiver: {
+  arbeidsgiverHvordanErSamarbeidFlervalg: {
     type: "RADIO_GROUP",
     label:
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
@@ -23,7 +22,7 @@ export const radioGroupFields = {
       { id: "2b", label: "Jeg opplever samarbeidet og relasjonen som dårlig" },
     ],
   },
-  naarTilbakeTilJobben: {
+  naarTilbakeTilJobbenFlervalg: {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
     description: null,
@@ -34,19 +33,14 @@ export const radioGroupFields = {
   },
 } as const satisfies Record<string, RadioGroupQuestion>;
 
-const textFields = {
-  hvorSannsynligTilbakeTilJobbenBegrunnelse: {
-    type: "TEXT",
-    label:
-      "Hvis du ønsker det kan du her utdype svaret ditt på forrige spørsmål. Det er valgfritt.",
-    description: "Svaret blir ikke delt med arbeidsgiveren din.",
-  },
-} as const satisfies Record<string, TextQuestion>;
+type RadioGroupFieldId = keyof typeof radioGroupFields;
+type RadioGroupOptionId<T extends RadioGroupFieldId> =
+  (typeof radioGroupFields)[T]["options"][number]["id"];
 
-export const kartleggingssporsmalFormFields = {
-  ...radioGroupFields,
-  ...textFields,
-} as const;
-
-export type KartleggingsspormalFormFieldId =
-  keyof typeof kartleggingssporsmalFormFields;
+export function getRadioGroupOptionIds<T extends RadioGroupFieldId>(
+  radioFieldId: T,
+): RadioGroupOptionId<T>[] {
+  return radioGroupFields[radioFieldId].options.map(
+    (option) => option.id,
+  ) as RadioGroupOptionId<T>[];
+}

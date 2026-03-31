@@ -1,5 +1,6 @@
 import { Textarea } from "@navikt/ds-react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import { TEXT_AREA_MAX_LENGTH } from "@/appConfig";
 import { useFieldContext } from "@/hooks/form";
 
 export type TextQuestion = {
@@ -17,7 +18,7 @@ type TextAreaProps = {
 export function TextArea({
   question,
   rows = 3,
-  maxLength = 200,
+  maxLength = TEXT_AREA_MAX_LENGTH,
 }: TextAreaProps) {
   const field = useFieldContext<string>();
 

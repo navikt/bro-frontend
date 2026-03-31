@@ -1,15 +1,8 @@
 // @vitest-environment jsdom
 import { render, screen } from "@testing-library/react";
 import { describe, it } from "vitest";
-import { fieldSnapshotsFixture } from "@/mocks/fixture/form";
+import { formSnapshotFixture } from "@/mocks/fixture/formSnapshotsFixture";
 import KartleggingssporsmalFormSummary from "./KartleggingssporsmalFormSummary";
-
-const formSnapshotFixture = {
-  formIdentifier: "kartleggingssporsmal",
-  formSemanticVersion: "1.0.0",
-  formSnapshotVersion: "1.0.0",
-  fieldSnapshots: fieldSnapshotsFixture,
-};
 
 describe("KartleggingssporsmalFormSummary", () => {
   it("renders labels and selected answers for all fields", () => {
@@ -25,10 +18,10 @@ describe("KartleggingssporsmalFormSummary", () => {
     screen.getByText(
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
     );
-    screen.getByText("Jeg opplever forholdet vårt som godt");
+    screen.getByText("Jeg opplever samarbeidet og relasjonen som god");
 
     screen.getByText("Hvor lenge tror du at du har behov for å være sykmeldt?");
-    screen.getByText("Mindre enn 26 uker (6 måneder) totalt");
+    screen.getByText("Mindre enn seks måneder");
   });
 
   it("renders 'Ingen tekst' for an empty TEXT field", () => {
