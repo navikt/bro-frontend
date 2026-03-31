@@ -10,10 +10,13 @@ export function FormHeaderAndTopText() {
       <BodyShort spacing>
         Siden du har vært sykmeldt en stund, ønsker vi å få bedre kjennskap til
         din situasjon ved at du svarer på disse tre spørsmålene. Dette gir Nav
-        innsikt i hvordan vi kan følge deg opp fremover.
+        en bedre forståelse av om vi skal gi deg oppfølging i tillegg til den du
+        skal få fra arbeidsgiveren din.
       </BodyShort>
 
-      <BodyShort spacing>Svarene dine blir kun delt med Nav.</BodyShort>
+      <BodyShort spacing>
+        Svarene blir kun delt med Nav og ikke din arbeidsgiver.
+      </BodyShort>
     </>
   );
 }

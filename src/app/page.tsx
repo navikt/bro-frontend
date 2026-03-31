@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <KartleggingssporsmalFormPage
       topContent={<FormHeaderAndTopText />}
-      skjemavariant={skjemavariant}
+      formVariant={skjemavariant}
     />
   );
 }

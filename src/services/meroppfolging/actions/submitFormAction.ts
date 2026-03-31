@@ -6,20 +6,20 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmal/formSchema";
+import { flervalgFritekstV1Schema } from "@/forms/kartleggingssporsmal/formVariants/flervalgFritekstV1Schema";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
 import {
   type FormSnapshotRequest,
-  type Skjemavariant,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
 } from "@/services/meroppfolging/schemas/requestsAndResponses";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
+import { mapFormValuesToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 export async function submitFormAction(
   formValues: unknown,
-  skjemavariant: Skjemavariant,
+  formVariant: FormVariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
-  const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
+  const parsed = flervalgFritekstV1Schema.safeParse(formValues);
   if (!parsed.success) {
     logger.error(
       { validationIssues: z.prettifyError(parsed.error) },
@@ -30,9 +30,9 @@ export async function submitFormAction(
     );
   }
 
-  const formSnapshot = mapAppFormToSnapshot({
+  const formSnapshot = mapFormValuesToSnapshot({
     values: parsed.data,
-    skjemavariant,
+    formVariant,
   });
 
   if (isLocalOrDemo) {

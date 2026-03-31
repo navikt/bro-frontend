@@ -2,21 +2,19 @@
 
 import { useEffect, useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import type {
-  KartleggingssporsmalFormResponse,
-  Skjemavariant,
-} from "@/services/meroppfolging/schemas/requestsAndResponses";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
 import KartleggingssporsmalForm from "./KartleggingssporsmalForm";
 
 interface Props {
   topContent: React.ReactNode;
-  skjemavariant: Skjemavariant;
+  formVariant: FormVariant;
 }
 
 export default function KartleggingssporsmalFormPage({
   topContent,
-  skjemavariant,
+  formVariant,
 }: Props) {
   const [formReponse, setFormResponse] =
     useState<KartleggingssporsmalFormResponse | null>(null);
@@ -39,7 +37,7 @@ export default function KartleggingssporsmalFormPage({
 
       <KartleggingssporsmalForm
         setSummaryItems={setFormResponse}
-        skjemavariant={skjemavariant}
+        formVariant={formVariant}
       />
     </>
   );

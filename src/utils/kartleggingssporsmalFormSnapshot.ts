@@ -1,31 +1,36 @@
-import {
-  getFieldsInOrderForSkjemavariant,
-  shouldAddConditionalField,
-} from "@/forms/kartleggingssporsmal/fieldVisibilityRules";
-import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/formQuestions";
-import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmal/formSchema";
+import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/fieldDefinitions/allFields";
+import { getFieldsToIncludeForVariant } from "@/forms/kartleggingssporsmal/fieldInclusionLogic/fieldInclusionLogic";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import type { FormValues } from "@/forms/kartleggingssporsmal/types/FormValues";
 import type {
   FieldSnapshots,
   FormSnapshot,
 } from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import type { Skjemavariant } from "@/services/meroppfolging/schemas/requestsAndResponses";
 
-export const FORM_IDENTIFIER = "kartleggingssporsmal";
-export const FORM_SEMANTIC_VERSION = "1.0.0";
+export const FORM_IDENTIFIER_PREFIX = "kartleggingssporsmal";
+export const FORM_SEMANTIC_VERSION = "2.0.0";
 export const FORM_SNAPSHOT_VERSION = "1.0.0";
 
-function mapAppFormToFieldSnapshots(
-  values: KartleggingssporsmalForm,
-  skjemavariant: Skjemavariant,
+function getFormIdentifier(formVariant: FormVariant): string {
+  return `${FORM_IDENTIFIER_PREFIX}_${formVariant}`;
+}
+
+function mapFormValuesToFieldSnapshots<T extends FormVariant>(
+  formValues: FormValues<T>,
+  formVariant: T,
 ): FieldSnapshots {
   const fields: FieldSnapshots = [];
-  const fieldsForVariant = getFieldsInOrderForSkjemavariant(skjemavariant);
+  const fieldsForVariant = getFieldsToIncludeForVariant(
+    formVariant,
+    formValues,
+  );
 
   for (const fieldId of fieldsForVariant) {
-    if (!shouldAddConditionalField({ fieldId, formValues: values })) {
+    if (!(fieldId in formValues)) {
       continue;
     }
 
+    const fieldValue = formValues[fieldId as keyof FormValues<T>];
     const field = kartleggingssporsmalFormFields[fieldId];
 
     switch (field.type) {
@@ -35,14 +40,14 @@ function mapAppFormToFieldSnapshots(
           label: field.label,
           description: field.description,
           fieldType: "TEXT",
-          value: values[fieldId] ?? "",
+          value: String(fieldValue ?? ""),
         });
 
         break;
       }
 
       case "RADIO_GROUP": {
-        const selectedId = values[fieldId];
+        const selectedId = String(fieldValue ?? "");
 
         fields.push({
           fieldId,
@@ -64,17 +69,17 @@ function mapAppFormToFieldSnapshots(
   return fields;
 }
 
-export function mapAppFormToSnapshot({
+export function mapFormValuesToSnapshot<T extends FormVariant>({
   values,
-  skjemavariant,
+  formVariant,
 }: {
-  values: KartleggingssporsmalForm;
-  skjemavariant: Skjemavariant;
+  values: FormValues<T>;
+  formVariant: T;
 }): FormSnapshot {
-  const fieldSnapshots = mapAppFormToFieldSnapshots(values, skjemavariant);
+  const fieldSnapshots = mapFormValuesToFieldSnapshots(values, formVariant);
 
   return {
-    formIdentifier: FORM_IDENTIFIER,
+    formIdentifier: getFormIdentifier(formVariant),
     formSemanticVersion: FORM_SEMANTIC_VERSION,
     formSnapshotVersion: FORM_SNAPSHOT_VERSION,
     fieldSnapshots,
