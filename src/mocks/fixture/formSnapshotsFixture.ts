@@ -1,14 +1,13 @@
-import type { KartleggingssporsmalForm } from "@/forms/kartleggingssporsmalForm";
 import type { FieldSnapshots } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
 export const fieldSnapshotsFixture: FieldSnapshots = [
   {
+    fieldId: "tilbakeTilJobbenHvorSannsynligFlervalg",
     fieldType: "RADIO_GROUP",
     label:
       "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
     wasRequired: true,
     description: null,
-    fieldId: "hvorSannsynligTilbakeTilJobben",
     options: [
       {
         optionId: "1a",
@@ -24,53 +23,54 @@ export const fieldSnapshotsFixture: FieldSnapshots = [
     ],
   },
   {
+    fieldId: "arbeidsgiverHvordanErSamarbeidFlervalg",
     fieldType: "RADIO_GROUP",
     label:
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
     wasRequired: true,
     description: "Svaret blir ikke delt med din arbeidsgiver.",
-    fieldId: "samarbeidOgRelasjonTilArbeidsgiver",
     options: [
       {
         optionId: "2a",
-        optionLabel: "Jeg opplever forholdet vårt som godt",
+        optionLabel: "Jeg opplever samarbeidet og relasjonen som god",
         wasSelected: true,
       },
       {
         optionId: "2b",
-        optionLabel: "Jeg opplever ikke forholdet vårt som godt",
+        optionLabel: "Jeg opplever samarbeidet og relasjonen som dårlig",
         wasSelected: false,
       },
     ],
   },
   {
+    fieldId: "naarTilbakeTilJobbenFlervalg",
     fieldType: "RADIO_GROUP",
     label: "Hvor lenge tror du at du har behov for å være sykmeldt?",
     wasRequired: true,
     description: null,
-    fieldId: "naarTilbakeTilJobben",
     options: [
       {
         optionId: "3a",
-        optionLabel: "Mindre enn 26 uker (6 måneder) totalt",
+        optionLabel: "Mindre enn seks måneder",
         wasSelected: true,
       },
       {
         optionId: "3b",
-        optionLabel: "Mer enn 26 uker (6 måneder) totalt",
+        optionLabel: "Mer enn seks måneder",
         wasSelected: false,
       },
     ],
   },
 ];
 
-export const kartleggingssporsmalFormResponseFixture = {
-  formSnapshot: { fieldSnapshots: fieldSnapshotsFixture },
-  createdAt: new Date(),
+export const formSnapshotFixture = {
+  formIdentifier: "kartleggingssporsmal",
+  formSemanticVersion: "1.0.0",
+  formSnapshotVersion: "1.0.0",
+  fieldSnapshots: fieldSnapshotsFixture,
 };
 
-export const kartleggingssporsmalFormFixture: KartleggingssporsmalForm = {
-  hvorSannsynligTilbakeTilJobben: "1a",
-  samarbeidOgRelasjonTilArbeidsgiver: "2a",
-  naarTilbakeTilJobben: "3a",
+export const kartleggingssporsmalFormResponseFixture = {
+  formSnapshot: formSnapshotFixture,
+  createdAt: new Date(),
 };

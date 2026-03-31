@@ -31,34 +31,11 @@ export const fieldSnapshotsSchema = z.array(
 );
 export type FieldSnapshots = z.infer<typeof fieldSnapshotsSchema>;
 
-export const formSnapshotRequestSchema = z.object({
-  formSnapshot: z.object({
-    formIdentifier: z.string(),
-    formSemanticVersion: z.string(),
-    formSnapshotVersion: z.string(),
-    fieldSnapshots: fieldSnapshotsSchema,
-  }),
+export const formSnapshotSchema = z.object({
+  formIdentifier: z.string(),
+  formSemanticVersion: z.string(),
+  formSnapshotVersion: z.string(),
+  fieldSnapshots: fieldSnapshotsSchema,
 });
-export type FormSnapshotRequest = z.infer<typeof formSnapshotRequestSchema>;
 
-const kartleggingssporsmalFormResponseSchema = z.object({
-  formSnapshot: z.object({ fieldSnapshots: fieldSnapshotsSchema }),
-  createdAt: z.iso.datetime().transform((str) => new Date(str)),
-});
-export type KartleggingssporsmalFormResponse = z.infer<
-  typeof kartleggingssporsmalFormResponseSchema
->;
-
-export const submitKartleggingssporsmalResponseSchema =
-  kartleggingssporsmalFormResponseSchema;
-export type SubmitKartleggingssporsmalResponse = z.infer<
-  typeof submitKartleggingssporsmalResponseSchema
->;
-
-export const kandidatStatusResponseSchema = z.object({
-  isKandidat: z.boolean(),
-  formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
-});
-export type KandidatStatusResponse = z.infer<
-  typeof kandidatStatusResponseSchema
->;
+export type FormSnapshot = z.infer<typeof formSnapshotSchema>;

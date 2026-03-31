@@ -6,18 +6,20 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmalForm";
+import { flervalgFritekstV1Schema } from "@/forms/kartleggingssporsmal/formVariants/flervalgFritekstV1Schema";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
-} from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalForm";
+} from "@/services/meroppfolging/schemas/requestsAndResponses";
+import { mapFormValuesToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 export async function submitFormAction(
   formValues: unknown,
+  formVariant: FormVariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
-  const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
+  const parsed = flervalgFritekstV1Schema.safeParse(formValues);
   if (!parsed.success) {
     logger.error(
       { validationIssues: z.prettifyError(parsed.error) },
@@ -28,11 +30,14 @@ export async function submitFormAction(
     );
   }
 
-  const fieldSnapshots = mapAppFormToSnapshot({ values: parsed.data });
+  const formSnapshot = mapFormValuesToSnapshot({
+    values: parsed.data,
+    formVariant,
+  });
 
   if (isLocalOrDemo) {
     return {
-      formSnapshot: { fieldSnapshots: fieldSnapshots },
+      formSnapshot,
       createdAt: new Date(),
     };
   }
@@ -48,12 +53,7 @@ export async function submitFormAction(
   );
 
   const payload: FormSnapshotRequest = {
-    formSnapshot: {
-      formIdentifier: "kartleggingsporsmal",
-      formSemanticVersion: "1.0.0",
-      formSnapshotVersion: "1.0.0",
-      fieldSnapshots: fieldSnapshots,
-    },
+    formSnapshot,
   };
 
   try {

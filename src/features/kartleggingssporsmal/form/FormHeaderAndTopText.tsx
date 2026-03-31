@@ -14,7 +14,9 @@ export function FormHeaderAndTopText() {
         skal få fra arbeidsgiveren din.
       </BodyShort>
 
-      <BodyShort spacing>Svarene dine blir kun delt med Nav.</BodyShort>
+      <BodyShort spacing>
+        Svarene blir kun delt med Nav og ikke din arbeidsgiver.
+      </BodyShort>
     </>
   );
 }
