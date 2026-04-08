@@ -38,7 +38,7 @@ describe("fieldInclusionRules", () => {
       "FLERVALG_FRITEKST_V1",
     );
 
-    const fieldsWhenLikely = getFieldsToIncludeForVariant(
+    const fieldsWhenSannsynlig = getFieldsToIncludeForVariant(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -63,7 +63,7 @@ describe("fieldInclusionRules", () => {
       },
     );
 
-    expect(fieldsWhenLikely).toEqual(baseFields);
+    expect(fieldsWhenSannsynlig).toEqual(baseFields);
     expect(fieldsWhenLiteSannsynlig).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "tilbakeTilJobbenLiteSannsynligBegrunnelse",
