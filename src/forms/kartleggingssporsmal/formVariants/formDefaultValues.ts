@@ -1,8 +1,8 @@
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import type { FormValues } from "@/forms/kartleggingssporsmal/types/FormValues";
 
 const formDefaultValuesByFormVariant: {
-  [K in FormVariant]: FormValues<K>;
+  [K in FormVariant]: FormValuesForVariant<K>;
 } = {
   FLERVALG_V1: {
     tilbakeTilJobbenHvorSannsynligFlervalg: "",
@@ -21,6 +21,6 @@ const formDefaultValuesByFormVariant: {
 
 export function getFormDefaultValuesForFormVariant<T extends FormVariant>(
   formVariant: T,
-): FormValues<T> {
+): FormValuesForVariant<T> {
   return formDefaultValuesByFormVariant[formVariant];
 }

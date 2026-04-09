@@ -1,7 +1,7 @@
 import z from "zod";
 import { TEXT_AREA_MAX_LENGTH } from "@/appConfig";
+import type { KartleggingsspormalFormFieldId } from "../fieldDefinitions/KartleggingsspormalFormFieldId";
 import { getRadioGroupOptionIds } from "../fieldDefinitions/radioGroupFields";
-import type { KartleggingsspormalFormFieldId } from "../types/KartleggingsspormalFormFieldId";
 
 const requiredFieldErrorMessage = "Feltet er påkrevd";
 const maxLengthErrorMessage = `Du kan ikke skrive mer enn ${TEXT_AREA_MAX_LENGTH} tegn`;

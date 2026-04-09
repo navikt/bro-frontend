@@ -1,28 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { getFormDefaultValuesForFormVariant } from "@/forms/kartleggingssporsmal/formVariants/formDefaultValues";
-import { getFieldsForVariantInOrder } from "../formVariants/formVariants";
-import { getFieldsToIncludeForVariant } from "./fieldInclusionLogic";
+import { getFormDefaultValuesForFormVariant } from "../formDefaultValues";
+import { getFieldIdsToIncludeInForm } from "./getFieldsToIncludeInForm";
 
-describe("fieldInclusionRules", () => {
-  it("uses dedicated field list for FLERVALG_V1", () => {
-    const fieldIds = getFieldsForVariantInOrder("FLERVALG_V1");
-
-    expect(fieldIds).toEqual([
+describe("getFieldsToIncludeInForm", () => {
+  it("returns the full field list for FLERVALG_V1", () => {
+    expect(
+      getFieldIdsToIncludeInForm(
+        "FLERVALG_V1",
+        getFormDefaultValuesForFormVariant("FLERVALG_V1"),
+      ),
+    ).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "arbeidsgiverHvordanErSamarbeidFlervalg",
-      "naarTilbakeTilJobbenFlervalg",
-    ]);
-  });
-
-  it("uses dedicated field list for FLERVALG_FRITEKST_V1", () => {
-    const fieldIds = getFieldsForVariantInOrder("FLERVALG_FRITEKST_V1");
-
-    expect(fieldIds).toEqual([
-      "tilbakeTilJobbenHvorSannsynligFlervalg",
-      "tilbakeTilJobbenLiteSannsynligBegrunnelse",
-      "tilbakeTilJobbenUsikkerBegrunnelse",
-      "arbeidsgiverHvordanErSamarbeidFlervalg",
-      "arbeidsgiverSamarbeidDarligBegrunnelse",
       "naarTilbakeTilJobbenFlervalg",
     ]);
   });
@@ -38,7 +27,7 @@ describe("fieldInclusionRules", () => {
       "FLERVALG_FRITEKST_V1",
     );
 
-    const fieldsWhenSannsynlig = getFieldsToIncludeForVariant(
+    const fieldsWhenSannsynlig = getFieldIdsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -46,7 +35,7 @@ describe("fieldInclusionRules", () => {
       },
     );
 
-    const fieldsWhenLiteSannsynlig = getFieldsToIncludeForVariant(
+    const fieldsWhenLiteSannsynlig = getFieldIdsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -54,7 +43,7 @@ describe("fieldInclusionRules", () => {
       },
     );
 
-    const fieldsWhenUsikkerAndDarligSamarbeid = getFieldsToIncludeForVariant(
+    const fieldsWhenUsikkerAndDarligSamarbeid = getFieldIdsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -64,12 +53,14 @@ describe("fieldInclusionRules", () => {
     );
 
     expect(fieldsWhenSannsynlig).toEqual(baseFields);
+
     expect(fieldsWhenLiteSannsynlig).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "tilbakeTilJobbenLiteSannsynligBegrunnelse",
       "arbeidsgiverHvordanErSamarbeidFlervalg",
       "naarTilbakeTilJobbenFlervalg",
     ]);
+
     expect(fieldsWhenUsikkerAndDarligSamarbeid).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "tilbakeTilJobbenUsikkerBegrunnelse",

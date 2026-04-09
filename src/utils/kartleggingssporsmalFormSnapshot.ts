@@ -1,7 +1,7 @@
 import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/fieldDefinitions/allFields";
-import { getFieldsToIncludeForVariant } from "@/forms/kartleggingssporsmal/fieldInclusionLogic/fieldInclusionLogic";
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import type { FormValues } from "@/forms/kartleggingssporsmal/types/FormValues";
+import { getFieldIdsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm/getFieldsToIncludeInForm";
 import type {
   FieldSnapshots,
   FormSnapshot,
@@ -16,21 +16,18 @@ function getFormIdentifier(formVariant: FormVariant): string {
 }
 
 function mapFormValuesToFieldSnapshots<T extends FormVariant>(
-  formValues: FormValues<T>,
   formVariant: T,
+  formValues: FormValuesForVariant<T>,
 ): FieldSnapshots {
   const fields: FieldSnapshots = [];
-  const fieldsForVariant = getFieldsToIncludeForVariant(
-    formVariant,
-    formValues,
-  );
+  const fieldsForVariant = getFieldIdsToIncludeInForm(formVariant, formValues);
 
   for (const fieldId of fieldsForVariant) {
     if (!(fieldId in formValues)) {
       continue;
     }
 
-    const fieldValue = formValues[fieldId as keyof FormValues<T>];
+    const fieldValue = formValues[fieldId as keyof FormValuesForVariant<T>];
     const field = kartleggingssporsmalFormFields[fieldId];
 
     switch (field.type) {
@@ -70,13 +67,13 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
 }
 
 export function mapFormValuesToSnapshot<T extends FormVariant>({
-  values,
   formVariant,
+  values,
 }: {
-  values: FormValues<T>;
   formVariant: T;
+  values: FormValuesForVariant<T>;
 }): FormSnapshot {
-  const fieldSnapshots = mapFormValuesToFieldSnapshots(values, formVariant);
+  const fieldSnapshots = mapFormValuesToFieldSnapshots(formVariant, values);
 
   return {
     formIdentifier: getFormIdentifier(formVariant),

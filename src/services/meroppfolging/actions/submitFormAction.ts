@@ -6,8 +6,8 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import { flervalgFritekstV1Schema } from "@/forms/kartleggingssporsmal/formVariants/flervalgFritekstV1Schema";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import { getSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/SchemaForVariant";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
@@ -19,10 +19,12 @@ export async function submitFormAction(
   formValues: unknown,
   formVariant: FormVariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
-  const parsed = flervalgFritekstV1Schema.safeParse(formValues);
-  if (!parsed.success) {
+  const variantSchema = getSchemaForVariant(formVariant);
+  const parseResult = variantSchema.safeParse(formValues);
+
+  if (!parseResult.success) {
     logger.error(
-      { validationIssues: z.prettifyError(parsed.error) },
+      { validationIssues: z.prettifyError(parseResult.error) },
       "[Backend] Failed to parse kartleggingsspørsmål on post",
     );
     throw new Error(
@@ -31,8 +33,8 @@ export async function submitFormAction(
   }
 
   const formSnapshot = mapFormValuesToSnapshot({
-    values: parsed.data,
     formVariant,
+    values: parseResult.data,
   });
 
   if (isLocalOrDemo) {

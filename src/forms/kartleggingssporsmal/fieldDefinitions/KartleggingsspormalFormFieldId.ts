@@ -1,4 +1,4 @@
-import type { kartleggingssporsmalFormFields } from "../fieldDefinitions/allFields";
+import type { kartleggingssporsmalFormFields } from "./allFields";
 
 export type KartleggingsspormalFormFieldId =
   keyof typeof kartleggingssporsmalFormFields;

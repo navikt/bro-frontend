@@ -1,4 +1,4 @@
-import type { KartleggingsspormalFormFieldId } from "@/forms/kartleggingssporsmal/types/KartleggingsspormalFormFieldId";
+import type { KartleggingsspormalFormFieldId } from "@/forms/kartleggingssporsmal/fieldDefinitions/KartleggingsspormalFormFieldId";
 import type { FieldSnapshots } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 import { fieldSnapshotsFlervalgV1Fixture } from "./fieldSnapshotsFixturesFlervalg";
 

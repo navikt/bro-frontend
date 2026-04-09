@@ -64,19 +64,16 @@ function mapFormSnapshotToSummaryItems(
           type: "RADIO_GROUP",
         };
       }
-      case "TEXT":
+      case "TEXT": {
         return {
           id: field.fieldId,
           label: field.label,
           value: field.value,
           type: "TEXT",
         };
-      // Missing 'fieldType' causes a compile-time error if we use the following check:
-      // https://gibbok.github.io/typescript-book/book/exhaustiveness-checking/
-      default: {
-        const _exhaustiveCheck: never = field;
-        return _exhaustiveCheck;
       }
+      default:
+        return undefined as never;
     }
   });
 }
