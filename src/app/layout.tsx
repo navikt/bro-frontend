@@ -1,12 +1,13 @@
 import "@/app/globals.css";
 import "@navikt/lumi-survey/styles.css";
 
-import { Box, Page } from "@navikt/ds-react";
+import { Box, Loader, Page } from "@navikt/ds-react";
 import { PageBlock } from "@navikt/ds-react/Page";
 import { Theme } from "@navikt/ds-react/Theme";
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import Providers from "@/app/Providers";
 import DemoInfoCard from "@/components/DemoInfoCard";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
@@ -73,7 +74,15 @@ const RootLayout = async ({
                     className="page-surface__main"
                     gutters
                   >
-                    {isLocalOrDemo && <DemoInfoCard />}
+                    {isLocalOrDemo && (
+                      <Suspense
+                        fallback={
+                          <Loader size="large" title="Laster info om demo..." />
+                        }
+                      >
+                        <DemoInfoCard />
+                      </Suspense>
+                    )}
                     {children}
                   </PageBlock>
                 </div>
