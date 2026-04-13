@@ -1,4 +1,4 @@
-import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
 
 export const formValues1a2a3a: FormValuesForVariant<"FLERVALG_FRITEKST_V1"> = {
   tilbakeTilJobbenHvorSannsynligFlervalg: "1a",

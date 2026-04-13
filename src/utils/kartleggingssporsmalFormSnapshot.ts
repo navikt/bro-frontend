@@ -1,7 +1,7 @@
 import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/fieldDefinitions/allFields";
-import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
-import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { getFieldIdsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm/getFieldsToIncludeInForm";
+import { getFieldIdsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type {
   FieldSnapshots,
   FormSnapshot,

@@ -1,5 +1,5 @@
-import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
-import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
+import type { FormVariant } from "./types/FormVariant";
 
 const formDefaultValuesByFormVariant: {
   [K in FormVariant]: FormValuesForVariant<K>;

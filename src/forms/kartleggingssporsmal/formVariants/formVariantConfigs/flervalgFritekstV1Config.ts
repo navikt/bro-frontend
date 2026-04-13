@@ -1,7 +1,7 @@
 import z from "zod";
 import type { KartleggingsspormalFormFieldId } from "../../fieldDefinitions/KartleggingsspormalFormFieldId";
 import { fieldSchemas } from "../../fieldSchemas/fieldSchemas";
-import { defineVariantConfig } from "./formVariantConfigs";
+import { defineVariantConfig } from "../types/FormVariantConfig";
 
 export const flervalgFritekstV1Config = defineVariantConfig({
   fieldsInOrder: [

@@ -1,5 +1,5 @@
 import type z from "zod";
-import type { FormVariant } from "./formVariants";
+import type { FormVariant } from "./FormVariant";
 import type { SchemaForVariant } from "./SchemaForVariant";
 
 // Almost same as z.infer<Schema>, but also allows "" on every field.

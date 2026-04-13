@@ -1,8 +1,8 @@
-import type { KartleggingsspormalFormFieldId } from "../../fieldDefinitions/KartleggingsspormalFormFieldId";
-import type { FormValuesForSchema } from "../FormValues";
-import { formVariantConfigs } from "../formVariantConfigs/formVariantConfigs";
-import type { FormVariant } from "../formVariants";
-import type { SchemaForVariant } from "../SchemaForVariant";
+import type { KartleggingsspormalFormFieldId } from "../fieldDefinitions/KartleggingsspormalFormFieldId";
+import { formVariantConfigs } from "./formVariants";
+import type { FormValuesForSchema } from "./types/FormValues";
+import type { FormVariant } from "./types/FormVariant";
+import type { SchemaForVariant } from "./types/SchemaForVariant";
 
 export function getFieldIdsToIncludeInForm<T extends FormVariant>(
   formVariant: T,

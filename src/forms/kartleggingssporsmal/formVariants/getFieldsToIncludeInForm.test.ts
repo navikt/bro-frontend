@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getFormDefaultValuesForFormVariant } from "../formDefaultValues";
+import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
 import { getFieldIdsToIncludeInForm } from "./getFieldsToIncludeInForm";
 
 describe("getFieldsToIncludeInForm", () => {

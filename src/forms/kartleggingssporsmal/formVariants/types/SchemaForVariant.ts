@@ -1,5 +1,5 @@
-import { formVariantConfigs } from "./formVariantConfigs/formVariantConfigs";
-import type { FormVariant } from "./formVariants";
+import { formVariantConfigs } from "../formVariants";
+import type { FormVariant } from "./FormVariant";
 
 export type SchemaForVariant<T extends FormVariant> =
   (typeof formVariantConfigs)[T]["schema"];

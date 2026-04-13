@@ -1,4 +1,4 @@
-import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/FormValues";
+import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
 
 export const formValuesFlervalgV1Fixture: FormValuesForVariant<"FLERVALG_V1"> =
   {

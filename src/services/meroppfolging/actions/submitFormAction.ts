@@ -6,8 +6,8 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { getSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/SchemaForVariant";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
+import { getSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/SchemaForVariant";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,

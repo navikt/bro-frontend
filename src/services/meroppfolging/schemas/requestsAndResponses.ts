@@ -1,5 +1,5 @@
 import { z } from "zod/v4";
-import { formVariantSchema } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import { formVariantSchema } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { formSnapshotSchema } from "./formSnapshotSchema";
 
 const formSnapshotRequestSchema = z.object({
