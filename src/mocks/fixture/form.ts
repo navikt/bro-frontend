@@ -28,7 +28,7 @@ export const fieldSnapshotsFixture: FieldSnapshots = [
     label:
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
     wasRequired: true,
-    description: "Svaret blir ikke delt med din arbeidsgiver.",
+    description: null,
     fieldId: "samarbeidOgRelasjonTilArbeidsgiver",
     options: [
       {
