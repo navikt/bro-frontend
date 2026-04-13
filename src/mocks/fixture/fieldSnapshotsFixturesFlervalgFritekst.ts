@@ -43,7 +43,7 @@ const createSecondQuestionField = (selected: SecondQuestionOption) => ({
     "arbeidsgiverHvordanErSamarbeidFlervalg" as KartleggingsspormalFormFieldId,
   label:
     "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
-  description: "Svaret blir ikke delt med din arbeidsgiver.",
+  description: null,
   fieldType: "RADIO_GROUP" as const,
   options: [
     {
