@@ -1,7 +1,7 @@
 "use client";
 
 import { InformationSquareIcon } from "@navikt/aksel-icons";
-import { Box, InfoCard, Link } from "@navikt/ds-react";
+import { BodyLong, Box, InfoCard, Link } from "@navikt/ds-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { DEMO_SKJEMAVARIANT_URL_PARAM_KEY } from "@/appConfig";
@@ -42,19 +42,28 @@ export default function DemoInfoCard() {
 
   return (
     <Box paddingBlock="space-24">
-      <InfoCard data-color="info">
+      <InfoCard data-color="info" size="small">
         <InfoCard.Message icon={<InformationSquareIcon aria-hidden />}>
-          Dette er en demoside og handlinger her har ingen effekt.{" "}
-          <Link
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              openModal();
-            }}
-          >
-            Velg skjemavariant
-          </Link>
-          .
+          <BodyLong className="mb-1" size="small">
+            Dette er en demo som viser hvordan løsningen for
+            kartleggingsspørsmål ser ut og fungerer for sykmeldte brukere. Du
+            kan teste å fylle ut skjemaet, "sende inn", og se kvitteringen. Svar
+            blir ikke sendt noe sted.
+          </BodyLong>
+
+          <BodyLong size="small">
+            Ulike brukere kan få ulike varianter av skjemaet.{" "}
+            <Link
+              href="#"
+              onClick={(event) => {
+                event.preventDefault();
+                openModal();
+              }}
+            >
+              Velg skjemavariant
+            </Link>{" "}
+            som vises.
+          </BodyLong>
         </InfoCard.Message>
       </InfoCard>
 
