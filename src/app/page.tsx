@@ -5,35 +5,34 @@ import { FormHeaderAndTopText } from "@/features/kartleggingssporsmal/form/FormH
 import KartleggingssporsmalFormPage from "@/features/kartleggingssporsmal/form/KartleggingssporsmalFormPage";
 import KartleggingssporsmalFormSummaryPage from "@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummaryPage";
 import NoAccessInformation from "@/features/no-access/NoAccess";
-import { formVariants } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { formVariantSchema } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
+import {
+  type FormVariant,
+  formVariantSchema,
+} from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { fetchKandidatStatus } from "@/services/meroppfolging/meroppfolgingService";
 
-const defaultDemoSkjemavariant = formVariants[0];
+const DEFAULT_DEMO_SKJEMAVARIANT: FormVariant = "FLERVALG_V1";
+
+type NextSearchParamsPromise = Promise<
+  Record<string, string | string[] | undefined>
+>;
 
 interface Props {
-  searchParams: Promise<{
-    [DEMO_SKJEMAVARIANT_URL_PARAM_KEY]?: string;
-  }>;
+  searchParams: NextSearchParamsPromise;
 }
 
 export default async function Home({ searchParams }: Props) {
   const {
     formResponse,
     isKandidat,
-    skjemavariant: skjemavariantFromBackend,
+    skjemavariant: formVariantFromBackend,
   } = await fetchKandidatStatus();
 
-  let effectiveSkjemavariant = skjemavariantFromBackend;
+  let effectiveFormVariant = formVariantFromBackend;
 
   if (isLocalOrDemo) {
-    const demoSkjemavariantParam = (await searchParams)[
-      DEMO_SKJEMAVARIANT_URL_PARAM_KEY
-    ];
-
-    effectiveSkjemavariant = getDemoSkjemavariantParamOrRedirectToDefault(
-      demoSkjemavariantParam,
-    );
+    effectiveFormVariant =
+      await getDemoFormVariantFromUrlParamOrRedirectToDefault(searchParams);
   }
 
   if (!isKandidat) {
@@ -51,22 +50,32 @@ export default async function Home({ searchParams }: Props) {
 
   return (
     <KartleggingssporsmalFormPage
-      key={effectiveSkjemavariant}
-      formVariant={effectiveSkjemavariant}
+      key={effectiveFormVariant}
+      formVariant={effectiveFormVariant}
       topContent={<FormHeaderAndTopText />}
     />
   );
 
-  function getDemoSkjemavariantParamOrRedirectToDefault(
-    demoSkjemavariantParam?: string,
+  /**
+   * Used in demo environment to read demoFormVariant parameter from url. That
+   * parameter is used to determine which form variant to show in demo. The
+   * value of the parameter can be changed by the user via the DemoInfoCard UI.
+   * If the parameter is not set or has an invalid value, as is the case when
+   * a user first visits the demo, they are redirected to the same page with the
+   * default demo form variant set in the parameter.
+   */
+  async function getDemoFormVariantFromUrlParamOrRedirectToDefault(
+    searchParams: NextSearchParamsPromise,
   ) {
-    const parsedDemoVariant = formVariantSchema.safeParse(
-      demoSkjemavariantParam,
-    );
+    const demoFormVariantParam = (await searchParams)[
+      DEMO_SKJEMAVARIANT_URL_PARAM_KEY
+    ];
+
+    const parsedDemoVariant = formVariantSchema.safeParse(demoFormVariantParam);
 
     if (!parsedDemoVariant.success) {
       const params = new URLSearchParams();
-      params.set(DEMO_SKJEMAVARIANT_URL_PARAM_KEY, defaultDemoSkjemavariant);
+      params.set(DEMO_SKJEMAVARIANT_URL_PARAM_KEY, DEFAULT_DEMO_SKJEMAVARIANT);
 
       redirect(`/?${params.toString()}`);
     } else {
