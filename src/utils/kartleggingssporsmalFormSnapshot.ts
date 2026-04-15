@@ -1,4 +1,4 @@
-import { getFieldsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { getFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
 import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type {
@@ -19,9 +19,12 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
   formValues: FormValuesForVariant<T>,
 ): FieldSnapshot[] {
   const fields: FieldSnapshot[] = [];
-  const fieldsToInclude = getFieldsToIncludeInForm(formVariant, formValues);
+  const fieldsToInclude = getFieldsToIncludeInFormInOrder(
+    formVariant,
+    formValues,
+  );
 
-  for (const { fieldId, questionDefinition, isRequired } of fieldsToInclude) {
+  for (const { fieldId, question, isRequired } of fieldsToInclude) {
     if (!(fieldId in formValues)) {
       continue;
     }
@@ -31,12 +34,12 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
     // fieldsToInclude, ensured by FormVariantConfig generic constraint.
     const fieldValue = formValues[fieldId as keyof typeof formValues];
 
-    switch (questionDefinition.type) {
+    switch (question.type) {
       case "TEXT": {
         fields.push({
           fieldId,
-          label: questionDefinition.label,
-          description: questionDefinition.description,
+          label: question.label,
+          description: question.description,
           fieldType: "TEXT",
           value: String(fieldValue ?? ""),
           wasRequired: isRequired,
@@ -50,10 +53,10 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
 
         fields.push({
           fieldId,
-          label: questionDefinition.label,
-          description: questionDefinition.description,
-          fieldType: questionDefinition.type,
-          options: questionDefinition.options.map((option) => ({
+          label: question.label,
+          description: question.description,
+          fieldType: question.type,
+          options: question.options.map((option) => ({
             optionId: option.id,
             optionLabel: option.label,
             wasSelected: option.id === selectedId,

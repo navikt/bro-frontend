@@ -6,7 +6,7 @@ import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { getFieldsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { getFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
@@ -84,25 +84,26 @@ export default function KartleggingssporsmalForm({
         <div className="grid gap-4 mb-4">
           <form.Subscribe selector={(state) => state.values}>
             {(formValues) => {
-              return getFieldsToIncludeInForm(formVariant, formValues).map(
-                ({ fieldId, questionDefinition, isRequired }) => (
-                  <form.AppField key={fieldId} name={fieldId}>
-                    {(field) =>
-                      questionDefinition.type === "RADIO_GROUP" ? (
-                        <field.RadioGroup
-                          question={questionDefinition}
-                          isRequired={isRequired}
-                        />
-                      ) : (
-                        <field.TextArea
-                          question={questionDefinition}
-                          isRequired={isRequired}
-                        />
-                      )
-                    }
-                  </form.AppField>
-                ),
-              );
+              return getFieldsToIncludeInFormInOrder(
+                formVariant,
+                formValues,
+              ).map(({ fieldId, question, isRequired }) => (
+                <form.AppField key={fieldId} name={fieldId}>
+                  {(field) =>
+                    question.type === "RADIO_GROUP" ? (
+                      <field.RadioGroup
+                        question={question}
+                        isRequired={isRequired}
+                      />
+                    ) : (
+                      <field.TextArea
+                        question={question}
+                        isRequired={isRequired}
+                      />
+                    )
+                  }
+                </form.AppField>
+              ));
             }}
           </form.Subscribe>
         </div>

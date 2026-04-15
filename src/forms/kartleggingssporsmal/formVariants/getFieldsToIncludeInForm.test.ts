@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
-import { getFieldsToIncludeInForm } from "./getFieldsToIncludeInForm";
+import { getFieldsToIncludeInFormInOrder } from "./getFieldsToIncludeInForm";
 
 describe("getFieldsToIncludeInForm", () => {
   it("returns the full field list for FLERVALG_V1", () => {
     expect(
-      getFieldsToIncludeInForm(
+      getFieldsToIncludeInFormInOrder(
         "FLERVALG_V1",
         getFormDefaultValuesForFormVariant("FLERVALG_V1"),
       ).map((field) => field.fieldId),
@@ -27,7 +27,7 @@ describe("getFieldsToIncludeInForm", () => {
       "FLERVALG_FRITEKST_V1",
     );
 
-    const fieldIdsWhenSannsynlig = getFieldsToIncludeInForm(
+    const fieldIdsWhenSannsynlig = getFieldsToIncludeInFormInOrder(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -35,7 +35,7 @@ describe("getFieldsToIncludeInForm", () => {
       },
     ).map((field) => field.fieldId);
 
-    const fieldIdsWhenLiteSannsynlig = getFieldsToIncludeInForm(
+    const fieldIdsWhenLiteSannsynlig = getFieldsToIncludeInFormInOrder(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -43,14 +43,12 @@ describe("getFieldsToIncludeInForm", () => {
       },
     ).map((field) => field.fieldId);
 
-    const fieldIdsWhenUsikkerAndDarligSamarbeid = getFieldsToIncludeInForm(
-      "FLERVALG_FRITEKST_V1",
-      {
+    const fieldIdsWhenUsikkerAndDarligSamarbeid =
+      getFieldsToIncludeInFormInOrder("FLERVALG_FRITEKST_V1", {
         ...defaultValues,
         tilbakeTilJobbenHvorSannsynligFlervalg: "1c",
         arbeidsgiverHvordanErSamarbeidFlervalg: "2b",
-      },
-    ).map((field) => field.fieldId);
+      }).map((field) => field.fieldId);
 
     expect(fieldIdsWhenSannsynlig).toEqual(baseFields);
 

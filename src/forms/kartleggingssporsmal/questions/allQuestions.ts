@@ -6,6 +6,9 @@ import { textQuestions } from "./textQuestions";
 export const allKartleggingssporsmalQuestions = {
   ...radioGroupQuestions,
   ...textQuestions,
-} as const satisfies Record<string, QuestionDefinition>;
+} as const satisfies Record<string, Question>;
 
-export type QuestionDefinition = RadioGroupQuestion | TextQuestion;
+export type Question = RadioGroupQuestion | TextQuestion;
+
+export type KartleggingsspormalFormFieldId =
+  keyof typeof allKartleggingssporsmalQuestions;

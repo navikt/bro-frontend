@@ -1,27 +1,20 @@
 import z from "zod";
 import { fieldSchemas } from "../../fieldSchemas/fieldSchemas";
-import { allKartleggingssporsmalQuestions } from "../../questionDefinitions/allQuestions";
-import type { KartleggingsspormalFormFieldId } from "../../questionDefinitions/KartleggingsspormalFormFieldId";
+import type { KartleggingsspormalFormFieldId } from "../../questions/allQuestions";
 import { defineVariantConfig } from "../types/FormVariantConfig";
 
 export const flervalgV1Config = defineVariantConfig({
   formFields: [
     {
       fieldId: "tilbakeTilJobbenHvorSannsynligFlervalg",
-      questionDefinition:
-        allKartleggingssporsmalQuestions.tilbakeTilJobbenHvorSannsynligFlervalg,
       isRequired: true,
     },
     {
       fieldId: "arbeidsgiverHvordanErSamarbeidFlervalg",
-      questionDefinition:
-        allKartleggingssporsmalQuestions.arbeidsgiverHvordanErSamarbeidFlervalg,
       isRequired: true,
     },
     {
       fieldId: "naarTilbakeTilJobbenFlervalg",
-      questionDefinition:
-        allKartleggingssporsmalQuestions.naarTilbakeTilJobbenFlervalg,
       isRequired: true,
     },
   ],

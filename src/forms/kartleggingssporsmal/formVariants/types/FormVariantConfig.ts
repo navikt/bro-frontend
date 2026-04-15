@@ -1,9 +1,8 @@
 import type z from "zod";
-import type { QuestionDefinition } from "../../questionDefinitions/allQuestions";
-import type { KartleggingsspormalFormFieldId } from "../../questionDefinitions/KartleggingsspormalFormFieldId";
+import type { KartleggingsspormalFormFieldId } from "../../questions/allQuestions";
 import type { AllowUnfilledFields } from "./FormValues";
 
-type FormVariantConfig<
+export type FormVariantConfig<
   // Generic types ensures that the schema at least "covers" the fields that are
   // listed in fieldsInOrder.
   F extends string,
@@ -15,19 +14,16 @@ type FormVariantConfig<
    */
   formFields: {
     /**
-     * Defines the fieldId for the field, which is reflected in resulting
-     * FormSnapshot object.
+     * fieldId defines which question to connect to the field, and defines the
+     * fieldId for the field in the resulting FormSnapshot object.
+     * Different form variants can reuse the same question.
      */
     fieldId: F;
     /**
-     * Contains the "question definition", which includes field type, and text
-     * data like label, description, and options for radio groups. Question
-     * definitions can be shared among form variants.
-     */
-    questionDefinition: QuestionDefinition;
-    /**
      * Indicates whether the question should be marked as required or optional
      * in the form and in the resulting FormSnapshot (via wasRequired flag).
+     * Validation schema for field in `validationSchema` should have matching
+     * validation behaviour.
      */
     isRequired: boolean;
     /**
