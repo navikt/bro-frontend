@@ -8,15 +8,15 @@ import KartleggingssporsmalFormSummaryPage from "../summary/Kartleggingssporsmal
 import KartleggingssporsmalForm from "./KartleggingssporsmalForm";
 
 interface Props {
-  topContent: React.ReactNode;
   formVariant: FormVariant;
+  topContent: React.ReactNode;
 }
 
 export default function KartleggingssporsmalFormPage({
-  topContent,
   formVariant,
+  topContent,
 }: Props) {
-  const [formReponse, setFormResponse] =
+  const [formResponse, setFormResponse] =
     useState<KartleggingssporsmalFormResponse | null>(null);
 
   useEffect(() => {
@@ -29,8 +29,8 @@ export default function KartleggingssporsmalFormPage({
     });
   }, []);
 
-  return formReponse ? (
-    <KartleggingssporsmalFormSummaryPage formResponse={formReponse} />
+  return formResponse ? (
+    <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />
   ) : (
     <>
       {topContent}
