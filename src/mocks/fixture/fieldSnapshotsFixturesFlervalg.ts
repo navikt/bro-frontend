@@ -1,12 +1,13 @@
-import type { FieldSnapshots } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { FieldSnapshot } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
-export const fieldSnapshotsFlervalgV1Fixture: FieldSnapshots = [
+export const fieldSnapshotsFlervalgV1Fixture: FieldSnapshot[] = [
   {
     fieldId: "tilbakeTilJobbenHvorSannsynligFlervalg",
     label:
       "Hvor sannsynlig er det at du kommer tilbake i jobben du ble sykmeldt fra?",
     description: null,
     fieldType: "RADIO_GROUP",
+    wasRequired: true,
     options: [
       {
         optionId: "1a",
@@ -31,6 +32,7 @@ export const fieldSnapshotsFlervalgV1Fixture: FieldSnapshots = [
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
     description: null,
     fieldType: "RADIO_GROUP",
+    wasRequired: true,
     options: [
       {
         optionId: "2a",
@@ -49,6 +51,7 @@ export const fieldSnapshotsFlervalgV1Fixture: FieldSnapshots = [
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
     description: null,
     fieldType: "RADIO_GROUP",
+    wasRequired: true,
     options: [
       {
         optionId: "3a",

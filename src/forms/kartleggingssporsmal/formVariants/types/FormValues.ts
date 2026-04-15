@@ -1,27 +1,23 @@
 import type z from "zod";
+import type { formVariantConfigs } from "../formVariants";
 import type { FormVariant } from "./FormVariant";
-import type { SchemaForVariant } from "./SchemaForVariant";
 
-// Almost same as z.infer<Schema>, but also allows "" on every field.
-export type FormValuesForSchema<Schema extends z.ZodObject> = {
-  [K in keyof z.infer<Schema>]: z.infer<Schema>[K] | "";
+/**
+ * Helper type for representing form value state during filling out form. Empty
+ * strings are allowed for each field, representing unfilled fields.
+ */
+export type AllowUnfilledFields<ValidFormValues extends object> = {
+  [K in keyof ValidFormValues]: ValidFormValues[K] | "";
 };
 
-// Not used directly — when T is a union this collapses to shared keys only.
-// Use FormValues instead to get proper union distribution.
-type FormValuesForSingleVariant<T extends FormVariant> = FormValuesForSchema<
-  SchemaForVariant<T>
+type ValidFormValuesForVariant<T extends FormVariant> = z.infer<
+  (typeof formVariantConfigs)[T]["validationSchema"]
 >;
 
 /**
  * Represents form value state during filling out form for a given variant,
- * with empty strings allowed on every field to allow for unselected multiple
- * choice fields.
+ * with empty strings allowed for each field, representing unfilled fields.
  */
-export type FormValuesForVariant<T extends FormVariant> = T extends FormVariant
-  ? FormValuesForSingleVariant<T>
-  : never;
-
-// The `T extends FormVariant` conditional above makes the FormValuesInProgress
-// type distributive: when T is a union, TypeScript applies the condition
-// separately to each union member and unions the results.
+export type FormValuesForVariant<T extends FormVariant> = AllowUnfilledFields<
+  ValidFormValuesForVariant<T>
+>;

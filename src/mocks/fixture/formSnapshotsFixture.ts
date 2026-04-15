@@ -1,6 +1,6 @@
-import type { FieldSnapshots } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { FieldSnapshot } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
-export const fieldSnapshotsFixture: FieldSnapshots = [
+export const fieldSnapshotsFixture: FieldSnapshot[] = [
   {
     fieldId: "tilbakeTilJobbenHvorSannsynligFlervalg",
     fieldType: "RADIO_GROUP",

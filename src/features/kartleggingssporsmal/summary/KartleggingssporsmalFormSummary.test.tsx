@@ -35,6 +35,7 @@ describe("KartleggingssporsmalFormSummary", () => {
               label: "Utdyp svaret ditt",
               description: null,
               fieldType: "TEXT",
+              wasRequired: false,
               value: "",
             },
           ],

@@ -1,9 +1,8 @@
-import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/fieldDefinitions/allFields";
-import { getFieldIdsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { getFieldsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
 import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type {
-  FieldSnapshots,
+  FieldSnapshot,
   FormSnapshot,
 } from "@/services/meroppfolging/schemas/formSnapshotSchema";
 
@@ -18,26 +17,29 @@ function getFormIdentifier(formVariant: FormVariant): string {
 function mapFormValuesToFieldSnapshots<T extends FormVariant>(
   formVariant: T,
   formValues: FormValuesForVariant<T>,
-): FieldSnapshots {
-  const fields: FieldSnapshots = [];
-  const fieldsForVariant = getFieldIdsToIncludeInForm(formVariant, formValues);
+): FieldSnapshot[] {
+  const fields: FieldSnapshot[] = [];
+  const fieldsToInclude = getFieldsToIncludeInForm(formVariant, formValues);
 
-  for (const fieldId of fieldsForVariant) {
+  for (const { fieldId, questionDefinition, isRequired } of fieldsToInclude) {
     if (!(fieldId in formValues)) {
       continue;
     }
 
-    const fieldValue = formValues[fieldId as keyof FormValuesForVariant<T>];
-    const field = kartleggingssporsmalFormFields[fieldId];
+    // The type assertion on fieldId is safe because formValues type is inferred
+    // from schema for variant, and the schema must include the fields IDs in
+    // fieldsToInclude, ensured by FormVariantConfig generic constraint.
+    const fieldValue = formValues[fieldId as keyof typeof formValues];
 
-    switch (field.type) {
+    switch (questionDefinition.type) {
       case "TEXT": {
         fields.push({
           fieldId,
-          label: field.label,
-          description: field.description,
+          label: questionDefinition.label,
+          description: questionDefinition.description,
           fieldType: "TEXT",
           value: String(fieldValue ?? ""),
+          wasRequired: isRequired,
         });
 
         break;
@@ -48,14 +50,15 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
 
         fields.push({
           fieldId,
-          label: field.label,
-          description: field.description,
-          fieldType: field.type,
-          options: field.options.map((option) => ({
+          label: questionDefinition.label,
+          description: questionDefinition.description,
+          fieldType: questionDefinition.type,
+          options: questionDefinition.options.map((option) => ({
             optionId: option.id,
             optionLabel: option.label,
             wasSelected: option.id === selectedId,
           })),
+          wasRequired: isRequired,
         });
 
         break;

@@ -14,26 +14,35 @@ export type RadioGroupQuestion = {
   options: RadioOption[];
 };
 
-export function RadioGroup({ question }: { question: RadioGroupQuestion }) {
+interface Props {
+  question: RadioGroupQuestion;
+  isRequired: boolean;
+}
+
+export function RadioGroup({ question, isRequired }: Props) {
   const field = useFieldContext<string>();
+
+  const modifiedLabel = `${question.label}${!isRequired ? " (Valgfritt)" : ""}`;
+
+  const handleChange = (value: string) => {
+    const selectedOption = question.options.find((o) => o.id === value);
+    logTaxonomyEvent({
+      name: "radio valg endret",
+      properties: {
+        komponentId: question.label,
+        valgtAlternativ: selectedOption?.label ?? value,
+        antallAlternativer: question.options.length,
+      },
+    });
+    field.handleChange(value);
+  };
 
   return (
     <AkselRadioGroup
-      legend={question.label}
+      legend={modifiedLabel}
       value={field.state.value}
       description={question.description}
-      onChange={(value) => {
-        const selectedOption = question.options.find((o) => o.id === value);
-        logTaxonomyEvent({
-          name: "radio valg endret",
-          properties: {
-            komponentId: question.label,
-            valgtAlternativ: selectedOption?.label ?? value,
-            antallAlternativer: question.options.length,
-          },
-        });
-        field.handleChange(value);
-      }}
+      onChange={handleChange}
       onBlur={field.handleBlur}
       error={field.state.meta.errors[0]?.message}
     >

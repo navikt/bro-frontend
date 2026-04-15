@@ -6,8 +6,8 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
+import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
-import { getSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/SchemaForVariant";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
@@ -19,7 +19,7 @@ export async function submitFormAction(
   formValues: unknown,
   formVariant: FormVariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
-  const variantSchema = getSchemaForVariant(formVariant);
+  const variantSchema = getValidationSchemaForVariant(formVariant);
   const parseResult = variantSchema.safeParse(formValues);
 
   if (!parseResult.success) {

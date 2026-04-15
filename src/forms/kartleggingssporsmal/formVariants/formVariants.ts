@@ -15,3 +15,7 @@ export const formVariantConfigs = {
   FLERVALG_V1: flervalgV1Config,
   FLERVALG_FRITEKST_V1: flervalgFritekstV1Config,
 } satisfies Record<FormVariant, unknown>;
+
+export function getValidationSchemaForVariant(formVariant: FormVariant) {
+  return formVariantConfigs[formVariant].validationSchema;
+}

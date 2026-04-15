@@ -1,14 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
-import { getFieldIdsToIncludeInForm } from "./getFieldsToIncludeInForm";
+import { getFieldsToIncludeInForm } from "./getFieldsToIncludeInForm";
 
 describe("getFieldsToIncludeInForm", () => {
   it("returns the full field list for FLERVALG_V1", () => {
     expect(
-      getFieldIdsToIncludeInForm(
+      getFieldsToIncludeInForm(
         "FLERVALG_V1",
         getFormDefaultValuesForFormVariant("FLERVALG_V1"),
-      ),
+      ).map((field) => field.fieldId),
     ).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "arbeidsgiverHvordanErSamarbeidFlervalg",
@@ -27,41 +27,41 @@ describe("getFieldsToIncludeInForm", () => {
       "FLERVALG_FRITEKST_V1",
     );
 
-    const fieldsWhenSannsynlig = getFieldIdsToIncludeInForm(
+    const fieldIdsWhenSannsynlig = getFieldsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
         tilbakeTilJobbenHvorSannsynligFlervalg: "1a",
       },
-    );
+    ).map((field) => field.fieldId);
 
-    const fieldsWhenLiteSannsynlig = getFieldIdsToIncludeInForm(
+    const fieldIdsWhenLiteSannsynlig = getFieldsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
         tilbakeTilJobbenHvorSannsynligFlervalg: "1b",
       },
-    );
+    ).map((field) => field.fieldId);
 
-    const fieldsWhenUsikkerAndDarligSamarbeid = getFieldIdsToIncludeInForm(
+    const fieldIdsWhenUsikkerAndDarligSamarbeid = getFieldsToIncludeInForm(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
         tilbakeTilJobbenHvorSannsynligFlervalg: "1c",
         arbeidsgiverHvordanErSamarbeidFlervalg: "2b",
       },
-    );
+    ).map((field) => field.fieldId);
 
-    expect(fieldsWhenSannsynlig).toEqual(baseFields);
+    expect(fieldIdsWhenSannsynlig).toEqual(baseFields);
 
-    expect(fieldsWhenLiteSannsynlig).toEqual([
+    expect(fieldIdsWhenLiteSannsynlig).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "tilbakeTilJobbenLiteSannsynligBegrunnelse",
       "arbeidsgiverHvordanErSamarbeidFlervalg",
       "naarTilbakeTilJobbenFlervalg",
     ]);
 
-    expect(fieldsWhenUsikkerAndDarligSamarbeid).toEqual([
+    expect(fieldIdsWhenUsikkerAndDarligSamarbeid).toEqual([
       "tilbakeTilJobbenHvorSannsynligFlervalg",
       "tilbakeTilJobbenUsikkerBegrunnelse",
       "arbeidsgiverHvordanErSamarbeidFlervalg",

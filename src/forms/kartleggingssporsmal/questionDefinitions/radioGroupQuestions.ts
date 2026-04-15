@@ -1,6 +1,6 @@
 import type { RadioGroupQuestion } from "@/components/form-components/RadioGroup";
 
-export const radioGroupFields = {
+export const radioGroupQuestions = {
   tilbakeTilJobbenHvorSannsynligFlervalg: {
     type: "RADIO_GROUP",
     label:
@@ -33,14 +33,14 @@ export const radioGroupFields = {
   },
 } as const satisfies Record<string, RadioGroupQuestion>;
 
-type RadioGroupFieldId = keyof typeof radioGroupFields;
+type RadioGroupFieldId = keyof typeof radioGroupQuestions;
 type RadioGroupOptionId<T extends RadioGroupFieldId> =
-  (typeof radioGroupFields)[T]["options"][number]["id"];
+  (typeof radioGroupQuestions)[T]["options"][number]["id"];
 
 export function getRadioGroupOptionIds<T extends RadioGroupFieldId>(
   radioFieldId: T,
 ): RadioGroupOptionId<T>[] {
-  return radioGroupFields[radioFieldId].options.map(
+  return radioGroupQuestions[radioFieldId].options.map(
     (option) => option.id,
   ) as RadioGroupOptionId<T>[];
 }

@@ -5,10 +5,9 @@ import { logger } from "@navikt/next-logger";
 import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import { kartleggingssporsmalFormFields } from "@/forms/kartleggingssporsmal/fieldDefinitions/allFields";
-import { getFieldIdsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import { getFieldsToIncludeInForm } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
-import { getSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/SchemaForVariant";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
@@ -39,7 +38,7 @@ export default function KartleggingssporsmalForm({
     defaultValues: getFormDefaultValuesForFormVariant(formVariant),
     validationLogic: revalidateLogic(),
     validators: {
-      onDynamic: getSchemaForVariant(formVariant),
+      onDynamic: getValidationSchemaForVariant(formVariant),
     },
     onSubmit: async ({ value }) => {
       try {
@@ -85,22 +84,24 @@ export default function KartleggingssporsmalForm({
         <div className="grid gap-4 mb-4">
           <form.Subscribe selector={(state) => state.values}>
             {(formValues) => {
-              return getFieldIdsToIncludeInForm(formVariant, formValues).map(
-                (fieldId) => {
-                  const questionField = kartleggingssporsmalFormFields[fieldId];
-
-                  return (
-                    <form.AppField key={fieldId} name={fieldId}>
-                      {(field) =>
-                        questionField.type === "RADIO_GROUP" ? (
-                          <field.RadioGroup question={questionField} />
-                        ) : (
-                          <field.TextArea question={questionField} />
-                        )
-                      }
-                    </form.AppField>
-                  );
-                },
+              return getFieldsToIncludeInForm(formVariant, formValues).map(
+                ({ fieldId, questionDefinition, isRequired }) => (
+                  <form.AppField key={fieldId} name={fieldId}>
+                    {(field) =>
+                      questionDefinition.type === "RADIO_GROUP" ? (
+                        <field.RadioGroup
+                          question={questionDefinition}
+                          isRequired={isRequired}
+                        />
+                      ) : (
+                        <field.TextArea
+                          question={questionDefinition}
+                          isRequired={isRequired}
+                        />
+                      )
+                    }
+                  </form.AppField>
+                ),
               );
             }}
           </form.Subscribe>
