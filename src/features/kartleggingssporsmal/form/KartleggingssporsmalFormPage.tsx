@@ -2,22 +2,27 @@
 
 import { useEffect, useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import { useDemoFormVariantViaParamIfDemo } from "@/components/DemoInfoCard/useDemoFormVariant";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
 import KartleggingssporsmalForm from "./KartleggingssporsmalForm";
 
 interface Props {
-  formVariant: FormVariant;
+  formVariantFromBackend: FormVariant;
   topContent: React.ReactNode;
 }
 
 export default function KartleggingssporsmalFormPage({
-  formVariant,
+  formVariantFromBackend,
   topContent,
 }: Props) {
   const [formResponse, setFormResponse] =
     useState<KartleggingssporsmalFormResponse | null>(null);
+
+  const { activeFormVariant } = useDemoFormVariantViaParamIfDemo(
+    formVariantFromBackend,
+  );
 
   useEffect(() => {
     logTaxonomyEvent({
@@ -32,15 +37,18 @@ export default function KartleggingssporsmalFormPage({
   return formResponse ? (
     <KartleggingssporsmalFormSummaryPage
       formResponse={formResponse}
-      formVariant={formVariant}
+      formVariant={activeFormVariant}
     />
   ) : (
     <>
       {topContent}
 
       <KartleggingssporsmalForm
+        // key prop is used to remount the component when activeFormVariant
+        // changes
+        key={activeFormVariant}
+        formVariant={activeFormVariant}
         setSummaryItems={setFormResponse}
-        formVariant={formVariant}
       />
     </>
   );
