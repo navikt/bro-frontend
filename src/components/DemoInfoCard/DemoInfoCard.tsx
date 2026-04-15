@@ -2,27 +2,19 @@
 
 import { InformationSquareIcon } from "@navikt/aksel-icons";
 import { BodyLong, Box, InfoCard, Link } from "@navikt/ds-react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { DEMO_SKJEMAVARIANT_URL_PARAM_KEY } from "@/appConfig";
-import DemoVariantPickerModal from "@/components/DemoVariantPickerModal";
-import { formVariants } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { formVariantSchema } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
+import DemoVariantPickerModal from "@/components/DemoInfoCard/DemoVariantPickerModal";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
+import {
+  DEFAULT_DEMO_FORM_VARIANT,
+  useDemoFormVariantViaParamIfDemo,
+} from "./useDemoFormVariant";
 
 export default function DemoInfoCard() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const currentVariantFromUrl = searchParams.get(
-    DEMO_SKJEMAVARIANT_URL_PARAM_KEY,
-  );
-  const parsedVariant = formVariantSchema.safeParse(currentVariantFromUrl);
-  const activeVariant = parsedVariant.success
-    ? parsedVariant.data
-    : formVariants[0];
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { activeFormVariant, changeDemoFormVariantViaParam } =
+    useDemoFormVariantViaParamIfDemo(DEFAULT_DEMO_FORM_VARIANT);
 
   function openModal() {
     setIsModalOpen(true);
@@ -32,12 +24,9 @@ export default function DemoInfoCard() {
     setIsModalOpen(false);
   }
 
-  function applyDemoVariant(nextVariant: (typeof formVariants)[number]) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(DEMO_SKJEMAVARIANT_URL_PARAM_KEY, nextVariant);
-
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
-    setIsModalOpen(false);
+  function handleChangeDemoFormVariant(variant: FormVariant) {
+    changeDemoFormVariantViaParam(variant);
+    closeModal();
   }
 
   return (
@@ -69,9 +58,9 @@ export default function DemoInfoCard() {
 
       <DemoVariantPickerModal
         open={isModalOpen}
-        activeVariant={activeVariant}
+        activeVariant={activeFormVariant}
         onClose={closeModal}
-        onSelectVariant={applyDemoVariant}
+        onSelectVariant={handleChangeDemoFormVariant}
       />
     </Box>
   );

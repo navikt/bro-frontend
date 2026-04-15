@@ -9,7 +9,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Suspense } from "react";
 import Providers from "@/app/Providers";
-import DemoInfoCard from "@/components/DemoInfoCard";
+import DemoInfoCard from "@/components/DemoInfoCard/DemoInfoCard";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { publicEnv } from "@/env-variables/publicEnv";
 
