@@ -1,4 +1,4 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 import { formVariantSchema } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { formSnapshotSchema } from "./formSnapshotSchema";
 
