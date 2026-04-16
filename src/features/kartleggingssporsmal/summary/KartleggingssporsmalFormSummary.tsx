@@ -51,29 +51,31 @@ type FormSummaryItem = {
 function mapFormSnapshotToSummaryItems(
   formSnapshot: FormSnapshot,
 ): FormSummaryItem[] {
-  return formSnapshot.fieldSnapshots.map((field) => {
-    switch (field.fieldType) {
-      case "RADIO_GROUP": {
-        const selectedOption = field.options.find(
-          (option) => option.wasSelected,
-        );
-        return {
-          id: field.fieldId,
-          label: field.label,
-          value: selectedOption?.optionLabel || "",
-          type: "RADIO_GROUP",
-        };
+  return formSnapshot.fieldSnapshots
+    .map((field) => {
+      switch (field.fieldType) {
+        case "RADIO_GROUP": {
+          const selectedOption = field.options.find(
+            (option) => option.wasSelected,
+          );
+          return {
+            id: field.fieldId,
+            label: field.label,
+            value: selectedOption?.optionLabel || "",
+            type: "RADIO_GROUP",
+          };
+        }
+        case "TEXT": {
+          return {
+            id: field.fieldId,
+            label: field.label,
+            value: field.value,
+            type: "TEXT",
+          };
+        }
+        default:
+          return undefined as never;
       }
-      case "TEXT": {
-        return {
-          id: field.fieldId,
-          label: field.label,
-          value: field.value,
-          type: "TEXT",
-        };
-      }
-      default:
-        return undefined as never;
-    }
-  });
+    })
+    .filter((item): item is FormSummaryItem => item !== undefined);
 }
