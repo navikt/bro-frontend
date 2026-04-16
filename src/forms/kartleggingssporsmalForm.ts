@@ -17,7 +17,7 @@ export const kartleggingssporsmalFormQuestions = {
     type: "RADIO_GROUP",
     label:
       "Hvordan vil du beskrive samarbeidet og relasjonen mellom deg og arbeidsgiveren din?",
-    description: "Svaret blir ikke delt med din arbeidsgiver.",
+    description: null,
     options: [
       { id: "2a", label: "Jeg opplever samarbeidet og relasjonen som god" },
       { id: "2b", label: "Jeg opplever samarbeidet og relasjonen som dårlig" },
