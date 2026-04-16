@@ -27,7 +27,7 @@ export const Lumi = ({ formVariant, isTextFieldVisible }: Props) => (
     survey={survey}
     transport={transport}
     context={{
-      tags: { formVariant, textFieldVisible: isTextFieldVisible },
+      tags: { skjemavariant: formVariant, textFieldVisible: isTextFieldVisible },
     }}
   />
 );
