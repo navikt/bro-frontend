@@ -6,14 +6,20 @@ import ThankYouAlert from "@/features/kartleggingssporsmal/summary/ThankYouAlert
 import { UsefulLinks } from "@/features/kartleggingssporsmal/summary/UsefulLinks";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummary from "./KartleggingssporsmalFormSummary";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 
 type Props = {
   formResponse: KartleggingssporsmalFormResponse;
+  formVariant: FormVariant;
 };
 
 export default function KartleggingssporsmalFormSummaryPage({
+  formVariant,
   formResponse: { formSnapshot, createdAt },
 }: Props) {
+  const isTextFieldVisible =
+    formSnapshot.fieldSnapshots.find((field) => field.fieldType === "TEXT") !==
+    undefined;
   return (
     <VStack gap="space-24">
       <Heading size={"large"} level="1">
@@ -49,7 +55,7 @@ export default function KartleggingssporsmalFormSummaryPage({
         (åpner i ny fane) hvis det skulle være noe du lurer på.
       </BodyShort>
 
-      <Lumi />
+      <Lumi formVariant={formVariant} isTextFieldVisible={isTextFieldVisible} />
     </VStack>
   );
 }
