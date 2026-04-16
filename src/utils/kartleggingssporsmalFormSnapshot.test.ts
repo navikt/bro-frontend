@@ -21,7 +21,7 @@ import {
 import { mapFormValuesToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 describe("kartleggingssporsmalFormSnapshot utils", () => {
-  describe("mapAppFormToSnapshot", () => {
+  describe("mapFormValuesToSnapshot", () => {
     it("should map form values to FormSnapshot for FLERVALG_V1 variant", () => {
       const formSnapshot = mapFormValuesToSnapshot({
         values: formValuesFlervalgV1Fixture,
