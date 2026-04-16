@@ -17,9 +17,9 @@ export default function KartleggingssporsmalFormSummaryPage({
   formVariant,
   formResponse: { formSnapshot, createdAt },
 }: Props) {
-  const isTextFieldVisible =
-    formSnapshot.fieldSnapshots.find((field) => field.fieldType === "TEXT") !==
-    undefined;
+  const isTextFieldVisible = formSnapshot.fieldSnapshots.some(
+    (field) => field.fieldType === "TEXT",
+  );
   return (
     <VStack gap="space-24">
       <Heading size={"large"} level="1">
