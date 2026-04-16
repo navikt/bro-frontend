@@ -2,16 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
 import KartleggingssporsmalForm from "./KartleggingssporsmalForm";
 
 interface Props {
+  formVariant: FormVariant;
   topContent: React.ReactNode;
 }
 
-export default function KartleggingssporsmalFormPage({ topContent }: Props) {
-  const [formReponse, setFormResponse] =
+export default function KartleggingssporsmalFormPage({
+  formVariant,
+  topContent,
+}: Props) {
+  const [formResponse, setFormResponse] =
     useState<KartleggingssporsmalFormResponse | null>(null);
 
   useEffect(() => {
@@ -24,13 +29,16 @@ export default function KartleggingssporsmalFormPage({ topContent }: Props) {
     });
   }, []);
 
-  return formReponse ? (
-    <KartleggingssporsmalFormSummaryPage formResponse={formReponse} />
+  return formResponse ? (
+    <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />
   ) : (
     <>
       {topContent}
 
-      <KartleggingssporsmalForm setSummaryItems={setFormResponse} />
+      <KartleggingssporsmalForm
+        setSummaryItems={setFormResponse}
+        formVariant={formVariant}
+      />
     </>
   );
 }

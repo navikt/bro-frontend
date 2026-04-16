@@ -1,29 +1,34 @@
 import { Textarea } from "@navikt/ds-react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
+import { TEXT_AREA_MAX_LENGTH } from "@/appConfig";
 import { useFieldContext } from "@/hooks/form";
 
 export type TextQuestion = {
   label: string;
-  description?: string;
+  description: string | null;
   type: "TEXT";
 };
 
-type TextAreaProps = {
+interface Props {
   question: TextQuestion;
   rows?: number;
   maxLength?: number;
-};
+  isRequired: boolean;
+}
 
 export function TextArea({
   question,
   rows = 3,
-  maxLength = 500,
-}: TextAreaProps) {
+  maxLength = TEXT_AREA_MAX_LENGTH,
+  isRequired,
+}: Props) {
   const field = useFieldContext<string>();
+
+  const modifiedLabel = `${question.label}${!isRequired ? " (Valgfritt)" : ""}`;
 
   return (
     <Textarea
-      label={question.label}
+      label={modifiedLabel}
       description={question.description}
       value={field.state.value}
       onChange={(e) => field.handleChange(e.target.value)}

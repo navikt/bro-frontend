@@ -1,10 +1,10 @@
-import { z } from "zod/v4";
+import { z } from "zod";
 
 const baseFieldSnapshotSchema = z.object({
   fieldId: z.string(),
   label: z.string(),
-  description: z.string().nullish(),
-  wasRequired: z.boolean().nullish(),
+  description: z.string().nullable(),
+  wasRequired: z.boolean().nullable(),
 });
 
 const textFieldSnapshotSchema = baseFieldSnapshotSchema.extend({
@@ -26,39 +26,17 @@ export type RadioGroupFieldSnapshot = z.infer<
   typeof radioGroupFieldSnapshotSchema
 >;
 
-export const fieldSnapshotsSchema = z.array(
-  z.union([textFieldSnapshotSchema, radioGroupFieldSnapshotSchema]),
-);
-export type FieldSnapshots = z.infer<typeof fieldSnapshotsSchema>;
+export const fieldSnapshotSchema = z.union([
+  textFieldSnapshotSchema,
+  radioGroupFieldSnapshotSchema,
+]);
+export type FieldSnapshot = z.infer<typeof fieldSnapshotSchema>;
 
-export const formSnapshotRequestSchema = z.object({
-  formSnapshot: z.object({
-    formIdentifier: z.string(),
-    formSemanticVersion: z.string(),
-    formSnapshotVersion: z.string(),
-    fieldSnapshots: fieldSnapshotsSchema,
-  }),
+export const formSnapshotSchema = z.object({
+  formIdentifier: z.string(),
+  formSemanticVersion: z.string(),
+  formSnapshotVersion: z.string(),
+  fieldSnapshots: z.array(fieldSnapshotSchema),
 });
-export type FormSnapshotRequest = z.infer<typeof formSnapshotRequestSchema>;
 
-const kartleggingssporsmalFormResponseSchema = z.object({
-  formSnapshot: z.object({ fieldSnapshots: fieldSnapshotsSchema }),
-  createdAt: z.iso.datetime().transform((str) => new Date(str)),
-});
-export type KartleggingssporsmalFormResponse = z.infer<
-  typeof kartleggingssporsmalFormResponseSchema
->;
-
-export const submitKartleggingssporsmalResponseSchema =
-  kartleggingssporsmalFormResponseSchema;
-export type SubmitKartleggingssporsmalResponse = z.infer<
-  typeof submitKartleggingssporsmalResponseSchema
->;
-
-export const kandidatStatusResponseSchema = z.object({
-  isKandidat: z.boolean(),
-  formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
-});
-export type KandidatStatusResponse = z.infer<
-  typeof kandidatStatusResponseSchema
->;
+export type FormSnapshot = z.infer<typeof formSnapshotSchema>;

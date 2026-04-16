@@ -5,17 +5,17 @@ import { logger } from "@navikt/next-logger";
 import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import {
-  kartleggingssporsmalFormDefaults,
-  kartleggingssporsmalFormQuestions,
-  kartleggingssporsmalFormSchema,
-} from "@/forms/kartleggingssporsmalForm";
+import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import { getFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
-import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/formSnapshotSchema";
+import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
+import { getFormDefaultValuesForFormVariant } from "../../../forms/kartleggingssporsmal/formVariants/formDefaultValues";
 
 type Props = {
   setSummaryItems: (data: KartleggingssporsmalFormResponse) => void;
+  formVariant: FormVariant;
 };
 
 function scrollToTop() {
@@ -27,21 +27,24 @@ function scrollToTop() {
   }
 }
 
-export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
+export default function KartleggingssporsmalForm({
+  setSummaryItems,
+  formVariant,
+}: Props) {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<boolean>(false);
 
   const form = useAppForm({
-    defaultValues: kartleggingssporsmalFormDefaults,
+    defaultValues: getFormDefaultValuesForFormVariant(formVariant),
     validationLogic: revalidateLogic(),
     validators: {
-      onDynamic: kartleggingssporsmalFormSchema,
+      onDynamic: getValidationSchemaForVariant(formVariant),
     },
     onSubmit: async ({ value }) => {
       try {
         setSubmitError(false);
         setSubmitting(true);
-        const formResponse = await submitFormAction(value);
+        const formResponse = await submitFormAction(value, formVariant);
         logTaxonomyEvent({
           name: "skjema fullført",
           properties: {
@@ -79,33 +82,30 @@ export default function KartleggingssporsmalForm({ setSummaryItems }: Props) {
     >
       <form.AppForm>
         <div className="grid gap-4 mb-4">
-          <form.AppField name="hvorSannsynligTilbakeTilJobben">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.hvorSannsynligTilbakeTilJobben
-                }
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="samarbeidOgRelasjonTilArbeidsgiver">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.samarbeidOgRelasjonTilArbeidsgiver
-                }
-              />
-            )}
-          </form.AppField>
-          <form.AppField name="naarTilbakeTilJobben">
-            {(field) => (
-              <field.RadioGroup
-                question={
-                  kartleggingssporsmalFormQuestions.naarTilbakeTilJobben
-                }
-              />
-            )}
-          </form.AppField>
+          <form.Subscribe selector={(state) => state.values}>
+            {(formValues) => {
+              return getFieldsToIncludeInFormInOrder(
+                formVariant,
+                formValues,
+              ).map(({ fieldId, question, isRequired }) => (
+                <form.AppField key={fieldId} name={fieldId}>
+                  {(field) =>
+                    question.type === "RADIO_GROUP" ? (
+                      <field.RadioGroup
+                        question={question}
+                        isRequired={isRequired}
+                      />
+                    ) : (
+                      <field.TextArea
+                        question={question}
+                        isRequired={isRequired}
+                      />
+                    )
+                  }
+                </form.AppField>
+              ));
+            }}
+          </form.Subscribe>
         </div>
 
         {submitError && (

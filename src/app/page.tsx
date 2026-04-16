@@ -5,7 +5,8 @@ import NoAccessInformation from "@/features/no-access/NoAccess";
 import { fetchKandidatStatus } from "@/services/meroppfolging/meroppfolgingService";
 
 export default async function Home() {
-  const { formResponse, isKandidat } = await fetchKandidatStatus();
+  const { formResponse, isKandidat, skjemavariant } =
+    await fetchKandidatStatus();
 
   if (!isKandidat) {
     return <NoAccessInformation />;
@@ -15,5 +16,10 @@ export default async function Home() {
     return <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />;
   }
 
-  return <KartleggingssporsmalFormPage topContent={<FormHeaderAndTopText />} />;
+  return (
+    <KartleggingssporsmalFormPage
+      topContent={<FormHeaderAndTopText />}
+      formVariant={skjemavariant}
+    />
+  );
 }

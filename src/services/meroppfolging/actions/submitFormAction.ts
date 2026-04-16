@@ -6,21 +6,25 @@ import { verifyUserLoggedIn } from "@/auth/rsc";
 import { exchangeIdportenTokenForMeroppfolgingBackendTokenx } from "@/auth/tokenUtils";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { getServerEnv } from "@/env-variables/serverEnv";
-import { kartleggingssporsmalFormSchema } from "@/forms/kartleggingssporsmalForm";
+import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import {
   type FormSnapshotRequest,
   type SubmitKartleggingssporsmalResponse,
   submitKartleggingssporsmalResponseSchema,
-} from "@/services/meroppfolging/schemas/formSnapshotSchema";
-import { mapAppFormToSnapshot } from "@/utils/kartleggingssporsmalForm";
+} from "@/services/meroppfolging/schemas/requestsAndResponses";
+import { mapFormValuesToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 export async function submitFormAction(
   formValues: unknown,
+  formVariant: FormVariant,
 ): Promise<SubmitKartleggingssporsmalResponse> {
-  const parsed = kartleggingssporsmalFormSchema.safeParse(formValues);
-  if (!parsed.success) {
+  const variantSchema = getValidationSchemaForVariant(formVariant);
+  const parseResult = variantSchema.safeParse(formValues);
+
+  if (!parseResult.success) {
     logger.error(
-      { validationIssues: z.prettifyError(parsed.error) },
+      { validationIssues: z.prettifyError(parseResult.error) },
       "[Backend] Failed to parse kartleggingsspørsmål on post",
     );
     throw new Error(
@@ -28,11 +32,14 @@ export async function submitFormAction(
     );
   }
 
-  const fieldSnapshots = mapAppFormToSnapshot({ values: parsed.data });
+  const formSnapshot = mapFormValuesToSnapshot({
+    formVariant,
+    values: parseResult.data,
+  });
 
   if (isLocalOrDemo) {
     return {
-      formSnapshot: { fieldSnapshots: fieldSnapshots },
+      formSnapshot,
       createdAt: new Date(),
     };
   }
@@ -48,12 +55,7 @@ export async function submitFormAction(
   );
 
   const payload: FormSnapshotRequest = {
-    formSnapshot: {
-      formIdentifier: "kartleggingsporsmal",
-      formSemanticVersion: "1.0.0",
-      formSnapshotVersion: "1.0.0",
-      fieldSnapshots: fieldSnapshots,
-    },
+    formSnapshot,
   };
 
   try {

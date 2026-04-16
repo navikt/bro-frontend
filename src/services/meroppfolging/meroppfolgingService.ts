@@ -7,12 +7,13 @@ import { getServerEnv } from "@/env-variables/serverEnv";
 import {
   type KandidatStatusResponse,
   kandidatStatusResponseSchema,
-} from "@/services/meroppfolging/schemas/formSnapshotSchema";
+} from "./schemas/requestsAndResponses";
 
 export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   if (isLocalOrDemo) {
     return {
       isKandidat: true,
+      skjemavariant: "FLERVALG_FRITEKST_V1",
       formResponse: null, //kartleggingssporsmalFormResponseFixture,
     };
   }
