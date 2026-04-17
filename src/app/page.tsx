@@ -1,3 +1,5 @@
+import { Loader } from "@navikt/ds-react";
+import { Suspense } from "react";
 import { FormHeaderAndTopText } from "@/features/kartleggingssporsmal/form/FormHeaderAndTopText";
 import KartleggingssporsmalFormPage from "@/features/kartleggingssporsmal/form/KartleggingssporsmalFormPage";
 import KartleggingssporsmalFormSummaryPage from "@/features/kartleggingssporsmal/summary/KartleggingssporsmalFormSummaryPage";
@@ -22,9 +24,11 @@ export default async function Home() {
   }
 
   return (
-    <KartleggingssporsmalFormPage
-      topContent={<FormHeaderAndTopText />}
-      formVariant={skjemavariant}
-    />
+    <Suspense fallback={<Loader size="large" />}>
+      <KartleggingssporsmalFormPage
+        formVariantFromBackend={skjemavariant}
+        topContent={<FormHeaderAndTopText />}
+      />
+    </Suspense>
   );
 }
