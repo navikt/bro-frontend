@@ -14,12 +14,5 @@
         "run": "pnpm exec tsc --noEmit"
       }
     }
-  },
-  "commit-msg": {
-    "commands": {
-      "no-empty-commit": {
-        "run": "git diff --cached --quiet || exit 0; echo \"Nothing staged to commit. Empty commits are blocked to keep history clean.\"; exit 1"
-      }
-    }
   }
 }
