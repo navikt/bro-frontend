@@ -30,7 +30,10 @@ export default function KartleggingssporsmalFormPage({
   }, []);
 
   return formResponse ? (
-    <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />
+    <KartleggingssporsmalFormSummaryPage
+      formResponse={formResponse}
+      formVariant={formVariant}
+    />
   ) : (
     <>
       {topContent}

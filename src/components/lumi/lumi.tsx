@@ -3,6 +3,7 @@
 import { LumiSurveyDock, type LumiSurveyTransport } from "@navikt/lumi-survey";
 import { publicEnv } from "@/env-variables/publicEnv";
 import { intro, survey } from "./survey";
+import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 
 const transport: LumiSurveyTransport = {
   async submit(submission) {
@@ -14,11 +15,19 @@ const transport: LumiSurveyTransport = {
   },
 };
 
-export const Lumi = () => (
+interface Props {
+  formVariant: FormVariant;
+  isTextFieldVisible: boolean;
+}
+
+export const Lumi = ({ formVariant, isTextFieldVisible }: Props) => (
   <LumiSurveyDock
     intro={intro}
     surveyId="bro-kartleggingssporsmal"
     survey={survey}
     transport={transport}
+    context={{
+      tags: { skjemavariant: formVariant, textFieldVisible: isTextFieldVisible },
+    }}
   />
 );

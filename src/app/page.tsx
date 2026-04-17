@@ -13,7 +13,12 @@ export default async function Home() {
   }
 
   if (formResponse) {
-    return <KartleggingssporsmalFormSummaryPage formResponse={formResponse} />;
+    return (
+      <KartleggingssporsmalFormSummaryPage
+        formResponse={formResponse}
+        formVariant={skjemavariant}
+      />
+    );
   }
 
   return (
