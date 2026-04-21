@@ -1,4 +1,6 @@
-import { BodyShort, Heading } from "@navikt/ds-react";
+import { InformationSquareIcon } from "@navikt/aksel-icons";
+import { BodyShort, Heading, InfoCard } from "@navikt/ds-react";
+import { InfoCardMessage } from "@navikt/ds-react/InfoCard";
 
 export function FormHeaderAndTopText() {
   return (
@@ -14,9 +16,11 @@ export function FormHeaderAndTopText() {
         skal få fra arbeidsgiveren din.
       </BodyShort>
 
-      <BodyShort spacing>
-        Svarene blir kun synlige for Nav, og deles ikke med din arbeidsgiver.
-      </BodyShort>
+      <InfoCard data-color="info">
+        <InfoCardMessage icon={<InformationSquareIcon aria-hidden />}>
+          Svarene blir kun synlige for Nav, og deles ikke med din arbeidsgiver.
+        </InfoCardMessage>
+      </InfoCard>
     </>
   );
 }
