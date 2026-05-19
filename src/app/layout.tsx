@@ -10,6 +10,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import Providers from "@/app/Providers";
 import DemoInfoCard from "@/components/DemoInfoCard/DemoInfoCard";
+import DemoVariantButton from "@/components/demo-form-variant/DemoVariantButton";
 import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { publicEnv } from "@/env-variables/publicEnv";
 
@@ -81,6 +82,7 @@ const RootLayout = async ({
                         }
                       >
                         <DemoInfoCard />
+                        <DemoVariantButton />
                       </Suspense>
                     )}
                     {children}

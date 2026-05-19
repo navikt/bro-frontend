@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import { useDemoFormVariantViaParamIfDemo } from "@/components/DemoInfoCard/useDemoFormVariant";
+import { useDemoFormVariantViaParamIfDemo } from "@/components/demo-form-variant/useDemoFormVariant";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
