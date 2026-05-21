@@ -26,7 +26,7 @@ export const radioGroupQuestions = {
     type: "RADIO_GROUP",
     label: "Får du oppfølging av arbeidsgiveren din nå når du er sykmeldt?",
     description:
-      "Arbeidsgiveren din har hovedansvaret for å gjøre tilpasninger og følge deg opp på arbeidsplassen. Arbeidsgiver har for eksempel plikt til å lage en oppfølgingsplan med deg innen uke 4. Derfor er det viktig at dere har tett kontakt når du er sykmeldt.",
+      "Arbeidsgiveren din har hovedansvaret for å gjøre tilpasninger og følge deg opp på arbeidsplassen. Arbeidsgiver har for eksempel plikt til å lage en oppfølgingsplan med deg innen du har vært sykmeldt i fire uker. Derfor er det viktig at dere har tett kontakt når du er sykmeldt.",
     options: [
       {
         id: "ja",
@@ -36,7 +36,8 @@ export const radioGroupQuestions = {
       {
         id: "nei",
         label:
-          "Nei, jeg opplever manglende oppfølging og at tilrettelegging er vanskelig.",
+          "Nei, jeg opplever manglende oppfølging og at tilpasninger er vanskelig.",
+        description: "Du får mulighet til å utdype mer",
       },
     ],
   },
