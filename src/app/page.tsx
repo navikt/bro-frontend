@@ -24,7 +24,7 @@ export default async function Home() {
   }
 
   return (
-    <Suspense fallback={<Loader size="large" />}>
+    <Suspense fallback={<Loader size="large" title="Laster..." />}>
       <KartleggingssporsmalFormPage
         formVariantFromBackend={skjemavariant}
         topContent={<FormHeaderAndTopText />}
