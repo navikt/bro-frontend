@@ -19,7 +19,7 @@ export const textQuestions = {
     description:
       "Skriv kort om hva som gjør samarbeidet og relasjonen dårlig og hvordan dette påvirker oppfølgingen du får fra arbeidsgiver. Ikke skriv detaljerte opplysninger om helse, personlige opplysninger eller opplysninger om andre enn deg selv.",
   },
-  arbeidsgiverFaarDuOppfolgningNeiBegrunnelse: {
+  arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: {
     type: "TEXT",
     label:
       "Hva savner du i samarbeidet med arbeidsgiver for at du skal få bedre oppfølging?",

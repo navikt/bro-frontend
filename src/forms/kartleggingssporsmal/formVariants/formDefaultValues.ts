@@ -22,7 +22,7 @@ const formDefaultValuesByFormVariant: {
     tilbakeTilJobbenLiteSannsynligBegrunnelse: "",
     tilbakeTilJobbenUsikkerBegrunnelse: "",
     arbeidsgiverFaarDuOppfolgingFlervalg: "",
-    arbeidsgiverFaarDuOppfolgningNeiBegrunnelse: "",
+    arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
     naarTilbakeTilJobbenFlervalg: "",
   },
 };

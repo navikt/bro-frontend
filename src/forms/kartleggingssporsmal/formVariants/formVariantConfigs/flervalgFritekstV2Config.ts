@@ -26,7 +26,7 @@ export const flervalgFritekstV2Config = defineVariantConfig({
       isRequired: true,
     },
     {
-      fieldId: "arbeidsgiverFaarDuOppfolgningNeiBegrunnelse",
+      fieldId: "arbeidsgiverFaarDuOppfolgingNeiBegrunnelse",
       isRequired: false,
       conditionallyIncludeIf: (formValues) =>
         formValues.arbeidsgiverFaarDuOppfolgingFlervalg === "nei",
@@ -45,8 +45,8 @@ export const flervalgFritekstV2Config = defineVariantConfig({
       fieldSchemas.tilbakeTilJobbenUsikkerBegrunnelse,
     arbeidsgiverFaarDuOppfolgingFlervalg:
       fieldSchemas.arbeidsgiverFaarDuOppfolgingFlervalg,
-    arbeidsgiverFaarDuOppfolgningNeiBegrunnelse:
-      fieldSchemas.arbeidsgiverFaarDuOppfolgningNeiBegrunnelse,
+    arbeidsgiverFaarDuOppfolgingNeiBegrunnelse:
+      fieldSchemas.arbeidsgiverFaarDuOppfolgingNeiBegrunnelse,
     naarTilbakeTilJobbenFlervalg: fieldSchemas.naarTilbakeTilJobbenFlervalg,
   } satisfies Partial<Record<KartleggingsspormalFormFieldId, z.ZodType>>),
 });

@@ -28,7 +28,7 @@ export const fieldSchemas = {
     getRadioGroupOptionIds("arbeidsgiverFaarDuOppfolgingFlervalg"),
     requiredFieldErrorMessage,
   ),
-  arbeidsgiverFaarDuOppfolgningNeiBegrunnelse: z
+  arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: z
     .string()
     .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
   naarTilbakeTilJobbenFlervalg: z.enum(
