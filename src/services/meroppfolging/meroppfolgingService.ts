@@ -13,7 +13,7 @@ export async function fetchKandidatStatus(): Promise<KandidatStatusResponse> {
   if (isLocalOrDemo) {
     return {
       isKandidat: true,
-      skjemavariant: "FLERVALG_FRITEKST_V1",
+      skjemavariant: "FLERVALG_FRITEKST_V2",
       formResponse: null, //kartleggingssporsmalFormResponseFixture,
     };
   }

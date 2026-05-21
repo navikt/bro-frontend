@@ -5,6 +5,7 @@ import { useFieldContext } from "@/hooks/form";
 type RadioOption = {
   id: string;
   label: string;
+  description?: string;
 };
 
 export type RadioGroupQuestion = {
@@ -47,7 +48,11 @@ export function RadioGroup({ question, isRequired }: Props) {
       error={field.state.meta.errors[0]?.message}
     >
       {question.options.map((option) => (
-        <Radio key={option.id} value={option.id}>
+        <Radio
+          key={option.id}
+          value={option.id}
+          description={option.description}
+        >
           {option.label}
         </Radio>
       ))}

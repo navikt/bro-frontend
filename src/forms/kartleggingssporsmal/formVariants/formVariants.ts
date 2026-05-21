@@ -1,4 +1,5 @@
 import { flervalgFritekstV1Config } from "./formVariantConfigs/flervalgFritekstV1Config";
+import { flervalgFritekstV2Config } from "./formVariantConfigs/flervalgFritekstV2Config";
 import { flervalgV1Config } from "./formVariantConfigs/flervalgV1Config";
 import type { FormVariant } from "./types/FormVariant";
 
@@ -9,11 +10,16 @@ import type { FormVariant } from "./types/FormVariant";
  * in the candidate table in `meroppfolging-backend`, and can no longer enter
  * that table).
  */
-export const formVariants = ["FLERVALG_V1", "FLERVALG_FRITEKST_V1"] as const;
+export const formVariants = [
+  "FLERVALG_V1",
+  "FLERVALG_FRITEKST_V1",
+  "FLERVALG_FRITEKST_V2",
+] as const;
 
 export const formVariantConfigs = {
   FLERVALG_V1: flervalgV1Config,
   FLERVALG_FRITEKST_V1: flervalgFritekstV1Config,
+  FLERVALG_FRITEKST_V2: flervalgFritekstV2Config,
 } satisfies Record<FormVariant, unknown>;
 
 export function getValidationSchemaForVariant(formVariant: FormVariant) {

@@ -22,6 +22,25 @@ export const radioGroupQuestions = {
       { id: "2b", label: "Jeg opplever samarbeidet og relasjonen som dårlig" },
     ],
   },
+  arbeidsgiverFaarDuOppfolgingFlervalg: {
+    type: "RADIO_GROUP",
+    label: "Får du oppfølging av arbeidsgiveren din nå når du er sykmeldt?",
+    description:
+      "Arbeidsgiveren din har hovedansvaret for å gjøre tilpasninger og følge deg opp på arbeidsplassen. Arbeidsgiver har for eksempel plikt til å lage en oppfølgingsplan med deg innen du har vært sykmeldt i fire uker. Derfor er det viktig at dere har tett kontakt når du er sykmeldt.",
+    options: [
+      {
+        id: "ja",
+        label:
+          "Ja, jeg får oppfølging, og har snakket med arbeidsgiver om dette.",
+      },
+      {
+        id: "nei",
+        label:
+          "Nei, jeg opplever manglende oppfølging og at tilpasninger er vanskelig.",
+        description: "Du får mulighet til å utdype mer",
+      },
+    ],
+  },
   naarTilbakeTilJobbenFlervalg: {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",

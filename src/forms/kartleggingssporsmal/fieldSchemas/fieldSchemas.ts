@@ -24,6 +24,13 @@ export const fieldSchemas = {
   arbeidsgiverSamarbeidDarligBegrunnelse: z
     .string()
     .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
+  arbeidsgiverFaarDuOppfolgingFlervalg: z.enum(
+    getRadioGroupOptionIds("arbeidsgiverFaarDuOppfolgingFlervalg"),
+    requiredFieldErrorMessage,
+  ),
+  arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: z
+    .string()
+    .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
   naarTilbakeTilJobbenFlervalg: z.enum(
     getRadioGroupOptionIds("naarTilbakeTilJobbenFlervalg"),
     requiredFieldErrorMessage,
