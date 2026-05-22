@@ -7,9 +7,11 @@ import { Theme } from "@navikt/ds-react/Theme";
 import { fetchDecoratorReact } from "@navikt/nav-dekoratoren-moduler/ssr";
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import Providers from "@/app/Providers";
-import DemoAlert from "@/components/DemoAlert";
-import { isDemo } from "@/env-variables/envHelpers";
+import DemoInfoCard from "@/components/DemoInfoCard/DemoInfoCard";
+import DemoVariantButton from "@/components/demo-form-variant/DemoVariantButton";
+import { isLocalOrDemo } from "@/env-variables/envHelpers";
 import { publicEnv } from "@/env-variables/publicEnv";
 
 export const metadata: Metadata = {
@@ -73,10 +75,15 @@ const RootLayout = async ({
                     className="page-surface__main"
                     gutters
                   >
-                    {isDemo && <DemoAlert />}
+                    {isLocalOrDemo && <DemoInfoCard />}
                     {children}
                   </PageBlock>
                 </div>
+                {isLocalOrDemo && (
+                  <Suspense fallback={null}>
+                    <DemoVariantButton />
+                  </Suspense>
+                )}
                 <Decorator.Scripts loader={Script} />
               </Page>
             </Box>
