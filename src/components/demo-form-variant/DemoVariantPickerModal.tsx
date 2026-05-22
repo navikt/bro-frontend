@@ -13,6 +13,12 @@ interface Props {
   onSelectVariant: (value: FormVariant) => void;
 }
 
+const formVariantModalDescriptions: Record<FormVariant, string> = {
+  FLERVALG_V1: "I bruk for de fleste pilotkontorer",
+  FLERVALG_FRITEKST_V1: "Fases ut",
+  FLERVALG_FRITEKST_V2: "I bruk for Sandefjord, Asker og Søndre Nordstrand",
+};
+
 export default function DemoVariantPickerModal({
   open,
   activeVariant,
@@ -47,7 +53,11 @@ export default function DemoVariantPickerModal({
             onChange={(value) => setSelectedVariant(value as FormVariant)}
           >
             {formVariants.map((variant) => (
-              <Radio key={variant} value={variant}>
+              <Radio
+                key={variant}
+                value={variant}
+                description={formVariantModalDescriptions[variant]}
+              >
                 {variant}
               </Radio>
             ))}
