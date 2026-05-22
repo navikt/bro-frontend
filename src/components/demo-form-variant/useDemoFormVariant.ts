@@ -16,22 +16,19 @@ export const DEFAULT_DEMO_FORM_VARIANT: FormVariant = "FLERVALG_V1";
  * Using the hook in a demo environment when the URL parameter is not set or
  * invalid will cause the URL to be updated with the default demo variant.
  */
-export function useDemoFormVariantViaParamIfDemo(
-  formVariantIfNotInDemo: FormVariant,
-) {
+export function useDemoFormVariant() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
-  let activeFormVariant = formVariantIfNotInDemo;
+  let demoFormVariant = DEFAULT_DEMO_FORM_VARIANT;
 
   const demoVariantFromUrl = searchParams.get(DEMO_SKJEMAVARIANT_URL_PARAM_KEY);
   const parseVariantResult = formVariantSchema.safeParse(demoVariantFromUrl);
 
-  // Override form variant with the one from URL parameter if we're in a demo
-  // environment
+  // Read demo variant from URL parameter
   if (parseVariantResult.success && isLocalOrDemo) {
-    activeFormVariant = parseVariantResult.data;
+    demoFormVariant = parseVariantResult.data;
   }
 
   const changeDemoFormVariantViaParam = useCallback(
@@ -59,7 +56,7 @@ export function useDemoFormVariantViaParamIfDemo(
   }, [parseVariantResult.success, changeDemoFormVariantViaParam]);
 
   return {
-    activeFormVariant,
+    demoFormVariant,
     changeDemoFormVariantViaParam,
   };
 }

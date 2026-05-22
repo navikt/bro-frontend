@@ -8,7 +8,7 @@ import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/type
 
 interface Props {
   open: boolean;
-  activeVariant: FormVariant;
+  activeDemoVariant: FormVariant;
   onClose: () => void;
   onSelectVariant: (value: FormVariant) => void;
 }
@@ -21,17 +21,17 @@ const formVariantModalDescriptions: Record<FormVariant, string> = {
 
 export default function DemoVariantPickerModal({
   open,
-  activeVariant,
+  activeDemoVariant,
   onClose,
   onSelectVariant,
 }: Props) {
-  const [selectedVariant, setSelectedVariant] = useState(activeVariant);
+  const [selectedVariant, setSelectedVariant] = useState(activeDemoVariant);
 
   useEffect(() => {
     if (open) {
-      setSelectedVariant(activeVariant);
+      setSelectedVariant(activeDemoVariant);
     }
-  }, [open, activeVariant]);
+  }, [open, activeDemoVariant]);
 
   return (
     <Modal
