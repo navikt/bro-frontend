@@ -51,6 +51,7 @@ export default function KartleggingssporsmalFormPage({
       {topContent}
 
       <KartleggingssporsmalForm
+        key={formVariantToUse} // Reset form state when variant changes
         formVariant={formVariantToUse}
         setSummaryItems={setFormResponse}
       />
