@@ -34,12 +34,16 @@ export default function DemoVariantPickerModal({
     }
   }, [open, currentDemoVariant]);
 
+  function reloadPage() {
+    window.location.reload();
+  }
+
   return (
     <Modal
       open={open}
       onClose={onClose}
       header={{
-        heading: "Velg skjemavariant i demovisningen",
+        heading: "Valg for demovisning",
         size: "small",
         closeButton: false,
       }}
@@ -47,6 +51,10 @@ export default function DemoVariantPickerModal({
     >
       <Modal.Body>
         <VStack gap="space-16">
+          <Button className="self-start" onClick={reloadPage}>
+            Tilbakestill skjema
+          </Button>
+
           <RadioGroup
             legend="Velg skjemavariant"
             name={DEMO_SKJEMAVARIANT_URL_PARAM_KEY}

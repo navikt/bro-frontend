@@ -18,9 +18,9 @@ export const DEFAULT_DEMO_FORM_VARIANT: FormVariant = "FLERVALG_V1";
  * update this URL parameter, so different form variants can be tested.
  */
 export function useDemoFormVariantUrlParam() {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   let demoFormVariant = DEFAULT_DEMO_FORM_VARIANT;
 
