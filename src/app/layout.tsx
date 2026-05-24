@@ -76,9 +76,11 @@ const RootLayout = async ({
                     gutters
                   >
                     {isLocalOrDemo && <DemoInfoCard />}
+
                     {children}
                   </PageBlock>
                 </div>
+
                 {isLocalOrDemo && (
                   <Suspense fallback={null}>
                     <DemoVariantButton />

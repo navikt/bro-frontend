@@ -8,9 +8,9 @@ import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/type
 
 interface Props {
   open: boolean;
-  activeDemoVariant: FormVariant;
+  currentDemoVariant: FormVariant;
   onClose: () => void;
-  onSelectVariant: (value: FormVariant) => void;
+  onChangeCurrentDemoVariant: (value: FormVariant) => void;
 }
 
 const formVariantModalDescriptions: Record<FormVariant, string> = {
@@ -21,17 +21,18 @@ const formVariantModalDescriptions: Record<FormVariant, string> = {
 
 export default function DemoVariantPickerModal({
   open,
-  activeDemoVariant,
+  currentDemoVariant,
   onClose,
-  onSelectVariant,
+  onChangeCurrentDemoVariant,
 }: Props) {
-  const [selectedVariant, setSelectedVariant] = useState(activeDemoVariant);
+  const [selectedRadioVariant, setSelectedRadioVariant] =
+    useState(currentDemoVariant);
 
   useEffect(() => {
     if (open) {
-      setSelectedVariant(activeDemoVariant);
+      setSelectedRadioVariant(currentDemoVariant);
     }
-  }, [open, activeDemoVariant]);
+  }, [open, currentDemoVariant]);
 
   return (
     <Modal
@@ -49,8 +50,8 @@ export default function DemoVariantPickerModal({
           <RadioGroup
             legend="Velg skjemavariant"
             name={DEMO_SKJEMAVARIANT_URL_PARAM_KEY}
-            value={selectedVariant}
-            onChange={(value) => setSelectedVariant(value as FormVariant)}
+            value={selectedRadioVariant}
+            onChange={(value) => setSelectedRadioVariant(value as FormVariant)}
           >
             {formVariants.map((variant) => (
               <Radio
@@ -66,7 +67,12 @@ export default function DemoVariantPickerModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={() => onSelectVariant(selectedVariant)}>Ok</Button>
+        <Button
+          onClick={() => onChangeCurrentDemoVariant(selectedRadioVariant)}
+        >
+          Ok
+        </Button>
+
         <Button variant="tertiary" onClick={onClose}>
           Avbryt
         </Button>

@@ -7,16 +7,17 @@ import {
   formVariantSchema,
 } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 
+// Set IS_DEMO_VARIANT_URL_PARAM_ENABLED to `isDemo` to test locally with mock
+// backend variant value instead of variant from URL parameter.
+export const IS_DEMO_VARIANT_URL_PARAM_ENABLED = isLocalOrDemo;
 export const DEFAULT_DEMO_FORM_VARIANT: FormVariant = "FLERVALG_V1";
 
 /**
  * This hook handles the logic for determining which form variant to display in
  * demo environments, based on a URL parameter. It also provides a function to
  * update this URL parameter, so different form variants can be tested.
- * Using the hook in a demo environment when the URL parameter is not set or
- * invalid will cause the URL to be updated with the default demo variant.
  */
-export function useDemoFormVariant() {
+export function useDemoFormVariantUrlParam() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -24,14 +25,17 @@ export function useDemoFormVariant() {
   let demoFormVariant = DEFAULT_DEMO_FORM_VARIANT;
 
   const demoVariantFromUrl = searchParams.get(DEMO_SKJEMAVARIANT_URL_PARAM_KEY);
-  const parseVariantResult = formVariantSchema.safeParse(demoVariantFromUrl);
+  const parseVariantUrlParamResult =
+    formVariantSchema.safeParse(demoVariantFromUrl);
+
+  const isValidVariantUrlParam = parseVariantUrlParamResult.success;
 
   // Read demo variant from URL parameter
-  if (parseVariantResult.success && isLocalOrDemo) {
-    demoFormVariant = parseVariantResult.data;
+  if (isValidVariantUrlParam) {
+    demoFormVariant = parseVariantUrlParamResult.data;
   }
 
-  const changeDemoFormVariantViaParam = useCallback(
+  const changeDemoVariantViaUrlParam = useCallback(
     (variant: FormVariant, options?: { replaceUrl?: boolean }) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(DEMO_SKJEMAVARIANT_URL_PARAM_KEY, variant);
@@ -45,18 +49,26 @@ export function useDemoFormVariant() {
     [router, pathname, searchParams],
   );
 
-  // Side effect: update URL if we're in a demo environment and URL parameter is
-  // missing or is invalid.
+  return {
+    demoFormVariant,
+    isValidVariantUrlParam,
+    changeDemoVariantViaUrlParam,
+  };
+}
+
+/**
+ * Using this hook in a demo environment when the URL parameter is not set or
+ * invalid will cause the URL to be updated with the default demo variant.
+ */
+export const useEnsureVariantUrlParamIfDemoEffect = () => {
+  const { isValidVariantUrlParam, changeDemoVariantViaUrlParam } =
+    useDemoFormVariantUrlParam();
+
   useEffect(() => {
-    if (!parseVariantResult.success && isLocalOrDemo) {
-      changeDemoFormVariantViaParam(DEFAULT_DEMO_FORM_VARIANT, {
+    if (!isValidVariantUrlParam && IS_DEMO_VARIANT_URL_PARAM_ENABLED) {
+      changeDemoVariantViaUrlParam(DEFAULT_DEMO_FORM_VARIANT, {
         replaceUrl: true,
       });
     }
-  }, [parseVariantResult.success, changeDemoFormVariantViaParam]);
-
-  return {
-    demoFormVariant,
-    changeDemoFormVariantViaParam,
-  };
-}
+  }, [isValidVariantUrlParam, changeDemoVariantViaUrlParam]);
+};

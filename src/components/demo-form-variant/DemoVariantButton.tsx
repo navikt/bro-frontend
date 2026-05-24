@@ -4,13 +4,13 @@ import { Button } from "@navikt/ds-react";
 import { useState } from "react";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import DemoVariantPickerModal from "./DemoVariantPickerModal";
-import { useDemoFormVariant } from "./useDemoFormVariant";
+import { useDemoFormVariantUrlParam } from "./useDemoFormVariant";
 
 export default function DemoVariantButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { demoFormVariant, changeDemoFormVariantViaParam } =
-    useDemoFormVariant();
+  const { demoFormVariant, changeDemoVariantViaUrlParam } =
+    useDemoFormVariantUrlParam();
 
   function openModal() {
     setIsModalOpen(true);
@@ -20,8 +20,8 @@ export default function DemoVariantButton() {
     setIsModalOpen(false);
   }
 
-  function handleChangeDemoFormVariant(variant: FormVariant) {
-    changeDemoFormVariantViaParam(variant);
+  function handleChangeCurrentDemoVariant(variant: FormVariant) {
+    changeDemoVariantViaUrlParam(variant);
     closeModal();
   }
 
@@ -43,9 +43,9 @@ export default function DemoVariantButton() {
 
       <DemoVariantPickerModal
         open={isModalOpen}
-        activeDemoVariant={demoFormVariant}
+        currentDemoVariant={demoFormVariant}
         onClose={closeModal}
-        onSelectVariant={handleChangeDemoFormVariant}
+        onChangeCurrentDemoVariant={handleChangeCurrentDemoVariant}
       />
     </>
   );

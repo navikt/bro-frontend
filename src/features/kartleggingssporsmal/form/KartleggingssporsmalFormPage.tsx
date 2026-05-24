@@ -2,8 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
-import { useDemoFormVariant } from "@/components/demo-form-variant/useDemoFormVariant";
-import { isLocalOrDemo } from "@/env-variables/envHelpers";
+import {
+  IS_DEMO_VARIANT_URL_PARAM_ENABLED,
+  useDemoFormVariantUrlParam,
+  useEnsureVariantUrlParamIfDemoEffect,
+} from "@/components/demo-form-variant/useDemoFormVariant";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type { KartleggingssporsmalFormResponse } from "@/services/meroppfolging/schemas/requestsAndResponses";
 import KartleggingssporsmalFormSummaryPage from "../summary/KartleggingssporsmalFormSummaryPage";
@@ -21,9 +24,10 @@ export default function KartleggingssporsmalFormPage({
   const [formResponse, setFormResponse] =
     useState<KartleggingssporsmalFormResponse | null>(null);
 
-  const { demoFormVariant } = useDemoFormVariant();
+  const { demoFormVariant } = useDemoFormVariantUrlParam();
+  useEnsureVariantUrlParamIfDemoEffect();
 
-  const formVariantToUse = isLocalOrDemo
+  const formVariantToUse = IS_DEMO_VARIANT_URL_PARAM_ENABLED
     ? demoFormVariant
     : formVariantFromBackend;
 
@@ -47,9 +51,6 @@ export default function KartleggingssporsmalFormPage({
       {topContent}
 
       <KartleggingssporsmalForm
-        // key prop is used to remount the component when activeFormVariant
-        // changes
-        key={formVariantToUse}
         formVariant={formVariantToUse}
         setSummaryItems={setFormResponse}
       />
