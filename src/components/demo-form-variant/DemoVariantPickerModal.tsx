@@ -8,9 +8,9 @@ import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/type
 
 interface Props {
   open: boolean;
-  activeVariant: FormVariant;
+  currentDemoVariant: FormVariant;
   onClose: () => void;
-  onSelectVariant: (value: FormVariant) => void;
+  onChangeCurrentDemoVariant: (value: FormVariant) => void;
 }
 
 const formVariantModalDescriptions: Record<FormVariant, string> = {
@@ -21,24 +21,29 @@ const formVariantModalDescriptions: Record<FormVariant, string> = {
 
 export default function DemoVariantPickerModal({
   open,
-  activeVariant,
+  currentDemoVariant,
   onClose,
-  onSelectVariant,
+  onChangeCurrentDemoVariant,
 }: Props) {
-  const [selectedVariant, setSelectedVariant] = useState(activeVariant);
+  const [selectedRadioVariant, setSelectedRadioVariant] =
+    useState(currentDemoVariant);
 
   useEffect(() => {
     if (open) {
-      setSelectedVariant(activeVariant);
+      setSelectedRadioVariant(currentDemoVariant);
     }
-  }, [open, activeVariant]);
+  }, [open, currentDemoVariant]);
+
+  function reloadPage() {
+    window.location.reload();
+  }
 
   return (
     <Modal
       open={open}
       onClose={onClose}
       header={{
-        heading: "Velg skjemavariant i demovisningen",
+        heading: "Valg for demovisning",
         size: "small",
         closeButton: false,
       }}
@@ -46,11 +51,15 @@ export default function DemoVariantPickerModal({
     >
       <Modal.Body>
         <VStack gap="space-16">
+          <Button className="self-start" onClick={reloadPage}>
+            Tilbakestill skjema
+          </Button>
+
           <RadioGroup
             legend="Velg skjemavariant"
             name={DEMO_SKJEMAVARIANT_URL_PARAM_KEY}
-            value={selectedVariant}
-            onChange={(value) => setSelectedVariant(value as FormVariant)}
+            value={selectedRadioVariant}
+            onChange={(value) => setSelectedRadioVariant(value as FormVariant)}
           >
             {formVariants.map((variant) => (
               <Radio
@@ -66,7 +75,12 @@ export default function DemoVariantPickerModal({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button onClick={() => onSelectVariant(selectedVariant)}>Ok</Button>
+        <Button
+          onClick={() => onChangeCurrentDemoVariant(selectedRadioVariant)}
+        >
+          Ok
+        </Button>
+
         <Button variant="tertiary" onClick={onClose}>
           Avbryt
         </Button>
