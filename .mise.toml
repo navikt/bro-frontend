@@ -41,4 +41,4 @@ run = "pnpm run test"
 [tasks.verify]
 description = "Verify code quality, run tests and build"
 depends = ["install"]
-run = "pnpm run check && pnpm exec vitest run && pnpm run build"
+run = "mise run check && mise run test --no-watch && mise run build"
