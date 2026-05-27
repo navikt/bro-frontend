@@ -1,6 +1,6 @@
 [tools]
 node = "24"
-pnpm = "10"
+pnpm = "11.3.0"
 
 [tasks.install]
 description = "Install dependencies (cached)"
@@ -41,4 +41,4 @@ run = "pnpm run test"
 [tasks.verify]
 description = "Verify code quality, run tests and build"
 depends = ["install"]
-run = "mise run check && mise run test --no-watch && mise run build"
+run = "pnpm run check && pnpm exec vitest run && pnpm run build"
