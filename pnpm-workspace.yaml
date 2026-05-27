@@ -5,8 +5,3 @@ allowBuilds:
 
 minimumReleaseAge: 4320
 blockExoticSubdeps: true
-
-overrides:
-  picomatch: '>=4.0.4'
-  rollup: '>=4.59.0'
-  undici: '>=7.24.0'
