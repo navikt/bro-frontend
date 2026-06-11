@@ -17,6 +17,15 @@ export const fieldSchemas = {
   tilbakeTilJobbenUsikkerBegrunnelse: z
     .string()
     .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
+
+  mulighetForTilbakeTilJobbenFlervalg: z.enum(
+    getRadioGroupOptionIds("mulighetForTilbakeTilJobbenFlervalg"),
+    requiredFieldErrorMessage,
+  ),
+  mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: z
+    .string()
+    .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
+
   arbeidsgiverHvordanErSamarbeidFlervalg: z.enum(
     getRadioGroupOptionIds("arbeidsgiverHvordanErSamarbeidFlervalg"),
     requiredFieldErrorMessage,
@@ -31,6 +40,7 @@ export const fieldSchemas = {
   arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: z
     .string()
     .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
+
   naarTilbakeTilJobbenFlervalg: z.enum(
     getRadioGroupOptionIds("naarTilbakeTilJobbenFlervalg"),
     requiredFieldErrorMessage,
