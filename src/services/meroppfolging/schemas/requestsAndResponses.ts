@@ -21,11 +21,18 @@ export type SubmitKartleggingssporsmalResponse = z.infer<
   typeof submitKartleggingssporsmalResponseSchema
 >;
 
-export const kandidatStatusResponseSchema = z.object({
-  isKandidat: z.boolean(),
-  skjemavariant: formVariantSchema,
-  formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
-});
+export const kandidatStatusResponseSchema = z.union([
+  z.object({
+    isKandidat: z.literal(true),
+    skjemavariant: formVariantSchema,
+    formResponse: kartleggingssporsmalFormResponseSchema.nullable(),
+  }),
+  z.object({
+    isKandidat: z.literal(false),
+    skjemavariant: z.null(),
+    formResponse: z.null(),
+  }),
+]);
 export type KandidatStatusResponse = z.infer<
   typeof kandidatStatusResponseSchema
 >;
