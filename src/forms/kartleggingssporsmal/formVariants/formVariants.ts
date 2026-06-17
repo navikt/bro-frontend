@@ -1,5 +1,6 @@
 import { flervalgFritekstV1Config } from "./formVariantConfigs/flervalgFritekstV1Config";
 import { flervalgFritekstV2Config } from "./formVariantConfigs/flervalgFritekstV2Config";
+import { flervalgFritekstV3Config } from "./formVariantConfigs/flervalgFritekstV3Config";
 import { flervalgV1Config } from "./formVariantConfigs/flervalgV1Config";
 import type { FormVariant } from "./types/FormVariant";
 
@@ -14,12 +15,14 @@ export const formVariants = [
   "FLERVALG_V1",
   "FLERVALG_FRITEKST_V1",
   "FLERVALG_FRITEKST_V2",
+  "FLERVALG_FRITEKST_V3",
 ] as const;
 
 export const formVariantConfigs = {
   FLERVALG_V1: flervalgV1Config,
   FLERVALG_FRITEKST_V1: flervalgFritekstV1Config,
   FLERVALG_FRITEKST_V2: flervalgFritekstV2Config,
+  FLERVALG_FRITEKST_V3: flervalgFritekstV3Config,
 } satisfies Record<FormVariant, unknown>;
 
 export function getValidationSchemaForVariant(formVariant: FormVariant) {

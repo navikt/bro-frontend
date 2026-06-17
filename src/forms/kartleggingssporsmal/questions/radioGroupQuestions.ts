@@ -12,6 +12,26 @@ export const radioGroupQuestions = {
       { id: "1c", label: "Jeg er usikker" },
     ],
   },
+  mulighetForTilbakeTilJobbenFlervalg: {
+    type: "RADIO_GROUP",
+    label:
+      "Hvordan ser du for deg muligheten for å komme tilbake til din nåværende jobb og stilling?",
+    description:
+      "Tenk over om du tror du kan komme helt eller delvis tilbake til din nåværende jobb og stilling, eller om du ser det som utfordrende.",
+    options: [
+      {
+        id: "kommer_tilbake",
+        label:
+          "Jeg har tro på at jeg kommer tilbake til samme jobb og stilling",
+      },
+      {
+        id: "utfordrende",
+        label:
+          "Jeg ser på det som utfordrende å komme tilbake til samme jobb og stilling",
+        description: "Du får mulighet til å utdype mer",
+      },
+    ],
+  },
   arbeidsgiverHvordanErSamarbeidFlervalg: {
     type: "RADIO_GROUP",
     label:

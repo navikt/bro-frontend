@@ -13,6 +13,13 @@ export const textQuestions = {
     description:
       "Skriv kort hvorfor du er usikker. Ikke skriv detaljerte opplysninger om helse, personlige opplysninger eller opplysninger om andre enn deg selv.",
   },
+  mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: {
+    type: "TEXT",
+    label:
+      "Beskriv hva som er utfordrende, og hva du tror kan hjelpe deg videre",
+    description:
+      "Ikke skriv detaljerte opplysninger om helse, personlige opplysninger eller opplysninger om andre enn deg selv.",
+  },
   arbeidsgiverSamarbeidDarligBegrunnelse: {
     type: "TEXT",
     label: "Hva gjør samarbeidet og relasjonen dårlig?",
