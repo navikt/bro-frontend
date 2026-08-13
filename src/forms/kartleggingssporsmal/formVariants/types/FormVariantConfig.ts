@@ -27,6 +27,12 @@ export type FormVariantConfig<
      */
     isRequired: boolean;
     /**
+     * Indicates whether descriptions on individual radio options should be
+     * shown. This is used when an option description refers to a follow-up
+     * text field that is only present in some variants.
+     */
+    showOptionDescriptions?: boolean;
+    /**
      * Optional function to determine if the field should be added to or removed
      * from the live visible form based on form values of other fields, and
      * whether it should be included in the resulting FormSnapshot.

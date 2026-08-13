@@ -9,6 +9,11 @@ const formDefaultValuesByFormVariant: {
     arbeidsgiverHvordanErSamarbeidFlervalg: "",
     naarTilbakeTilJobbenFlervalg: "",
   },
+  FLERVALG_V2: {
+    mulighetForTilbakeTilJobbenFlervalg: "",
+    arbeidsgiverFaarDuOppfolgingFlervalg: "",
+    naarTilbakeTilJobbenFlervalg: "",
+  },
   FLERVALG_FRITEKST_V1: {
     tilbakeTilJobbenHvorSannsynligFlervalg: "",
     tilbakeTilJobbenLiteSannsynligBegrunnelse: "",

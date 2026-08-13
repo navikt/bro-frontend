@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
+import type { KartleggingsspormalFormFieldId } from "../questions/allQuestions";
 import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
 import { getFieldsToIncludeInFormInOrder } from "./getFieldsToIncludeInForm";
+import type { FormVariant } from "./types/FormVariant";
 
 describe("getFieldsToIncludeInForm", () => {
   it("returns the full field list for FLERVALG_V1", () => {
@@ -66,5 +68,106 @@ describe("getFieldsToIncludeInForm", () => {
       "arbeidsgiverSamarbeidDarligBegrunnelse",
       "naarTilbakeTilJobbenFlervalg",
     ]);
+  });
+
+  it("returns only the three radio fields for FLERVALG_V2, regardless of form values", () => {
+    const expectedFieldIds = [
+      "mulighetForTilbakeTilJobbenFlervalg",
+      "arbeidsgiverFaarDuOppfolgingFlervalg",
+      "naarTilbakeTilJobbenFlervalg",
+    ];
+
+    const defaultValues = getFormDefaultValuesForFormVariant("FLERVALG_V2");
+
+    const fieldIdsWithDefaultValues = getFieldsToIncludeInFormInOrder(
+      "FLERVALG_V2",
+      defaultValues,
+    ).map((field) => field.fieldId);
+
+    const fieldIdsWithFilledValues = getFieldsToIncludeInFormInOrder(
+      "FLERVALG_V2",
+      {
+        mulighetForTilbakeTilJobbenFlervalg: "utfordrende",
+        arbeidsgiverFaarDuOppfolgingFlervalg: "nei",
+        naarTilbakeTilJobbenFlervalg: "3b",
+      },
+    ).map((field) => field.fieldId);
+
+    expect(fieldIdsWithDefaultValues).toEqual(expectedFieldIds);
+    expect(fieldIdsWithFilledValues).toEqual(expectedFieldIds);
+  });
+
+  it("shows option descriptions only for variants configured with follow-up text fields", () => {
+    const utdypeDescription = "Du får mulighet til å utdype mer";
+
+    function getOptionDescriptions<T extends FormVariant>(
+      formVariant: T,
+      fieldId: KartleggingsspormalFormFieldId,
+    ): Record<string, string | undefined> {
+      const question = getFieldsToIncludeInFormInOrder(
+        formVariant,
+        getFormDefaultValuesForFormVariant(formVariant),
+      ).find((field) => field.fieldId === fieldId)?.question;
+
+      if (question?.type !== "RADIO_GROUP") {
+        throw new Error(
+          `Expected ${fieldId} to be a RADIO_GROUP question in ${formVariant}`,
+        );
+      }
+
+      return Object.fromEntries(
+        question.options.map((option) => [option.id, option.description]),
+      );
+    }
+
+    expect(
+      getOptionDescriptions(
+        "FLERVALG_V2",
+        "mulighetForTilbakeTilJobbenFlervalg",
+      ),
+    ).toEqual({
+      kommer_tilbake: undefined,
+      utfordrende: undefined,
+    });
+
+    expect(
+      getOptionDescriptions(
+        "FLERVALG_V2",
+        "arbeidsgiverFaarDuOppfolgingFlervalg",
+      ),
+    ).toEqual({
+      ja: undefined,
+      nei: undefined,
+    });
+
+    expect(
+      getOptionDescriptions(
+        "FLERVALG_FRITEKST_V3",
+        "mulighetForTilbakeTilJobbenFlervalg",
+      ),
+    ).toEqual({
+      kommer_tilbake: undefined,
+      utfordrende: utdypeDescription,
+    });
+
+    expect(
+      getOptionDescriptions(
+        "FLERVALG_FRITEKST_V3",
+        "arbeidsgiverFaarDuOppfolgingFlervalg",
+      ),
+    ).toEqual({
+      ja: undefined,
+      nei: utdypeDescription,
+    });
+
+    expect(
+      getOptionDescriptions(
+        "FLERVALG_FRITEKST_V2",
+        "arbeidsgiverFaarDuOppfolgingFlervalg",
+      ),
+    ).toEqual({
+      ja: undefined,
+      nei: utdypeDescription,
+    });
   });
 });

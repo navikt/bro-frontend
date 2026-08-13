@@ -34,11 +34,24 @@ export function getFieldsToIncludeInFormInOrder<T extends FormVariant>(
   );
 
   const mappedToFieldData: FieldData[] = filteredByIncludeIf.map(
-    ({ fieldId, isRequired }) => ({
-      fieldId,
-      question: allKartleggingssporsmalQuestions[fieldId],
-      isRequired,
-    }),
+    ({ fieldId, isRequired, showOptionDescriptions }) => {
+      const question = allKartleggingssporsmalQuestions[fieldId];
+
+      return {
+        fieldId,
+        question:
+          question.type === "RADIO_GROUP" && !showOptionDescriptions
+            ? {
+                ...question,
+                options: question.options.map(({ id, label }) => ({
+                  id,
+                  label,
+                })),
+              }
+            : question,
+        isRequired,
+      };
+    },
   );
 
   return mappedToFieldData;

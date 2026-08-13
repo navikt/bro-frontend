@@ -24,6 +24,7 @@ export const flervalgFritekstV2Config = defineVariantConfig({
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingFlervalg",
       isRequired: true,
+      showOptionDescriptions: true,
     },
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingNeiBegrunnelse",

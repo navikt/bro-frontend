@@ -9,6 +9,7 @@ import {
   liteSannsynligBegrunnelseFieldId,
   usikkerBegrunnelseFieldId,
 } from "@/mocks/fixture/fieldSnapshotsFixturesFlervalgFritekst";
+import { fieldSnapshotsFlervalgV2Fixture } from "@/mocks/fixture/fieldSnapshotsFixturesFlervalgV2";
 import { formValuesFlervalgV1Fixture } from "@/mocks/fixture/formValuesFixturesFlervalg";
 import {
   formValues1a2a3a,
@@ -18,6 +19,7 @@ import {
   formValues1c2b3bWithText,
   formValues1cTextFor1bAnd1c,
 } from "@/mocks/fixture/formValuesFixturesFlervalgFritekst";
+import { formValuesFlervalgV2Fixture } from "@/mocks/fixture/formValuesFixturesFlervalgV2";
 import { mapFormValuesToSnapshot } from "@/utils/kartleggingssporsmalFormSnapshot";
 
 describe("kartleggingssporsmalFormSnapshot utils", () => {
@@ -125,6 +127,28 @@ describe("kartleggingssporsmalFormSnapshot utils", () => {
           (field) => field.fieldId === liteSannsynligBegrunnelseFieldId,
         ),
       ).toBe(false);
+    });
+
+    it("should map form values to FormSnapshot for FLERVALG_V2 variant", () => {
+      const formSnapshot = mapFormValuesToSnapshot({
+        values: formValuesFlervalgV2Fixture,
+        formVariant: "FLERVALG_V2",
+      });
+
+      expect(formSnapshot.formIdentifier).toBe(
+        "kartleggingssporsmal_FLERVALG_V2",
+      );
+      expect(formSnapshot.fieldSnapshots).toEqual(
+        fieldSnapshotsFlervalgV2Fixture,
+      );
+      expect(
+        formSnapshot.fieldSnapshots.every(
+          (field) => field.fieldType === "RADIO_GROUP",
+        ),
+      ).toBe(true);
+      expect(
+        formSnapshot.fieldSnapshots.every((field) => field.wasRequired),
+      ).toBe(true);
     });
   });
 });
