@@ -8,7 +8,7 @@ export const flervalgFritekstV3Config = defineVariantConfig({
     {
       fieldId: "mulighetForTilbakeTilJobbenFlervalg",
       isRequired: true,
-      showOptionDescriptions: true,
+      canTriggerAdditionOfFritekstField: true,
     },
     {
       fieldId: "mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse",
@@ -19,7 +19,7 @@ export const flervalgFritekstV3Config = defineVariantConfig({
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingFlervalg",
       isRequired: true,
-      showOptionDescriptions: true,
+      canTriggerAdditionOfFritekstField: true,
     },
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingNeiBegrunnelse",

@@ -6,6 +6,11 @@ type RadioOption = {
   id: string;
   label: string;
   description?: string;
+  /**
+   * If `canTriggerAdditionOfFritekstField` for the corresponding field
+   * in the form variant config is true, then this description is used.
+   */
+  descriptionWhenOptionTriggersAdditionOfTextField?: string;
 };
 
 export type RadioGroupQuestion = {

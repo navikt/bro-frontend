@@ -7,7 +7,7 @@ import { formVariantConfigs } from "./formVariants";
 import type { FormValuesForVariant } from "./types/FormValues";
 import type { FormVariant } from "./types/FormVariant";
 
-type FieldData = {
+type RenderedFieldData = {
   fieldId: KartleggingsspormalFormFieldId;
   question: Question;
   isRequired: boolean;
@@ -24,35 +24,70 @@ type FieldData = {
 export function getFieldsToIncludeInFormInOrder<T extends FormVariant>(
   formVariant: T,
   formValues: FormValuesForVariant<T>,
-): Array<FieldData> {
+): Array<RenderedFieldData> {
   const fieldsConfigForVariant = formVariantConfigs[formVariant].formFields;
 
-  const filteredByIncludeIf = fieldsConfigForVariant.filter((fieldConfig) =>
-    fieldConfig.conditionallyIncludeIf
-      ? fieldConfig.conditionallyIncludeIf(formValues)
-      : true,
+  const filteredByConditionalFields = fieldsConfigForVariant.filter(
+    (fieldConfig) =>
+      fieldConfig.conditionallyIncludeIf
+        ? fieldConfig.conditionallyIncludeIf(formValues)
+        : true,
   );
 
-  const mappedToFieldData: FieldData[] = filteredByIncludeIf.map(
-    ({ fieldId, isRequired, showOptionDescriptions }) => {
-      const question = allKartleggingssporsmalQuestions[fieldId];
-
-      return {
+  const mappedToFieldData: RenderedFieldData[] =
+    filteredByConditionalFields.map(
+      ({
         fieldId,
-        question:
-          question.type === "RADIO_GROUP" && !showOptionDescriptions
-            ? {
-                ...question,
-                options: question.options.map(({ id, label }) => ({
-                  id,
-                  label,
-                })),
-              }
-            : question,
         isRequired,
-      };
-    },
-  );
+        canTriggerAdditionOfFritekstField:
+          canTriggerAdditionOfFritekstFieldInThisVariant,
+      }) => {
+        const question = allKartleggingssporsmalQuestions[fieldId];
+
+        return {
+          fieldId,
+          isRequired,
+          question: applyFritekstTriggerDescriptionsToQuestion(
+            question,
+            canTriggerAdditionOfFritekstFieldInThisVariant || false,
+          ),
+        };
+      },
+    );
 
   return mappedToFieldData;
+}
+
+/**
+ * For radio group questions where selecting an option can trigger the
+ * addition of a fritekst field, appends each option's
+ * descriptionWhenOptionTriggersAdditionOfTextField to its description so
+ * users are told upfront that elaborating is possible. Left unchanged for
+ * other question types or when the trigger flag is not set for this variant.
+ */
+function applyFritekstTriggerDescriptionsToQuestion(
+  question: Question,
+  canTriggerAdditionOfFritekstFieldInThisVariant: boolean,
+): Question {
+  if (
+    question.type !== "RADIO_GROUP" ||
+    !canTriggerAdditionOfFritekstFieldInThisVariant
+  ) {
+    return question;
+  }
+
+  return {
+    ...question,
+    options: question.options.map((option) => ({
+      ...option,
+      // Combine both descriptions if present, otherwise use whichever one is set.
+      description:
+        [
+          option.description,
+          option.descriptionWhenOptionTriggersAdditionOfTextField,
+        ]
+          .filter(Boolean)
+          .join(" ") || undefined,
+    })),
+  };
 }
