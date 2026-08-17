@@ -6,7 +6,7 @@ import { revalidateLogic } from "@tanstack/form-core";
 import { useState } from "react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import { getValidationSchemaForVariant } from "@/forms/kartleggingssporsmal/formVariants/formVariants";
-import { getFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { renderFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/renderFieldsToIncludeInForm";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import { useAppForm } from "@/hooks/form";
 import { submitFormAction } from "@/services/meroppfolging/actions/submitFormAction";
@@ -84,7 +84,7 @@ export default function KartleggingssporsmalForm({
         <div className="grid gap-4 mb-4">
           <form.Subscribe selector={(state) => state.values}>
             {(formValues) => {
-              return getFieldsToIncludeInFormInOrder(
+              return renderFieldsToIncludeInFormInOrder(
                 formVariant,
                 formValues,
               ).map(({ fieldId, question, isRequired }) => (

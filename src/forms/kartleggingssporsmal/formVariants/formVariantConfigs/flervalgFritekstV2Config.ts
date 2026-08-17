@@ -12,13 +12,13 @@ export const flervalgFritekstV2Config = defineVariantConfig({
     {
       fieldId: "tilbakeTilJobbenLiteSannsynligBegrunnelse",
       isRequired: false,
-      conditionallyIncludeIf: (formValues) =>
+      conditionallyAddIf: (formValues) =>
         formValues.tilbakeTilJobbenHvorSannsynligFlervalg === "1b",
     },
     {
       fieldId: "tilbakeTilJobbenUsikkerBegrunnelse",
       isRequired: false,
-      conditionallyIncludeIf: (formValues) =>
+      conditionallyAddIf: (formValues) =>
         formValues.tilbakeTilJobbenHvorSannsynligFlervalg === "1c",
     },
     {
@@ -29,7 +29,7 @@ export const flervalgFritekstV2Config = defineVariantConfig({
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingNeiBegrunnelse",
       isRequired: false,
-      conditionallyIncludeIf: (formValues) =>
+      conditionallyAddIf: (formValues) =>
         formValues.arbeidsgiverFaarDuOppfolgingFlervalg === "nei",
     },
     {

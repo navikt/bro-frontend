@@ -21,7 +21,7 @@ type RenderedFieldData = {
  * is the order they should be rendered in the form and appear in the resulting
  * FormSnapshot.
  */
-export function getFieldsToIncludeInFormInOrder<T extends FormVariant>(
+export function renderFieldsToIncludeInFormInOrder<T extends FormVariant>(
   formVariant: T,
   formValues: FormValuesForVariant<T>,
 ): Array<RenderedFieldData> {
@@ -29,8 +29,8 @@ export function getFieldsToIncludeInFormInOrder<T extends FormVariant>(
 
   const filteredByConditionalFields = fieldsConfigForVariant.filter(
     (fieldConfig) =>
-      fieldConfig.conditionallyIncludeIf
-        ? fieldConfig.conditionallyIncludeIf(formValues)
+      fieldConfig.conditionallyAddIf
+        ? fieldConfig.conditionallyAddIf(formValues)
         : true,
   );
 

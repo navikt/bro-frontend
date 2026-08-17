@@ -44,7 +44,7 @@ export type FormVariantConfig<
      * from the live visible form based on form values of other fields, and
      * whether it should be added in the resulting FormSnapshot.
      */
-    conditionallyIncludeIf?: (
+    conditionallyAddIf?: (
       // Cannot use FormValuesForVariant<T> here — that type depends on
       // formVariantConfigs, which depends on FormVariantConfig, which would
       // give a circular reference.

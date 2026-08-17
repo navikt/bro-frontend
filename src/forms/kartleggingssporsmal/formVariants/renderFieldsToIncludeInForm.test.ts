@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import type { KartleggingsspormalFormFieldId } from "../questions/allQuestions";
 import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
-import { getFieldsToIncludeInFormInOrder } from "./getFieldsToIncludeInForm";
+import { renderFieldsToIncludeInFormInOrder } from "./renderFieldsToIncludeInForm";
 import type { FormVariant } from "./types/FormVariant";
 
 describe("getFieldsToIncludeInForm", () => {
   it("returns the full field list for FLERVALG_V1", () => {
     expect(
-      getFieldsToIncludeInFormInOrder(
+      renderFieldsToIncludeInFormInOrder(
         "FLERVALG_V1",
         getFormDefaultValuesForFormVariant("FLERVALG_V1"),
       ).map((field) => field.fieldId),
@@ -29,7 +29,7 @@ describe("getFieldsToIncludeInForm", () => {
       "FLERVALG_FRITEKST_V1",
     );
 
-    const fieldIdsWhenSannsynlig = getFieldsToIncludeInFormInOrder(
+    const fieldIdsWhenSannsynlig = renderFieldsToIncludeInFormInOrder(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -37,7 +37,7 @@ describe("getFieldsToIncludeInForm", () => {
       },
     ).map((field) => field.fieldId);
 
-    const fieldIdsWhenLiteSannsynlig = getFieldsToIncludeInFormInOrder(
+    const fieldIdsWhenLiteSannsynlig = renderFieldsToIncludeInFormInOrder(
       "FLERVALG_FRITEKST_V1",
       {
         ...defaultValues,
@@ -46,7 +46,7 @@ describe("getFieldsToIncludeInForm", () => {
     ).map((field) => field.fieldId);
 
     const fieldIdsWhenUsikkerAndDarligSamarbeid =
-      getFieldsToIncludeInFormInOrder("FLERVALG_FRITEKST_V1", {
+      renderFieldsToIncludeInFormInOrder("FLERVALG_FRITEKST_V1", {
         ...defaultValues,
         tilbakeTilJobbenHvorSannsynligFlervalg: "1c",
         arbeidsgiverHvordanErSamarbeidFlervalg: "2b",
@@ -79,12 +79,12 @@ describe("getFieldsToIncludeInForm", () => {
 
     const defaultValues = getFormDefaultValuesForFormVariant("FLERVALG_V2");
 
-    const fieldIdsWithDefaultValues = getFieldsToIncludeInFormInOrder(
+    const fieldIdsWithDefaultValues = renderFieldsToIncludeInFormInOrder(
       "FLERVALG_V2",
       defaultValues,
     ).map((field) => field.fieldId);
 
-    const fieldIdsWithFilledValues = getFieldsToIncludeInFormInOrder(
+    const fieldIdsWithFilledValues = renderFieldsToIncludeInFormInOrder(
       "FLERVALG_V2",
       {
         mulighetForTilbakeTilJobbenFlervalg: "utfordrende",
@@ -104,7 +104,7 @@ describe("getFieldsToIncludeInForm", () => {
       formVariant: T,
       fieldId: KartleggingsspormalFormFieldId,
     ): Record<string, string | undefined> {
-      const question = getFieldsToIncludeInFormInOrder(
+      const question = renderFieldsToIncludeInFormInOrder(
         formVariant,
         getFormDefaultValuesForFormVariant(formVariant),
       ).find((field) => field.fieldId === fieldId)?.question;

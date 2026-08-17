@@ -13,7 +13,7 @@ export const flervalgFritekstV3Config = defineVariantConfig({
     {
       fieldId: "mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse",
       isRequired: false,
-      conditionallyIncludeIf: (formValues) =>
+      conditionallyAddIf: (formValues) =>
         formValues.mulighetForTilbakeTilJobbenFlervalg === "utfordrende",
     },
     {
@@ -24,7 +24,7 @@ export const flervalgFritekstV3Config = defineVariantConfig({
     {
       fieldId: "arbeidsgiverFaarDuOppfolgingNeiBegrunnelse",
       isRequired: false,
-      conditionallyIncludeIf: (formValues) =>
+      conditionallyAddIf: (formValues) =>
         formValues.arbeidsgiverFaarDuOppfolgingFlervalg === "nei",
     },
     {
