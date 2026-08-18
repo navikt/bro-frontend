@@ -4,7 +4,7 @@ import { getFormDefaultValuesForFormVariant } from "./formDefaultValues";
 import { renderFieldsToIncludeInFormInOrder } from "./renderFieldsToIncludeInForm";
 import type { FormVariant } from "./types/FormVariant";
 
-describe("getFieldsToIncludeInForm", () => {
+describe("renderFieldsToIncludeInForm", () => {
   it("returns the full field list for FLERVALG_V1", () => {
     expect(
       renderFieldsToIncludeInFormInOrder(

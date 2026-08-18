@@ -35,10 +35,10 @@ export type FormVariantConfig<
      * in various form variants, where selecting certain options can trigger
      * the addition of a text field in one variant and not in the other.
      *
-     * @see descriptionWhenOptionTriggersAdditionOfTextField on RadioOption in
-     * RadioGroup.
+     * @see descriptionWhenOptionTriggersAdditionOfTextFieldInVariant on
+     * RadioOption in RadioGroup.
      */
-    canTriggerAdditionOfFritekstField?: boolean;
+    someOptionsTriggerAdditionOfFritekstField?: boolean;
     /**
      * Optional function to determine if the field should be added to or removed
      * from the live visible form based on form values of other fields, and

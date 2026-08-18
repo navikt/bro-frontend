@@ -7,16 +7,16 @@ import { formVariantConfigs } from "./formVariants";
 import type { FormValuesForVariant } from "./types/FormValues";
 import type { FormVariant } from "./types/FormVariant";
 
-type RenderedFieldData = {
+type RenderedField = {
   fieldId: KartleggingsspormalFormFieldId;
-  question: Question;
   isRequired: boolean;
+  question: Question;
 };
 
 /**
- * Returns a list of FieldData for fields that should be included in the form
- * for a given form variant, given the current form values (to
- * evaluate conditionallyIncludeIf functions). The resulting list is in the
+ * Returns a list of RenderedField data for fields that should be included in
+ * the form for a given form variant, given the current form values (to
+ * evaluate conditionallyAddIf functions). The resulting list is in the
  * same order as the form fields are defined in the form variant config, which
  * is the order they should be rendered in the form and appear in the resulting
  * FormSnapshot.
@@ -24,54 +24,51 @@ type RenderedFieldData = {
 export function renderFieldsToIncludeInFormInOrder<T extends FormVariant>(
   formVariant: T,
   formValues: FormValuesForVariant<T>,
-): Array<RenderedFieldData> {
+): Array<RenderedField> {
   const fieldsConfigForVariant = formVariantConfigs[formVariant].formFields;
 
-  const filteredByConditionalFields = fieldsConfigForVariant.filter(
+  const filteredFieldsConfigForVariant = fieldsConfigForVariant.filter(
     (fieldConfig) =>
       fieldConfig.conditionallyAddIf
         ? fieldConfig.conditionallyAddIf(formValues)
         : true,
   );
 
-  const mappedToFieldData: RenderedFieldData[] =
-    filteredByConditionalFields.map(
-      ({
+  const renderedFields: RenderedField[] = filteredFieldsConfigForVariant.map(
+    ({ fieldId, isRequired, someOptionsTriggerAdditionOfFritekstField }) => {
+      const question = allKartleggingssporsmalQuestions[fieldId];
+
+      const renderedField: RenderedField = {
         fieldId,
         isRequired,
-        canTriggerAdditionOfFritekstField:
-          canTriggerAdditionOfFritekstFieldInThisVariant,
-      }) => {
-        const question = allKartleggingssporsmalQuestions[fieldId];
+        question: applyFritekstTriggerDescriptionsToQuestion(
+          question,
+          someOptionsTriggerAdditionOfFritekstField || false,
+        ),
+      };
 
-        return {
-          fieldId,
-          isRequired,
-          question: applyFritekstTriggerDescriptionsToQuestion(
-            question,
-            canTriggerAdditionOfFritekstFieldInThisVariant || false,
-          ),
-        };
-      },
-    );
+      return renderedField;
+    },
+  );
 
-  return mappedToFieldData;
+  return renderedFields;
 }
 
 /**
  * For radio group questions where selecting an option can trigger the
  * addition of a fritekst field, appends each option's
- * descriptionWhenOptionTriggersAdditionOfTextField to its description so
- * users are told upfront that elaborating is possible. Left unchanged for
- * other question types or when the trigger flag is not set for this variant.
+ * descriptionWhenOptionTriggersAdditionOfTextFieldInVariant to its description,
+ * typically to tell users upfront that elaborating is possible. The question is
+ * left unchanged for other question types or when the trigger flag is not set
+ * for this variant.
  */
 function applyFritekstTriggerDescriptionsToQuestion(
   question: Question,
-  canTriggerAdditionOfFritekstFieldInThisVariant: boolean,
+  someOptionsTriggerAdditionOfFritekstFieldInVariant: boolean,
 ): Question {
   if (
     question.type !== "RADIO_GROUP" ||
-    !canTriggerAdditionOfFritekstFieldInThisVariant
+    !someOptionsTriggerAdditionOfFritekstFieldInVariant
   ) {
     return question;
   }
@@ -84,7 +81,7 @@ function applyFritekstTriggerDescriptionsToQuestion(
       description:
         [
           option.description,
-          option.descriptionWhenOptionTriggersAdditionOfTextField,
+          option.descriptionWhenOptionTriggersAdditionOfTextFieldInVariant,
         ]
           .filter(Boolean)
           .join(" ") || undefined,

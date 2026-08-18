@@ -28,7 +28,7 @@ export const radioGroupQuestions = {
         id: "utfordrende",
         label:
           "Jeg ser på det som utfordrende å komme tilbake til samme jobb og stilling",
-        descriptionWhenOptionTriggersAdditionOfTextField:
+        descriptionWhenOptionTriggersAdditionOfTextFieldInVariant:
           "Du får mulighet til å utdype mer",
       },
     ],
@@ -58,7 +58,7 @@ export const radioGroupQuestions = {
         id: "nei",
         label:
           "Nei, jeg opplever manglende oppfølging og at tilpasninger er vanskelig.",
-        descriptionWhenOptionTriggersAdditionOfTextField:
+        descriptionWhenOptionTriggersAdditionOfTextFieldInVariant:
           "Du får mulighet til å utdype mer",
       },
     ],
