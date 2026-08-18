@@ -1,4 +1,4 @@
-import { getFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/getFieldsToIncludeInForm";
+import { renderFieldsToIncludeInFormInOrder } from "@/forms/kartleggingssporsmal/formVariants/renderFieldsToIncludeInForm";
 import type { FormValuesForVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormValues";
 import type { FormVariant } from "@/forms/kartleggingssporsmal/formVariants/types/FormVariant";
 import type {
@@ -19,7 +19,7 @@ function mapFormValuesToFieldSnapshots<T extends FormVariant>(
   formValues: FormValuesForVariant<T>,
 ): FieldSnapshot[] {
   const fields: FieldSnapshot[] = [];
-  const fieldsToInclude = getFieldsToIncludeInFormInOrder(
+  const fieldsToInclude = renderFieldsToIncludeInFormInOrder(
     formVariant,
     formValues,
   );
