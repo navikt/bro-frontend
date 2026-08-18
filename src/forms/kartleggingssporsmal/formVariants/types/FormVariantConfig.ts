@@ -27,11 +27,24 @@ export type FormVariantConfig<
      */
     isRequired: boolean;
     /**
+     * Set to true if this is a radio group question and selecting some of the
+     * options will trigger a conditionally included fritekst field in this
+     * form variant.
+     * Used to determine if a dedicated description should be shown for any
+     * such option. This flag allows the same radio group question to be reused
+     * in various form variants, where selecting certain options can trigger
+     * the addition of a text field in one variant and not in the other.
+     *
+     * @see descriptionWhenOptionTriggersAdditionOfTextFieldInVariant on
+     * RadioOption in RadioGroup.
+     */
+    someOptionsTriggerAdditionOfFritekstField?: boolean;
+    /**
      * Optional function to determine if the field should be added to or removed
      * from the live visible form based on form values of other fields, and
-     * whether it should be included in the resulting FormSnapshot.
+     * whether it should be added in the resulting FormSnapshot.
      */
-    conditionallyIncludeIf?: (
+    conditionallyAddIf?: (
       // Cannot use FormValuesForVariant<T> here — that type depends on
       // formVariantConfigs, which depends on FormVariantConfig, which would
       // give a circular reference.

@@ -2,6 +2,7 @@ import { flervalgFritekstV1Config } from "./formVariantConfigs/flervalgFritekstV
 import { flervalgFritekstV2Config } from "./formVariantConfigs/flervalgFritekstV2Config";
 import { flervalgFritekstV3Config } from "./formVariantConfigs/flervalgFritekstV3Config";
 import { flervalgV1Config } from "./formVariantConfigs/flervalgV1Config";
+import { flervalgV2Config } from "./formVariantConfigs/flervalgV2Config";
 import type { FormVariant } from "./types/FormVariant";
 
 /**
@@ -13,6 +14,7 @@ import type { FormVariant } from "./types/FormVariant";
  */
 export const formVariants = [
   "FLERVALG_V1",
+  "FLERVALG_V2",
   "FLERVALG_FRITEKST_V1",
   "FLERVALG_FRITEKST_V2",
   "FLERVALG_FRITEKST_V3",
@@ -20,6 +22,7 @@ export const formVariants = [
 
 export const formVariantConfigs = {
   FLERVALG_V1: flervalgV1Config,
+  FLERVALG_V2: flervalgV2Config,
   FLERVALG_FRITEKST_V1: flervalgFritekstV1Config,
   FLERVALG_FRITEKST_V2: flervalgFritekstV2Config,
   FLERVALG_FRITEKST_V3: flervalgFritekstV3Config,
