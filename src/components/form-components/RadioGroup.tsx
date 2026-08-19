@@ -1,4 +1,8 @@
-import { RadioGroup as AkselRadioGroup, Radio } from "@navikt/ds-react";
+import {
+  RadioGroup as AkselRadioGroup,
+  BodyShort,
+  Radio,
+} from "@navikt/ds-react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import { useFieldContext } from "@/hooks/form";
 
@@ -47,20 +51,23 @@ export function RadioGroup({ question, isRequired }: Props) {
     <AkselRadioGroup
       legend={modifiedLabel}
       value={field.state.value}
-      description={question.description}
+      description={<BodyShort size="small">{question.description}</BodyShort>}
       onChange={handleChange}
       onBlur={field.handleBlur}
       error={field.state.meta.errors[0]?.message}
     >
-      {question.options.map((option) => (
-        <Radio
-          key={option.id}
-          value={option.id}
-          description={option.description}
-        >
-          {option.label}
-        </Radio>
-      ))}
+      <div className="mt-4">
+        {question.options.map((option) => (
+          <Radio
+            key={option.id}
+            value={option.id}
+            description={option.description}
+            size="small"
+          >
+            {option.label}
+          </Radio>
+        ))}
+      </div>
     </AkselRadioGroup>
   );
 }
