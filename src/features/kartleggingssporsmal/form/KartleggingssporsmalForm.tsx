@@ -81,7 +81,7 @@ export default function KartleggingssporsmalForm({
       className="mt-8"
     >
       <form.AppForm>
-        <div className="grid gap-4 mb-4">
+        <div className="grid gap-6 mb-4">
           <form.Subscribe selector={(state) => state.values}>
             {(formValues) => {
               return renderFieldsToIncludeInFormInOrder(
@@ -119,7 +119,7 @@ export default function KartleggingssporsmalForm({
 
         <Button
           type="submit"
-          className="mt-4"
+          className="mt-8"
           onClick={() => form.handleSubmit()}
           loading={submitting}
         >

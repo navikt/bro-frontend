@@ -1,4 +1,4 @@
-import { Textarea } from "@navikt/ds-react";
+import { BodyShort, Textarea } from "@navikt/ds-react";
 import { logTaxonomyEvent } from "@/analytics/logTaxonomyEvent";
 import { TEXT_AREA_MAX_LENGTH } from "@/appConfig";
 import { useFieldContext } from "@/hooks/form";
@@ -29,7 +29,7 @@ export function TextArea({
   return (
     <Textarea
       label={modifiedLabel}
-      description={question.description}
+      description={<BodyShort size="small">{question.description}</BodyShort>}
       value={field.state.value}
       onChange={(e) => field.handleChange(e.target.value)}
       onBlur={(e) => {
