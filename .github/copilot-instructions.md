@@ -18,6 +18,7 @@ pnpm build
   existing `publicEnv`/`getServerEnv` helpers.
 - Lumi submits `transportPayload` to this app's `/api/lumi/feedback`; its
   server route validates login and exchanges TokenX for Lumi's separate
-  audience before forwarding. Do not call Lumi directly from the browser.
+  audience outside local/demo. Local/demo returns mock success; keep that
+  bypass gated. Do not call Lumi directly from the browser.
 - Lumi context is limited to form variant and text-field visibility. Keep
   identifiers and free-text answers out of context tags.
