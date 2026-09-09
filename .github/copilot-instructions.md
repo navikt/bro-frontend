@@ -2,18 +2,21 @@
 
 ## Scope
 
-This repo stores all Copilot guidance under `./.github/` only. Do not duplicate instructions elsewhere.
-Prefer one primary agent per task. If needed, switch primary agent or delegate explicitly, but avoid conflicting guidance.
+Repository-wide facts are in this file and `AGENTS.md`; path-scoped rules are in `.github/instructions/`. Keep each fact in one place and avoid conflicting copies.
 
-## Delegation (sub-agents)
+## Quick map
 
-- Keep one primary agent responsible for the final output.
-- Delegate narrowly scoped subtasks (one question, one deliverable) to secondary agents.
-- Merge results explicitly; if guidance conflicts, ask for clarification or choose one approach and document why.
+- App Router: `src/app/*`
+- API routes: `src/app/api/*`
+- Auth: `src/auth/*`
+- Env validation: `src/env-variables/*`
+- Services: `src/services/*`
+- NAIS config: `nais/*`
+- Lumi survey: `src/components/lumi/*`, `src/app/api/lumi/*`
 
 ## Stack
 
-- Next.js App Router (Next 15)
+- Next.js App Router (version in `package.json`)
 - React 19
 - TypeScript strict
 - Biome for lint/format
@@ -26,10 +29,10 @@ Prefer one primary agent per task. If needed, switch primary agent or delegate e
 ## Commands
 
 ```sh
-npm run dev
-npm run lint
-npm test
-npm run build
+pnpm run dev
+pnpm run lint
+pnpm run test --run
+pnpm run build
 ```
 
 ## Defaults
@@ -51,15 +54,38 @@ npm run build
 - Agents may propose updates to `.github/*`, but must ask before changing them.
 - Do not change `.github/*` automatically.
 
-## Use these agents when relevant
+## Local specializations
 
-- `nextjs-agent`: App Router, RSC/client boundaries, route handlers.
-- `aksel-agent`: Aksel components and spacing tokens (v8).
-- `auth-agent`: OASIS, TokenX, IdPorten, auth boundaries.
-- `lumi-agent`: Lumi Survey integration (widget, transport, TokenX forwarding).
+Repository-specific Aksel, authentication, environment and UI rules are in
+`.github/instructions/`. Read the matching path instructions instead of
+selecting a duplicate local specialist role.
 
 ## Use these prompts when relevant
 
 - `new-route-handler`
 - `new-env-var`
 - `lumi-transport`
+
+## Boundaries
+
+### Always
+- Keep RSC/client boundaries intact.
+- Use `publicEnv`/`getServerEnv` for environment variables.
+- Keep auth/token code inside `src/auth/*` and `src/services/*`.
+
+### Ask first
+- Changes to auth flow (OASIS/TokenX/IdPorten).
+- Changes to CSP or basePath handling (`next.config.ts`).
+- NAIS path changes for health/ready endpoints.
+
+### Never
+- Log tokens, headers, or PII.
+- Edit `.github/*` without explicit approval.
+
+## Repository guidance
+
+This repository owns its instructions, local specialists and issue/PR templates.
+Update these files with verified repository facts when an authorized change
+makes them stale. Shared agent roles and skills come from the selected
+Grillmester plugin through nav-pilot; do not copy them into `.github/` or add a
+file-sync workflow. Use the active client's catalog for exact callable IDs.
