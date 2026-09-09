@@ -1,65 +1,24 @@
-# Copilot instructions for bro-frontend
-
-## Scope
-
-This repo stores all Copilot guidance under `./.github/` only. Do not duplicate instructions elsewhere.
-Prefer one primary agent per task. If needed, switch primary agent or delegate explicitly, but avoid conflicting guidance.
-
-## Delegation (sub-agents)
-
-- Keep one primary agent responsible for the final output.
-- Delegate narrowly scoped subtasks (one question, one deliverable) to secondary agents.
-- Merge results explicitly; if guidance conflicts, ask for clarification or choose one approach and document why.
-
-## Stack
-
-- Next.js App Router (Next 15)
-- React 19
-- TypeScript strict
-- Biome for lint/format
-- Vitest for tests
-- Aksel v8
-- Tailwind v4 preset via `@navikt/ds-tailwind`
-- Auth: OASIS + TokenX OBO + IdPorten sidecar
-- Logging: `@navikt/next-logger`
-
-## Commands
+# bro-frontend
 
 ```sh
-npm run dev
-npm run lint
-npm test
-npm run build
+pnpm dev
+pnpm test --run
+pnpm lint
+pnpm build
 ```
 
-## Defaults
+`mise run verify` runs fixing commands and can change files.
 
-- Prefer Aksel components and spacing tokens.
-- Tailwind is allowed only when Aksel cannot express the layout or a small one-off style.
-- Keep RSC/client boundaries correct: add "use client" only when needed.
-- Use Zod for input and response validation.
-- Use `@navikt/next-logger` for server-side logs.
-
-## Aksel v8
-
-- Use `@navikt/ds-css` (not `@navikt/ds-css/darkside`).
-- Use `Box` (not `BoxNew`).
-- Prefer `space-*` tokens for spacing when Aksel props allow it.
-
-## Instruction maintenance
-
-- Agents may propose updates to `.github/*`, but must ask before changing them.
-- Do not change `.github/*` automatically.
-
-## Use these agents when relevant
-
-- `nextjs-agent`: App Router, RSC/client boundaries, route handlers.
-- `aksel-agent`: Aksel components and spacing tokens (v8).
-- `auth-agent`: OASIS, TokenX, IdPorten, auth boundaries.
-- `lumi-agent`: Lumi Survey integration (widget, transport, TokenX forwarding).
-
-## Use these prompts when relevant
-
-- `new-route-handler`
-- `new-env-var`
-- `lumi-transport`
+- URLs and redirects must include `publicEnv.NEXT_PUBLIC_BASE_PATH`
+  (`/syk/kartleggingssporsmal` in deployed environments).
+- Candidate status comes from the backend: non-candidates see no-access;
+  existing `formResponse` shows the summary; only unanswered candidates get
+  the form. Keep the backend's `skjemavariant` when choosing the form.
+- New environment variables need both the schema and raw value in the
+  existing `publicEnv`/`getServerEnv` helpers.
+- Lumi submits `transportPayload` to this app's `/api/lumi/feedback`; its
+  server route validates login and exchanges TokenX for Lumi's separate
+  audience outside local/demo. Local/demo returns mock success; keep that
+  bypass gated. Do not call Lumi directly from the browser.
+- Lumi context is limited to form variant and text-field visibility. Keep
+  identifiers and free-text answers out of context tags.
