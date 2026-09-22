@@ -1,6 +1,7 @@
 import z from "zod";
 import { TEXT_AREA_MAX_LENGTH } from "@/appConfig";
 import type { KartleggingsspormalFormFieldId } from "../questions/allQuestions";
+import { getCheckboxGroupOptionIds } from "../questions/checkboxGroupQuestions";
 import { getRadioGroupOptionIds } from "../questions/radioGroupQuestions";
 
 const requiredFieldErrorMessage = "Feltet er påkrevd";
@@ -45,4 +46,14 @@ export const fieldSchemas = {
     getRadioGroupOptionIds("naarTilbakeTilJobbenFlervalg"),
     requiredFieldErrorMessage,
   ),
+
+  naarTilbakeTilJobbenMerEnnSeksManederGrunnFlervalg: z
+    .array(
+      z.enum(
+        getCheckboxGroupOptionIds(
+          "naarTilbakeTilJobbenMerEnnSeksManederGrunnFlervalg",
+        ),
+      ),
+    )
+    .min(1, requiredFieldErrorMessage),
 } satisfies Record<KartleggingsspormalFormFieldId, z.ZodType>;

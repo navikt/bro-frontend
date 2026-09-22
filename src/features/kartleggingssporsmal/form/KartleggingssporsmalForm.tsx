@@ -95,6 +95,11 @@ export default function KartleggingssporsmalForm({
                         question={question}
                         isRequired={isRequired}
                       />
+                    ) : question.type === "CHECKBOX_GROUP" ? (
+                      <field.CheckboxGroup
+                        question={question}
+                        isRequired={isRequired}
+                      />
                     ) : (
                       <field.TextArea
                         question={question}
