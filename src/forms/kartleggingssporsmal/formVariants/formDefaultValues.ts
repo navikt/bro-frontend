@@ -37,6 +37,14 @@ const formDefaultValuesByFormVariant: {
     arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
     naarTilbakeTilJobbenFlervalg: "",
   },
+  FLERVALG_FRITEKST_V4: {
+    mulighetForTilbakeTilJobbenFlervalg: "",
+    mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: "",
+    arbeidsgiverFaarDuOppfolgingFlervalg: "",
+    arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
+    naarTilbakeTilJobbenFlervalg: "",
+    naarTilbakeTilJobbenMerEnnSeksManederGrunnFlervalg: [],
+  },
 };
 
 export function getFormDefaultValuesForFormVariant<T extends FormVariant>(

@@ -19,6 +19,7 @@ const formVariantModalDescriptions: Record<FormVariant, string> = {
   FLERVALG_FRITEKST_V1: "Fases ut",
   FLERVALG_FRITEKST_V2: "Fases ut",
   FLERVALG_FRITEKST_V3: "I bruk for Sandefjord, Asker og Søndre Nordstrand",
+  FLERVALG_FRITEKST_V4: "Under utvikling",
 };
 
 export default function DemoVariantPickerModal({
