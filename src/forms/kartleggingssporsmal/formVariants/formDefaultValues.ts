@@ -37,13 +37,21 @@ const formDefaultValuesByFormVariant: {
     arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
     naarTilbakeTilJobbenFlervalg: "",
   },
-  FLERVALG_FRITEKST_V4: {
+  FLERVALG_SPM3_CHECKBOX: {
     mulighetForTilbakeTilJobbenFlervalg: "",
     mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: "",
     arbeidsgiverFaarDuOppfolgingFlervalg: "",
     arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
     naarTilbakeTilJobbenFlervalg: "",
     naarTilbakeTilJobbenMerEnnSeksManederGrunnFlervalg: [],
+  },
+  FLERVALG_SPM3_RADIO: {
+    mulighetForTilbakeTilJobbenFlervalg: "",
+    mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: "",
+    arbeidsgiverFaarDuOppfolgingFlervalg: "",
+    arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
+    naarTilbakeTilJobbenFlervalg: "",
+    naarTilbakeTilJobbenMerEnnSeksManederGrunnRadioFlervalg: "",
   },
 };
 

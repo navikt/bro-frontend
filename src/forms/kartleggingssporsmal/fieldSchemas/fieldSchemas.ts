@@ -46,6 +46,12 @@ export const fieldSchemas = {
     getRadioGroupOptionIds("naarTilbakeTilJobbenFlervalg"),
     requiredFieldErrorMessage,
   ),
+  naarTilbakeTilJobbenMerEnnSeksManederGrunnRadioFlervalg: z.enum(
+    getRadioGroupOptionIds(
+      "naarTilbakeTilJobbenMerEnnSeksManederGrunnRadioFlervalg",
+    ),
+    requiredFieldErrorMessage,
+  ),
 
   naarTilbakeTilJobbenMerEnnSeksManederGrunnFlervalg: z
     .array(

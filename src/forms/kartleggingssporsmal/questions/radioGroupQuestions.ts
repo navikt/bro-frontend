@@ -72,6 +72,21 @@ export const radioGroupQuestions = {
       { id: "3b", label: "Mer enn seks måneder" },
     ],
   },
+  naarTilbakeTilJobbenMerEnnSeksManederGrunnRadioFlervalg: {
+    type: "RADIO_GROUP",
+    label:
+      "Hvorfor tror du at du kommer til å være sykmeldt lenger enn 6 måneder?",
+    description: null,
+    options: [
+      { id: "behandling", label: "Planlagt eller pågående behandling" },
+      {
+        id: "manglende_tilrettelegging",
+        label:
+          "Manglende eller uklare muligheter for tilrettelegging på arbeidsplassen",
+      },
+      { id: "andre_forhold", label: "Andre forhold" },
+    ],
+  },
 } as const satisfies Record<string, RadioGroupQuestion>;
 
 type RadioGroupFieldId = keyof typeof radioGroupQuestions;

@@ -10,7 +10,7 @@ import {
 // Set IS_DEMO_VARIANT_URL_PARAM_ENABLED to `isDemo` to test locally with mock
 // backend variant value instead of variant from URL parameter.
 export const IS_DEMO_VARIANT_URL_PARAM_ENABLED = isLocalOrDemo;
-export const DEFAULT_DEMO_FORM_VARIANT: FormVariant = "FLERVALG_FRITEKST_V4";
+export const DEFAULT_DEMO_FORM_VARIANT: FormVariant = "FLERVALG_SPM3_RADIO";
 
 /**
  * This hook handles the logic for determining which form variant to display in

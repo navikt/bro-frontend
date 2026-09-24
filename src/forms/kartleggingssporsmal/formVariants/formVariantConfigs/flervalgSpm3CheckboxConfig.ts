@@ -3,7 +3,7 @@ import { fieldSchemas } from "../../fieldSchemas/fieldSchemas";
 import type { KartleggingsspormalFormFieldId } from "../../questions/allQuestions";
 import { defineVariantConfig } from "../types/FormVariantConfig";
 
-export const flervalgFritekstV4Config = defineVariantConfig({
+export const flervalgSpm3CheckboxConfig = defineVariantConfig({
   formFields: [
     {
       fieldId: "mulighetForTilbakeTilJobbenFlervalg",
