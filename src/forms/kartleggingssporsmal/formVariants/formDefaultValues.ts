@@ -14,6 +14,12 @@ const formDefaultValuesByFormVariant: {
     arbeidsgiverFaarDuOppfolgingFlervalg: "",
     naarTilbakeTilJobbenFlervalg: "",
   },
+  FLERVALG_V3: {
+    mulighetForTilbakeTilJobbenFlervalg: "",
+    arbeidsgiverFaarDuOppfolgingFlervalg: "",
+    naarTilbakeTilJobbenFlervalg: "",
+    naarTilbakeHvorforMerEnnSeksManederFlervalg: "",
+  },
   FLERVALG_FRITEKST_V1: {
     tilbakeTilJobbenHvorSannsynligFlervalg: "",
     tilbakeTilJobbenLiteSannsynligBegrunnelse: "",
@@ -36,6 +42,14 @@ const formDefaultValuesByFormVariant: {
     arbeidsgiverFaarDuOppfolgingFlervalg: "",
     arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
     naarTilbakeTilJobbenFlervalg: "",
+  },
+  FLERVALG_FRITEKST_V4: {
+    mulighetForTilbakeTilJobbenFlervalg: "",
+    mulighetForTilbakeTilJobbenUtfordrendeBegrunnelse: "",
+    arbeidsgiverFaarDuOppfolgingFlervalg: "",
+    arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: "",
+    naarTilbakeTilJobbenFlervalg: "",
+    naarTilbakeHvorforMerEnnSeksManederFlervalg: "",
   },
 };
 
