@@ -3,7 +3,7 @@ allowBuilds:
   sharp: true
 
 overrides:
-  postcss: 8.5.10
+  postcss: 8.5.23
 
 minimumReleaseAge: 4320
 blockExoticSubdeps: true
