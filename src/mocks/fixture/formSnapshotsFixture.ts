@@ -45,7 +45,7 @@ export const fieldSnapshotsFixture: FieldSnapshot[] = [
   {
     fieldId: "naarTilbakeTilJobbenFlervalg",
     fieldType: "RADIO_GROUP",
-    label: "Hvor lenge tror du at du har behov for å være sykmeldt?",
+    label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
     wasRequired: true,
     description: null,
     options: [
