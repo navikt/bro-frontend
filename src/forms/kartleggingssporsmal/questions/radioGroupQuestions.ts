@@ -80,9 +80,9 @@ export const radioGroupQuestions = {
     options: [
       { id: "behandling", label: "Planlagt eller pågående behandling" },
       {
-        id: "manglende_tilrettelegging",
+        id: "manglende_tilpasning",
         label:
-          "Manglende eller uklare muligheter for tilrettelegging på arbeidsplassen",
+          "Manglende eller uklare muligheter for tilpasning på arbeidsplassen",
       },
       { id: "andre_forhold", label: "Andre forhold" },
     ],
