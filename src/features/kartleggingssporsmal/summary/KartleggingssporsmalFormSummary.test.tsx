@@ -20,7 +20,7 @@ describe("KartleggingssporsmalFormSummary", () => {
     );
     screen.getByText("Jeg opplever samarbeidet og relasjonen som god");
 
-    screen.getByText("Hvor lenge tror du at du har behov for å være sykmeldt?");
+    screen.getByText("Hvor lenge tror du at du kommer til å være sykmeldt?");
     screen.getByText("Mindre enn seks måneder");
   });
 

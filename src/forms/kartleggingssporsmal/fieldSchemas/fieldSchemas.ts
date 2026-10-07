@@ -40,9 +40,12 @@ export const fieldSchemas = {
   arbeidsgiverFaarDuOppfolgingNeiBegrunnelse: z
     .string()
     .max(TEXT_AREA_MAX_LENGTH, maxLengthErrorMessage),
-
   naarTilbakeTilJobbenFlervalg: z.enum(
     getRadioGroupOptionIds("naarTilbakeTilJobbenFlervalg"),
+    requiredFieldErrorMessage,
+  ),
+  naarTilbakeHvorforMerEnnSeksManederFlervalg: z.enum(
+    getRadioGroupOptionIds("naarTilbakeHvorforMerEnnSeksManederFlervalg"),
     requiredFieldErrorMessage,
   ),
 } satisfies Record<KartleggingsspormalFormFieldId, z.ZodType>;

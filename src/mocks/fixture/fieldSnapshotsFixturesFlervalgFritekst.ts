@@ -66,7 +66,8 @@ const createSecondQuestionField = (selected: SecondQuestionOption) => ({
 const createThirdQuestionField = (selected: ThirdQuestionOption) => ({
   fieldId: "naarTilbakeTilJobbenFlervalg" as KartleggingsspormalFormFieldId,
   label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
-  description: null,
+  description:
+    "Vi vil vite hva du selv tror. Du kjenner din egen situasjon best.",
   fieldType: "RADIO_GROUP" as const,
   wasRequired: true,
   options: [

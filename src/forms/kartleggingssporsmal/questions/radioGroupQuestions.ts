@@ -66,10 +66,25 @@ export const radioGroupQuestions = {
   naarTilbakeTilJobbenFlervalg: {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
-    description: null,
+    description:
+      "Vi vil vite hva du selv tror. Du kjenner din egen situasjon best.",
     options: [
       { id: "3a", label: "Mindre enn seks måneder" },
       { id: "3b", label: "Mer enn seks måneder" },
+    ],
+  },
+  naarTilbakeHvorforMerEnnSeksManederFlervalg: {
+    type: "RADIO_GROUP",
+    label: "Hva er grunnen til at du tror det blir mer enn seks måneder?",
+    description: null,
+    options: [
+      { id: "behandling", label: "Planlagt eller pågående behandling" },
+      {
+        id: "manglende_tilpasning",
+        label:
+          "Manglende eller uklare muligheter for tilpasning på arbeidsplassen",
+      },
+      { id: "andre_forhold", label: "Andre forhold" },
     ],
   },
 } as const satisfies Record<string, RadioGroupQuestion>;
