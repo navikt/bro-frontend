@@ -1,3 +1,4 @@
+import { buildConditionalValidationSchema } from "./conditionalValidationSchema";
 import { flervalgFritekstV1Config } from "./formVariantConfigs/flervalgFritekstV1Config";
 import { flervalgFritekstV2Config } from "./formVariantConfigs/flervalgFritekstV2Config";
 import { flervalgFritekstV3Config } from "./formVariantConfigs/flervalgFritekstV3Config";
@@ -34,6 +35,30 @@ export const formVariantConfigs = {
   FLERVALG_FRITEKST_V4: flervalgFritekstV4Config,
 } satisfies Record<FormVariant, unknown>;
 
-export function getValidationSchemaForVariant(formVariant: FormVariant) {
-  return formVariantConfigs[formVariant].validationSchema;
+const conditionalValidationSchemas = {
+  FLERVALG_V1: buildConditionalValidationSchema(flervalgV1Config),
+  FLERVALG_V2: buildConditionalValidationSchema(flervalgV2Config),
+  FLERVALG_V3: buildConditionalValidationSchema(flervalgV3Config),
+  FLERVALG_FRITEKST_V1: buildConditionalValidationSchema(
+    flervalgFritekstV1Config,
+  ),
+  FLERVALG_FRITEKST_V2: buildConditionalValidationSchema(
+    flervalgFritekstV2Config,
+  ),
+  FLERVALG_FRITEKST_V3: buildConditionalValidationSchema(
+    flervalgFritekstV3Config,
+  ),
+  FLERVALG_FRITEKST_V4: buildConditionalValidationSchema(
+    flervalgFritekstV4Config,
+  ),
+} satisfies Record<FormVariant, unknown>;
+
+/**
+ * Returns the schema for validating form values for a variant. Fields with
+ * `conditionallyAddIf` are only validated when they are added to the form.
+ */
+export function getValidationSchemaForVariant<T extends FormVariant>(
+  formVariant: T,
+): (typeof conditionalValidationSchemas)[T] {
+  return conditionalValidationSchemas[formVariant];
 }
