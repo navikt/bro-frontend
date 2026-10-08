@@ -49,3 +49,35 @@ export const fieldSchemas = {
     requiredFieldErrorMessage,
   ),
 } satisfies Record<KartleggingsspormalFormFieldId, z.ZodType>;
+
+export const isNaarTilbakeMerEnnSeksManeder = (formValues: {
+  naarTilbakeTilJobbenFlervalg?: string;
+}) => formValues.naarTilbakeTilJobbenFlervalg === "3b";
+
+/**
+ * Returns a superRefine callback that validates a conditionally added field
+ * with the given schema only when `isVisible` is true. The field itself must
+ * accept "" in the object schema, so it doesn't fail validation while hidden.
+ */
+export function validateFieldOnlyWhenVisible<
+  Values extends Record<string, unknown>,
+>(
+  fieldId: NoInfer<keyof Values & string>,
+  schema: z.ZodType,
+  isVisible: (formValues: NoInfer<Values>) => boolean,
+) {
+  return (formValues: Values, ctx: z.RefinementCtx<Values>) => {
+    if (!isVisible(formValues)) return;
+
+    const result = schema.safeParse(formValues[fieldId]);
+    if (result.success) return;
+
+    for (const issue of result.error.issues) {
+      ctx.addIssue({
+        code: "custom",
+        message: issue.message,
+        path: [fieldId, ...issue.path],
+      });
+    }
+  };
+}
