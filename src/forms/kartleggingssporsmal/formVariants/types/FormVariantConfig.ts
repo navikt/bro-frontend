@@ -43,6 +43,9 @@ export type FormVariantConfig<
      * Optional function to determine if the field should be added to or removed
      * from the live visible form based on form values of other fields, and
      * whether it should be added in the resulting FormSnapshot.
+     * The field's schema in `validationSchema` is only applied when this
+     * returns true, so hidden fields (including required ones) never block
+     * submission.
      */
     conditionallyAddIf?: (
       // Cannot use FormValuesForVariant<T> here — that type depends on
