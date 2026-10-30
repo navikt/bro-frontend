@@ -50,7 +50,7 @@ export const fieldSnapshotsFlervalgV1Fixture: FieldSnapshot[] = [
     fieldId: "naarTilbakeTilJobbenFlervalg",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
     description:
-      "Vi vil vite hva du selv tror. Du kjenner din egen situasjon best.",
+      "Vi vil vite hva du selv tenker. Ta utgangspunkt fra dagen du ble sykmeldt og frem til du tror du er helt tilbake i jobb.",
     fieldType: "RADIO_GROUP",
     wasRequired: true,
     options: [
