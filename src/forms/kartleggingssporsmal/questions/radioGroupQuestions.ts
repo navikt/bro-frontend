@@ -67,7 +67,7 @@ export const radioGroupQuestions = {
     type: "RADIO_GROUP",
     label: "Hvor lenge tror du at du kommer til å være sykmeldt?",
     description:
-      "Vi vil vite hva du selv tror. Du kjenner din egen situasjon best.",
+      "Vi vil vite hva du selv tenker. Ta utgangspunkt fra dagen du ble sykmeldt og frem til du tror du er helt tilbake i jobb.",
     options: [
       { id: "3a", label: "Mindre enn seks måneder" },
       { id: "3b", label: "Mer enn seks måneder" },
